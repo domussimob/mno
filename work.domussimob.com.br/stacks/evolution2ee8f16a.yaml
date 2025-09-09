@@ -1,0 +1,205 @@
+
+version: "3.7"
+
+services:
+  evolution2ee8f16a:
+    image: evoapicloud/evolution-api:v2.2.3
+    networks:
+      - externa
+      - interna
+    environment:
+      # Configurar el servidor de evolution
+      #- SERVER_TYPE=https
+      #- SERVER_PORT=8080
+      - SERVER_URL=https://api.domussimob.com.br
+      # Telemetria
+      - TELEMETRY=true
+      - TELEMETRY_URL=
+      # Configurar CORS
+      - CORS_ORIGIN=*
+      - CORS_METHODS=POST,GET,PUT,DELETE
+      - CORS_CREDENTIALS=true
+      # Configurar autenticación
+      - AUTHENTICATION_API_KEY=725fd4322ce0746f4230d8afa1a451b1
+      - AUTHENTICATION_EXPOSE_IN_FETCH_INSTANCES=true
+      # Determina los logs que serán mostrados
+      - LOG_LEVEL=ERROR,WARN,DEBUG,INFO,LOG,VERBOSE,DARK,WEBHOOKS,WEBSOCKET
+      - LOG_COLOR=true
+      - LOG_BAILEYS=error
+       # Información que se mostrará en los smartphones
+      - CONFIG_SESSION_PHONE_CLIENT=domuss
+      - CONFIG_SESSION_PHONE_NAME=Chrome
+      ## Definir versão do Whatsapp Web
+      ## pegue a versão em: https://web.whatsapp.com/check-update?version=0&platform=web
+      #- CONFIG_SESSION_PHONE_VERSION=2.2413.51
+      #- CONFIG_SESSION_PHONE_VERSION=2.2413.79
+      - CONFIG_SESSION_PHONE_VERSION=2.3000.1026747075
+      # Configurar el QR code
+      - QRCODE_LIMIT=5
+      - QRCODE_COLOR=#000000
+      # Determina si se elimarán las instancias no conectadas
+      - DEL_INSTANCE=false
+      #- DEL_TEMP_INSTANCES=false nao usado 
+      # Configurar provider (alternativa a base de datos)
+      - PROVIDER_ENABLED=false
+      - PROVIDER_HOST=127.0.0.1
+      - PROVIDER_PORT=5656
+      - PROVIDER_PREFIX=evolution2ee8f16a
+      # Configurar base de datos (Postgres)   
+      - DATABASE_ENABLED=true
+      - DATABASE_PROVIDER=postgresql
+      - DATABASE_CONNECTION_URI=postgres://postgres:gCrjaY7VbR9MJh49@postgres:5432/evolution
+      # - DATABASE_CONNECTION_URI=postgres://postgres:gCrjaY7VbR9MJh49@postgres:6432/evolution?schema=public
+      - DATABASE_CONNECTION_CLIENT_NAME=evolution2ee8f16a
+      - DATABASE_SAVE_DATA_INSTANCE=true
+      - DATABASE_SAVE_DATA_NEW_MESSAGE=true
+      - DATABASE_SAVE_MESSAGE_UPDATE=true
+      - DATABASE_SAVE_DATA_CONTACTS=true
+      - DATABASE_SAVE_DATA_CHATS=true
+      - DATABASE_SAVE_DATA_LABELS=true
+      - DATABASE_SAVE_DATA_HISTORIC=true
+      # Configurar RabbitMQ    
+      - RABBITMQ_ENABLED=true
+      - RABBITMQ_URI=amqp://domuss:gCrjaY7VbR9MJh49@rabbitmqee8f16a:5672/%2F
+      - RABBITMQ_EXCHANGE_NAME=evolution2ee8f16a
+      - RABBITMQ_GLOBAL_ENABLED=false
+      - RABBITMQ_EVENTS_APPLICATION_STARTUP=false
+      - RABBITMQ_EVENTS_INSTANCE_CREATE=false
+      - RABBITMQ_EVENTS_INSTANCE_DELETE=false
+      - RABBITMQ_EVENTS_QRCODE_UPDATED=false
+      - RABBITMQ_EVENTS_MESSAGES_SET=false
+      - RABBITMQ_EVENTS_MESSAGES_UPSERT=false
+      - RABBITMQ_EVENTS_MESSAGES_EDITED=false
+      - RABBITMQ_EVENTS_MESSAGES_UPDATE=false
+      - RABBITMQ_EVENTS_MESSAGES_DELETE=false
+      - RABBITMQ_EVENTS_SEND_MESSAGE=false
+      - RABBITMQ_EVENTS_CONTACTS_SET=false
+      - RABBITMQ_EVENTS_CONTACTS_UPSERT=false
+      - RABBITMQ_EVENTS_CONTACTS_UPDATE=false
+      - RABBITMQ_EVENTS_PRESENCE_UPDATE=false
+      - RABBITMQ_EVENTS_CHATS_SET=false
+      - RABBITMQ_EVENTS_CHATS_UPSERT=false
+      - RABBITMQ_EVENTS_CHATS_UPDATE=false
+      - RABBITMQ_EVENTS_CHATS_DELETE=false
+      - RABBITMQ_EVENTS_GROUPS_UPSERT=false
+      - RABBITMQ_EVENTS_GROUP_UPDATE=false
+      - RABBITMQ_EVENTS_GROUP_PARTICIPANTS_UPDATE=false
+      - RABBITMQ_EVENTS_CONNECTION_UPDATE=true
+      - RABBITMQ_EVENTS_CALL=false
+      - RABBITMQ_EVENTS_TYPEBOT_START=false
+      - RABBITMQ_EVENTS_TYPEBOT_CHANGE_STATUS=false
+      # Configurar SQS     
+      - SQS_ENABLED=false
+      - SQS_ACCESS_KEY_ID=
+      - SQS_SECRET_ACCESS_KEY=
+      - SQS_ACCOUNT_ID=
+      - SQS_REGION=
+      # Configurar websocket:
+      - WEBSOCKET_ENABLED=false
+      - WEBSOCKET_GLOBAL_EVENTS=false
+      # Configurar API oficial de WhatsApp     
+      - WA_BUSINESS_TOKEN_WEBHOOK=evolution
+      - WA_BUSINESS_URL=https://graph.facebook.com
+      - WA_BUSINESS_VERSION=v20.0
+      - WA_BUSINESS_LANGUAGE=pt_BR
+      # Configurar el webhook global
+      - WEBHOOK_GLOBAL_ENABLED=false
+      - WEBHOOK_GLOBAL_URL=https://URL
+      - WEBHOOK_GLOBAL_WEBHOOK_BY_EVENTS=false
+      - WEBHOOK_EVENTS_APPLICATION_STARTUP=false
+      - WEBHOOK_EVENTS_QRCODE_UPDATED=true
+      - WEBHOOK_EVENTS_MESSAGES_SET=true
+      - WEBHOOK_EVENTS_MESSAGES_UPSERT=true
+      - WEBHOOK_EVENTS_MESSAGES_EDITED=true
+      - WEBHOOK_EVENTS_MESSAGES_UPDATE=true
+      - WEBHOOK_EVENTS_MESSAGES_DELETE=true
+      - WEBHOOK_EVENTS_SEND_MESSAGE=true
+      - WEBHOOK_EVENTS_CONTACTS_SET=true
+      - WEBHOOK_EVENTS_CONTACTS_UPSERT=true
+      - WEBHOOK_EVENTS_CONTACTS_UPDATE=true
+      - WEBHOOK_EVENTS_PRESENCE_UPDATE=true
+      - WEBHOOK_EVENTS_CHATS_SET=true
+      - WEBHOOK_EVENTS_CHATS_UPSERT=true
+      - WEBHOOK_EVENTS_CHATS_UPDATE=true
+      - WEBHOOK_EVENTS_CHATS_DELETE=true
+      - WEBHOOK_EVENTS_GROUPS_UPSERT=true
+      - WEBHOOK_EVENTS_GROUPS_UPDATE=true
+      - WEBHOOK_EVENTS_GROUP_PARTICIPANTS_UPDATE=true
+      - WEBHOOK_EVENTS_CONNECTION_UPDATE=true
+      - WEBHOOK_EVENTS_LABELS_EDIT=true
+      - WEBHOOK_EVENTS_LABELS_ASSOCIATION=true
+      - WEBHOOK_EVENTS_CALL=true
+      - WEBHOOK_EVENTS_TYPEBOT_START=false
+      - WEBHOOK_EVENTS_TYPEBOT_CHANGE_STATUS=false
+      - WEBHOOK_EVENTS_ERRORS=false
+      - WEBHOOK_EVENTS_ERRORS_WEBHOOK=https://url
+      # Configurar Typebot
+      - TYPEBOT_ENABLED=true
+      #- TYPEBOT_SEND_MEDIA_BASE64=true
+      #- TYPEBOT_KEEP_OPEN=true
+      ## Novas variaveis para o Typebot
+      - TYPEBOT_API_VERSION=latest
+      # Configurar Chatwoot
+      - CHATWOOT_ENABLED=true
+      - CHATWOOT_MESSAGE_READ=true
+      - CHATWOOT_MESSAGE_DELETE=true
+      - CHATWOOT_IMPORT_DATABASE_CONNECTION_URI=postgres://postgres:gCrjaY7VbR9MJh49@postgres:5432/chatwootee8f16a?sslmode=disable 
+      - CHATWOOT_IMPORT_PLACEHOLDER_MEDIA_MESSAGE=true
+      - LANGUAGE=pt-BR
+      # OpenAI - Environment variables
+      - OPENAI_ENABLED=true
+      # Dify - Environment variables
+      - DIFY_ENABLED=false
+      # Redis
+      - CACHE_REDIS_ENABLED=true
+      - CACHE_REDIS_URI=redis://evolution2ee8f16a-redis:6379/1
+      - CACHE_REDIS_PREFIX_KEY=evo2
+      - CACHE_REDIS_SAVE_INSTANCES=false
+      - CACHE_LOCAL_ENABLED=false
+      - CLEAN_STORE_CLEANING_INTERVAL=7200 # seconds === 2h
+      - CLEAN_STORE_MESSAGES=true
+      - CLEAN_STORE_MESSAGE_UP=true
+      - CLEAN_STORE_CONTACTS=true
+      - CLEAN_STORE_CHATS=true
+
+      # AMAZON S3 - Environment variables
+      # - S3_ENABLED=true
+      # - S3_BUCKET=bucket_name
+      # - S3_ACCESS_KEY=access_key_id
+      # - S3_SECRET_KEY=secret_access_key
+      # - S3_ENDPOINT=s3.amazonaws.com # region: s3.eu-west-3.amazonaws.com
+
+      # MINIO Use SSL - Environment variables
+      - S3_ENABLED=true
+      - S3_ACCESS_KEY=8JB8ES06Y947F6QXF3MV
+      - S3_SECRET_KEY=SCntcB+jLDC9hNGsrFLvmvTZ3+N+DNu3nkLjO21i
+      - S3_BUCKET=evolution2ee8f16a
+      - S3_PORT=443
+      - S3_ENDPOINT=s3.domussimob.com.br
+      - S3_USE_SSL=true 
+      
+
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.evolution2ee8f16a.rule=Host(`api.domussimob.com.br`)
+        - traefik.http.routers.evolution2ee8f16a.entrypoints=websecure
+        - traefik.http.routers.evolution2ee8f16a.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.evolution2ee8f16a.priority=1
+        - traefik.http.routers.evolution2ee8f16a.service=evolution2ee8f16a
+        - traefik.http.services.evolution2ee8f16a.loadbalancer.server.port=8080
+        - traefik.http.services.evolution2ee8f16a.loadbalancer.passHostHeader=true
+
+
+networks:
+  externa:
+    external: true
+  interna:
+    external: true
+    
