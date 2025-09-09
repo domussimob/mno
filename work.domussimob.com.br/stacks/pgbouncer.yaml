@@ -1,0 +1,47 @@
+
+version: "3.7"
+
+services: 
+  pgbouncer: 
+    # Imagem do Serviço
+    # https://hub.docker.com/r/edoburu/pgbouncer
+    image: edoburu/pgbouncer:v1.23.1-p0
+    networks: 
+      - interna
+    # Configura a porta do Serviço para acesso externo
+    #ports:
+    #  - 6432:6432
+    environment: 
+      - DB_USER=postgres
+      - DB_PASSWORD=gCrjaY7VbR9MJh49
+      - DB_HOST=postgres
+      - POOL_MODE=transaction  # Modo obrigatório para Rails
+      - AUTH_TYPE=scram-sha-256
+      - DB_PORT=5432
+      - ADMIN_USERS=postgres,admin
+      - MAX_CLIENT_CONN=1000
+      - DEFAULT_POOL_SIZE=100
+      - RESERVE_POOL_SIZE=100
+      - RESERVE_POOL_TIMEOUT=1
+    volumes:
+      - /etc/pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - /etc/pgbouncer/userlist.txt:/etc/pgbouncer/userlist.txt:ro
+  
+      # Bancos de dados que deve atuar (vazio para todos)
+      #- DB_NAME=db1,db2
+    deploy: 
+      mode: replicated
+      replicas: 1
+      placement: 
+        constraints: 
+          - node.role == manager # Rodar serviço no Manager
+      resources: 
+        limits: 
+          cpus: "2"
+          memory: 2048M
+
+networks:
+  interna:
+    external: true
+
+
