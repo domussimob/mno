@@ -1,0 +1,114 @@
+
+version: "3.7"
+services:
+
+
+  directus95b506d:
+    image: directus/directus:11.5
+
+    volumes:
+      - directus95b506d-uploads:/directus/uploads
+      - directus95b506d-data:/directus/database
+      - directus95b506d-extensions:/directus/extensions
+      - directus95b506d-templates:/directus/templates
+
+    networks:
+      - externa
+      - interna  
+
+    environment:
+      ## Dados de acesso
+      - ADMIN_EMAIL=fabio.inves@yahoo.com.br
+      - ADMIN_PASSWORD=gCrjaY7VbR9MJh49
+      - PUBLIC_URL=https://painelia.domussimob.com.br
+
+      ## Dados SMTP
+      - EMAIL_SMTP_USER=fabio.inves@yahoo.com.br
+      - EMAIL_SMTP_PASSWORD=102030
+      - EMAIL_SMTP_HOST=mail.seudominio_smtp.com.br
+      - EMAIL_SMTP_PORT=465
+      - EMAIL_SMTP_SECURE=
+
+      ## Dados MinIO
+      - STORAGE_LOCATIONS=s3
+      - STORAGE_S3_DRIVER=s3 
+      - STORAGE_s3_KEY=NpGndCWCQpDp3yzOaS9Q
+      - STORAGE_s3_SECRET=MSCsHSjfrfSFhwUfMDtxkWwX31zOHVwpJx8g93Dw
+      - STORAGE_s3_BUCKET=directus
+      - STORAGE_s3_REGION=eu-south
+      - STORAGE_s3_ENDPOINT=s3.domussimob.com.br
+      - STORAGE_S3_FORCE_PATH_STYLE=true
+
+      ## Redis
+      - CACHE_ENABLED=true
+      - CACHE_STORE=redis
+      - CACHE_AUTO_PURGE=true
+      - REDIS=redis://directus95b506d-redis:6379/4
+
+      ## Secret Keys & Env
+      - KEY=36df4b96cbee3e8a52f497a49e4e18ac
+      - SECRET=e5c1eb96679eadf9256120e36c312d9f
+      - APP_ENV=production
+
+      ## Dados Postgres
+      - DB_CLIENT=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_DATABASE=directus95b506d
+      - DB_USER=postgres
+      - DB_PASSWORD=gCrjaY7VbR9MJh49
+      - DB_CONNECTION_STRING=postgresql://postgres:gCrjaY7VbR9MJh49@postgres:5432/directus95b506d
+      - DB_PREFIX=drcts_
+      ## Cors
+      - CORS_ENABLED=true
+      - CORS_ORIGIN=true
+      - CORS_METHODS=GET,POST,PATCH,DELETE
+
+      - AUTHTOKENEXPIRY=7d
+      - REFRESHTOKENEXPIRY=7d
+      - REFRESHTOKENCOOKIE_SECURE=false
+      - REFRESHTOKENCOOKIESAMESITE=lax
+      - ACCESS_TOKEN_TTL=1440m
+
+      ## Webhooks
+      ##- WEBHOOKS_ENABLED=true
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.directus95b506d.rule=Host(`painelia.domussimob.com.br`)
+        - traefik.http.routers.directus95b506d.entrypoints=websecure
+        - traefik.http.routers.directus95b506d.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.directus95b506d.priority=1
+        - traefik.http.routers.directus95b506d.service=directus95b506d
+        - traefik.http.services.directus95b506d.loadbalancer.server.port=8055
+        - traefik.docker.network=proxy
+
+
+volumes:
+  directus95b506d-uploads:
+    external: true
+    name: directus95b506d-uploads
+  directus95b506d-data:
+    external: true
+    name: directus95b506d-data
+  directus95b506d-extensions:
+    external: true
+    name: directus95b506d-extensions
+  directus95b506d-templates:
+    external: true
+    name: directus95b506d-templates
+
+networks:
+  interna:
+    external: true
+  externa:
+    external: true
+
+
+
