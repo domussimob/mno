@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+    mysql:
+        image: percona/percona-server:8.0.39-30.1-multi
+        environment:
+            - MYSQL_ROOT_PASSWORD=1e46ea0d3bf4ad47
+            - TZ=America/Fortaleza
+        networks: 
+            - externa
+            - interna
+        volumes:
+            - mysql_data:/var/lib/mysql
+        deploy:
+            placement:
+                constraints: [node.role == manager]
+        command:
+            --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --sql-mode="" --default-authentication-plugin=mysql_native_password  --port=3306 --max-allowed-packet=512MB
+volumes:
+    mysql_data:
+networks: 
+    externa: 
+        external: true
+    interna: 
+        external: true
+
