@@ -2069,6 +2069,10 @@
               "value": "meta-llama/llama-4-scout"
             },
             {
+              "text": "AllenAI: Molmo 7B D",
+              "value": "allenai/molmo-7b-d"
+            },
+            {
               "text": "Qwen: Qwen2.5 VL 32B Instruct (free)",
               "value": "qwen/qwen2.5-vl-32b-instruct:free"
             },
@@ -3049,20 +3053,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
