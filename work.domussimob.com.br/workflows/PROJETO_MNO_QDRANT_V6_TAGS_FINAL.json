@@ -1,9 +1,9 @@
 {
   "createdAt": "2025-09-09T12:45:22.280Z",
-  "updatedAt": "2025-09-09T18:25:04.562Z",
+  "updatedAt": "2025-09-09T18:26:21.613Z",
   "id": "zOejRcE9WI9ygBOM",
   "name": "PROJETO_MNO_QDRANT_V6_TAGS_FINAL",
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -386,8 +386,7 @@
       ],
       "id": "e736981d-e15b-49b9-8f72-175024f8ff0e",
       "name": "Core Input",
-      "webhookId": "ac84e6c0-8ef2-4a9a-878c-66ebf9fbecc1",
-      "disabled": true
+      "webhookId": "ac84e6c0-8ef2-4a9a-878c-66ebf9fbecc1"
     },
     {
       "parameters": {
@@ -912,8 +911,7 @@
           "id": "Iz6AdCvM8BbJ72YV",
           "name": "Postgres directus95b506d"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -963,8 +961,7 @@
       ],
       "id": "f1335d12-6bb3-4c2b-a5f1-934ebd214279",
       "name": "Vector Trigger",
-      "webhookId": "1fb6174c-df10-445a-b64f-b11982679e1e",
-      "disabled": true
+      "webhookId": "1fb6174c-df10-445a-b64f-b11982679e1e"
     },
     {
       "parameters": {
@@ -1073,8 +1070,7 @@
       ],
       "id": "f43c0f28-423d-40aa-b7ab-72cd65ef9d9a",
       "name": "RAG Input",
-      "webhookId": "8c2c32ce-b05e-4e1f-8c61-a4279aabd479",
-      "disabled": true
+      "webhookId": "8c2c32ce-b05e-4e1f-8c61-a4279aabd479"
     },
     {
       "parameters": {
@@ -1288,8 +1284,7 @@
           "id": "Iz6AdCvM8BbJ72YV",
           "name": "Postgres directus95b506d"
         }
-      },
-      "disabled": true
+      }
     },
     {
       "parameters": {
@@ -2154,167 +2149,8 @@
   },
   "staticData": null,
   "meta": null,
-  "pinData": {
-    "Consumer": [
-      {
-        "json": {
-          "headers": {
-            "host": "hook.domussimob.com.br",
-            "user-agent": "rest-client/2.1.0 (linux-musl aarch64) ruby/3.3.3p89",
-            "content-length": "4299",
-            "accept": "application/json",
-            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-            "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
-            "x-forwarded-host": "hook.domussimob.com.br",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "6929e8675dbf",
-            "x-real-ip": "172.18.0.1"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "account": {
-              "id": 1,
-              "name": "Domuss"
-            },
-            "additional_attributes": {},
-            "content_attributes": {},
-            "content_type": "text",
-            "content": "Teste2",
-            "conversation": {
-              "additional_attributes": {},
-              "can_reply": true,
-              "channel": "Channel::Api",
-              "contact_inbox": {
-                "id": 20,
-                "contact_id": 13,
-                "inbox_id": 2,
-                "source_id": "97ad73b4-8a0c-452b-8f2e-022734f23fdc",
-                "created_at": "2025-09-05T15:55:21.854Z",
-                "updated_at": "2025-09-05T15:55:21.854Z",
-                "hmac_verified": false,
-                "pubsub_token": "vkRfLjiWuXBPLiSyxtpjSSfw"
-              },
-              "id": 14,
-              "inbox_id": 2,
-              "messages": [
-                {
-                  "id": 18734,
-                  "content": "Teste2",
-                  "account_id": 1,
-                  "inbox_id": 2,
-                  "conversation_id": 14,
-                  "message_type": 0,
-                  "created_at": 1757441875,
-                  "updated_at": "2025-09-09T18:17:55.683Z",
-                  "private": false,
-                  "status": "sent",
-                  "source_id": "WAID:AC430031C98985E4A1683759CCC5CAF0",
-                  "content_type": "text",
-                  "content_attributes": {},
-                  "sender_type": "Contact",
-                  "sender_id": 13,
-                  "external_source_ids": {},
-                  "additional_attributes": {},
-                  "processed_message_content": "Teste2",
-                  "sentiment": {},
-                  "conversation": {
-                    "assignee_id": 3,
-                    "unread_count": 1,
-                    "last_activity_at": 1757441875,
-                    "contact_inbox": {
-                      "source_id": "97ad73b4-8a0c-452b-8f2e-022734f23fdc"
-                    }
-                  },
-                  "sender": {
-                    "additional_attributes": {},
-                    "custom_attributes": {},
-                    "email": null,
-                    "id": 13,
-                    "identifier": "5511968162690@s.whatsapp.net",
-                    "name": "Francis Breit",
-                    "phone_number": "+5511968162690",
-                    "thumbnail": "https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBMQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--549c9b035eb56e38a2450dbd0a02471d91bf9762/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg",
-                    "type": "contact"
-                  }
-                }
-              ],
-              "labels": [
-                "novo-lead"
-              ],
-              "meta": {
-                "sender": {
-                  "additional_attributes": {},
-                  "custom_attributes": {},
-                  "email": null,
-                  "id": 13,
-                  "identifier": "5511968162690@s.whatsapp.net",
-                  "name": "Francis Breit",
-                  "phone_number": "+5511968162690",
-                  "thumbnail": "https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBMQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--549c9b035eb56e38a2450dbd0a02471d91bf9762/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg",
-                  "type": "contact"
-                },
-                "assignee": {
-                  "id": 3,
-                  "name": "Jean",
-                  "available_name": "Jean",
-                  "avatar_url": "",
-                  "type": "user",
-                  "availability_status": "offline",
-                  "thumbnail": ""
-                },
-                "team": null,
-                "hmac_verified": false
-              },
-              "status": "open",
-              "custom_attributes": {},
-              "snoozed_until": null,
-              "unread_count": 1,
-              "first_reply_created_at": "2025-09-09T17:41:40.731Z",
-              "priority": null,
-              "waiting_since": 1757440286,
-              "agent_last_seen_at": 1757441862,
-              "contact_last_seen_at": 0,
-              "last_activity_at": 1757441875,
-              "timestamp": 1757441875,
-              "created_at": 1757087721
-            },
-            "created_at": "2025-09-09T18:17:55.683Z",
-            "id": 18734,
-            "inbox": {
-              "id": 2,
-              "name": "Atendimento"
-            },
-            "message_type": "incoming",
-            "status": "sent",
-            "private": false,
-            "sender": {
-              "account": {
-                "id": 1,
-                "name": "Domuss"
-              },
-              "additional_attributes": {},
-              "avatar": "https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBMQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--549c9b035eb56e38a2450dbd0a02471d91bf9762/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg",
-              "custom_attributes": {},
-              "email": null,
-              "id": 13,
-              "identifier": "5511968162690@s.whatsapp.net",
-              "name": "Francis Breit",
-              "phone_number": "+5511968162690",
-              "thumbnail": "https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBMQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--549c9b035eb56e38a2450dbd0a02471d91bf9762/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg"
-            },
-            "source_id": "WAID:AC430031C98985E4A1683759CCC5CAF0",
-            "event": "message_created"
-          },
-          "webhookUrl": "https://hook.domussimob.com.br/webhook/chatwoot",
-          "executionMode": "production"
-        }
-      }
-    ]
-  },
-  "versionId": "e9abcb13-7880-4fb1-a27d-d56b397be967",
+  "pinData": {},
+  "versionId": "bac1490a-50b3-43e4-858a-3e23061fb4ae",
   "triggerCount": 6,
   "tags": []
 }
