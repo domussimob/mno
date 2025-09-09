@@ -1,0 +1,255 @@
+{
+  "createdAt": "2025-09-04T12:46:26.297Z",
+  "updatedAt": "2025-09-05T14:32:30.726Z",
+  "id": "JtGcQBWKMlFB36am",
+  "name": "Configurar_admin",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "string": [
+            {
+              "name": "api_access_token",
+              "value": "v5KbHpAurkE5q1okNXWyVYTh"
+            },
+            {
+              "name": "chatwoot_url",
+              "value": "https://atendimento.domussimob.com.br"
+            },
+            {
+              "name": "n8n_url",
+              "value": "https://hook.domussimob.com.br"
+            },
+            {
+              "name": "organization",
+              "value": "Domuss"
+            },
+            {
+              "name": "logo",
+              "value": "https://manualnegocioonline.com.br/downloads/favicon-512x512_2.png"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dd2597b5-c14c-404b-b7d7-ffdc7b21686a",
+      "name": "Info Base",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -112,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/1/contacts/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"api_access_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"inbox_id\": {{ $('Cria Inbox Start').item.json[\"id\"] }},\n    \"name\": \"Bot {{ $('Info Base').item.json[\"organization\"] }}\",\n    \"phone_number\": \"+123456\",\n    \"avatar_url\": \"{{ $('Info Base').item.json[\"logo\"] }}\"\n}",
+        "options": {}
+      },
+      "id": "41722858-a3a0-49d3-b8be-45c47423cace",
+      "name": "Cria Contato Bot",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        288,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/1/inboxes/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"api_access_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"name\": \"Start {{ $('Info Base').item.json[\"organization\"] }}\",\n    \"channel\": {\n        \"type\": \"api\",\n        \"website_url\": \"\"\n    }\n}",
+        "options": {}
+      },
+      "id": "38de67f6-807d-406b-a4a2-3a7e84992217",
+      "name": "Cria Inbox Start",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        96,
+        192
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "a202882a-a60e-4761-842c-3f48f3d1d4da",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/1/automation_rules/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"api_access_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"name\": \"Create Company {{ $('Info Base').item.json[\"organization\"] }}\",\n    \"description\": \"Create Company {{ $('Info Base').item.json[\"organization\"] }}\",\n    \"event_name\": \"message_created\",\n    \"active\": true,\n    \"actions\": \n    [\n        {\n            \"action_name\": \"send_webhook_event\",\n            \"action_params\": [\"{{ $('Info Base').item.json[\"n8n_url\"] }}/webhook/criadorchatwoot\"]\n        }\n    ],\n    \"conditions\": \n    [\n        {\n            \"attribute_key\": \"content\",\n            \"filter_operator\": \"contains\",\n            \"query_operator\": \"and\",\n            \"values\": [\"Tema Criador de Empresa:\"]\n        },\n        {\n            \"attribute_key\": \"phone_number\",\n            \"filter_operator\": \"equal_to\",\n            \"values\": [\"+123456\"]\n        }\n    ]\n}",
+        "options": {}
+      },
+      "id": "c3d0e457-bb09-4aef-bc11-44434bfb639e",
+      "name": "Cria Automação Empresas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        496,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/1/automation_rules/",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"api_access_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"name\": \"Create Inbox {{ $('Info Base').item.json[\"organization\"] }}\",\n    \"description\": \"Create Inbox {{ $('Info Base').item.json[\"organization\"] }}\",\n    \"event_name\": \"message_created\",\n    \"active\": true,\n    \"actions\": \n    [\n        {\n            \"action_name\": \"send_webhook_event\",\n            \"action_params\": [\"{{ $('Info Base').item.json[\"n8n_url\"] }}/webhook/inbox_whatsapp?utoken={{ $('Info Base').item.json[\"api_access_token\"] }}&organization={{ $('Info Base').item.json[\"organization\"] }}\"]\n        }\n    ],\n    \"conditions\": \n    [\n        {\n            \"attribute_key\": \"content\",\n            \"filter_operator\": \"contains\",\n            \"query_operator\": \"and\",\n            \"values\": [\"start:\"]\n        },\n       \n         {\n            \"attribute_key\": \"phone_number\",\n            \"filter_operator\": \"equal_to\",\n            \"query_operator\": \"or\",\n            \"values\": [\"+123456\"]\n        },\n\n\n        {\n            \"attribute_key\": \"content\",\n            \"filter_operator\": \"contains\",\n            \"query_operator\": \"and\",\n            \"values\": [\"new_instance:\"]\n        },\n        {\n            \"attribute_key\": \"phone_number\",\n            \"filter_operator\": \"equal_to\",\n            \"values\": [\"+123456\"]\n        }\n    ]\n}",
+        "options": {}
+      },
+      "id": "fb991b21-c523-4d4e-823d-59162ff0d5d4",
+      "name": "Cria Automação Inboxes",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        688,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "content": "## Workflow Para Configurar admin\n**Aqui você prepara o Chatwoot Principal com um usuário (Superadmin) que poderá criar empresas e caixas de entrada**\n**Instruções**\n**No node Info Base, configure as variáveis de seu Chatwoot e N8N**\n**Obs: A variável api_access_token é o token do usuário que irá poder criar as empresas**",
+        "width": 894.6435495898575
+      },
+      "id": "5bc8c4ad-3d4a-4dc1-bd85-24317cc68fbe",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Info Base": {
+      "main": [
+        [
+          {
+            "node": "Cria Inbox Start",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cria Contato Bot": {
+      "main": [
+        [
+          {
+            "node": "Cria Automação Empresas",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cria Inbox Start": {
+      "main": [
+        [
+          {
+            "node": "Cria Contato Bot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Info Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cria Automação Empresas": {
+      "main": [
+        [
+          {
+            "node": "Cria Automação Inboxes",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "eefb4a09-d465-4a18-a15c-cf8fc8ce74c0",
+  "triggerCount": 0,
+  "tags": [
+    {
+      "createdAt": "2025-09-04T12:46:38.356Z",
+      "updatedAt": "2025-09-04T12:46:38.356Z",
+      "id": "OzR80JDt3tsxGNMS",
+      "name": "chatwoot"
+    }
+  ]
+}
