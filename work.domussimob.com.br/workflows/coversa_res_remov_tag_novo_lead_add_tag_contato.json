@@ -1,0 +1,607 @@
+{
+  "createdAt": "2025-09-09T12:45:26.859Z",
+  "updatedAt": "2025-09-09T12:45:26.859Z",
+  "id": "BhvvBhsuWOM6Cvhi",
+  "name": "coversa_res_remov_tag_novo_lead_add_tag_contato",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "039d9967-50b3-4022-8435-575b7242fe9f",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -500,
+        380
+      ],
+      "id": "a8d57f16-f371-43bf-b3da-06a5cf53a440",
+      "name": "Webhook",
+      "webhookId": "039d9967-50b3-4022-8435-575b7242fe9f"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "7b95483e-de16-495a-8859-d40ab1dbb803",
+              "leftValue": "={{ $json.body.status }}",
+              "rightValue": "resolved",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -240,
+        300
+      ],
+      "id": "39f3cabf-6f73-467d-8fe4-d56ce9b5969f",
+      "name": "Conversa resolvida e Novo-lead"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8aaff4f0-e387-4b84-82d5-34de996d1204",
+              "name": "payload",
+              "value": "={{ $('Webhook').item.json.body.labels.filter(item => \n  item !== \"novo-lead\" && item !== \"ia-ativada\") }}",
+              "type": "array"
+            },
+            {
+              "id": "2f84b8a6-c58f-4aa8-9305-aa32f2a91d70",
+              "name": "chatwoot_url",
+              "value": "https://url_chetwoot",
+              "type": "string"
+            },
+            {
+              "id": "52d69136-3537-4373-8b2d-ca28c2d9f641",
+              "name": "account_id",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "2a12af0a-58bb-41a4-841c-52b2fd12ff17",
+              "name": "api_access_token",
+              "value": "api_access_token_chatwoot",
+              "type": "string"
+            },
+            {
+              "id": "1e1d6b39-cefe-4d08-b8c9-30331e300612",
+              "name": "conveersa_id",
+              "value": "={{ $json.body.id }}",
+              "type": "number"
+            },
+            {
+              "id": "10b5b2fd-7c16-4afe-88f8-ffd0d6d3839d",
+              "name": "contato_id",
+              "value": "={{ $('Webhook').item.json.body.contact_inbox.contact_id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -20,
+        240
+      ],
+      "id": "f4cd9f0b-7d5f-4e32-8c6a-7d1c8f9a26cc",
+      "name": "info_base"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a934192a-8f22-46f7-b6c9-fd06a7d0caa0",
+              "name": "payload",
+              "value": "={{ [...$('info_base').item.json.payload, \"contato\"] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        720,
+        160
+      ],
+      "id": "5d1d2598-b7e3-404a-ba6c-b3d5f57c151f",
+      "name": "adiciona tag contato"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info_base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('info_base').item.json[\"account_id\"] }}/conversations/{{ $('info_base').item.json.conveersa_id }}/labels\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('info_base').item.json.api_access_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ $json.payload }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "0bc057ff-c5f7-49cc-9684-324d2909eb42",
+      "name": "etiqueta_conversa",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        940,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info_base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('info_base').item.json[\"account_id\"] }}/contacts/{{ $('info_base').item.json[\"contato_id\"] }}/labels\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "api_access_token",
+              "value": "={{ $('info_base').item.json.api_access_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ $json.payload }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        840,
+        360
+      ],
+      "id": "4a9f9ec8-018c-42ce-a7d8-e1349eaccbbb",
+      "name": "Etiqueta contato"
+    },
+    {
+      "parameters": {
+        "content": "## APÓS UMA CONVERSA SER RESOLVIDA TAG CONTATO É ADICIONADA NA CONVERSA E NO CONTATO. O CAMPO CUSTOM DO CONTATO (STATUS) É ATUALIZADO\n**PREENCHER NODE INFO_BASE COM VARIÁVEIS OBRIGATÓRIAS** ",
+        "width": 1140
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -100,
+        -40
+      ],
+      "typeVersion": 1,
+      "id": "5b129dac-11e7-4482-890c-bed91e038238",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contacts",
+          "mode": "list",
+          "cachedResultName": "contacts"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('info_base').item.json.contato_id }}",
+            "custom_attributes": "={\n  \"status\": \"contato\"\n}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "account_id",
+              "displayName": "account_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "additional_attributes",
+              "displayName": "additional_attributes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "identifier",
+              "displayName": "identifier",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "custom_attributes",
+              "displayName": "custom_attributes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_activity_at",
+              "displayName": "last_activity_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "contact_type",
+              "displayName": "contact_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "middle_name",
+              "displayName": "middle_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_name",
+              "displayName": "last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "country_code",
+              "displayName": "country_code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "blocked",
+              "displayName": "blocked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1060,
+        300
+      ],
+      "id": "36ceb775-9421-4ecb-bc6c-a6e1ef05c25c",
+      "name": "Postgres",
+      "credentials": {
+        "postgres": {
+          "id": "olINakbfu0LDdwSZ",
+          "name": "Postgres chatwoot3bfec3a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contacts",
+          "mode": "list",
+          "cachedResultName": "contacts"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.contato_id }}"
+            },
+            {
+              "column": "account_id",
+              "value": "={{ $json.account_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        180,
+        180
+      ],
+      "id": "59058ec2-3e12-4b86-b6d8-55d7b0fb554f",
+      "name": "Postgres1",
+      "credentials": {
+        "postgres": {
+          "id": "olINakbfu0LDdwSZ",
+          "name": "Postgres chatwoot3bfec3a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "92b5fe4f-e451-4516-927c-8f571c67d391",
+              "leftValue": "={{ $json.identifier }}",
+              "rightValue": "@g.us",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        420,
+        160
+      ],
+      "id": "49770967-18f2-442b-bc12-43c917ba4339",
+      "name": "Contato?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        580,
+        380
+      ],
+      "id": "085c9241-aee2-465d-9d2e-356342d9a534",
+      "name": "Encerra"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Conversa resolvida e Novo-lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Conversa resolvida e Novo-lead": {
+      "main": [
+        [
+          {
+            "node": "info_base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "info_base": {
+      "main": [
+        [
+          {
+            "node": "Postgres1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adiciona tag contato": {
+      "main": [
+        [
+          {
+            "node": "etiqueta_conversa",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Etiqueta contato",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Etiqueta contato": {
+      "main": [
+        [
+          {
+            "node": "Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres1": {
+      "main": [
+        [
+          {
+            "node": "Contato?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contato?": {
+      "main": [
+        [
+          {
+            "node": "adiciona tag contato",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Encerra",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "fcb62622-5323-4e5b-b2ad-50502f3e0b32",
+  "triggerCount": 0,
+  "tags": []
+}
