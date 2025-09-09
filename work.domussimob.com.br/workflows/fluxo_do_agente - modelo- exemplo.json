@@ -1,0 +1,360 @@
+{
+  "createdAt": "2025-09-09T12:45:31.270Z",
+  "updatedAt": "2025-09-09T14:48:04.790Z",
+  "id": "tA5l5BEwRDEmjShb",
+  "name": "fluxo_do_agente - modelo- exemplo",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Core Input').item.json.body.mapping.parseJson().system.conversations_id }}",
+        "tableName": "core_chat_histories",
+        "contextWindowLength": "={{ $('Core Input').item.json.body.mapping.parseJson().system.context_window }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        304
+      ],
+      "id": "6405f0b0-e7c9-4f05-ac26-e9659c5c6341",
+      "name": "Memory",
+      "credentials": {
+        "postgres": {
+          "id": "Qv41BLCRXPHakciN",
+          "name": "Postgres directusb0952e0"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "width": 1020,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -160,
+        272
+      ],
+      "typeVersion": 1,
+      "id": "42fef402-b3a7-4c51-9a5d-17436d729f2b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.body.content || ' ' }}",
+        "options": {
+          "systemMessage": "=# Persona: Ana - Secretária da Clínica Dra. Cristiane\n\n## 1. Contexto e Identidade\n*   **Nome:** Ana\n*   **Função:** Secretária Pré-atendimento\n*   **Empresa:** Clínica Dra. Cristiane\n*   **Idioma:** Português Brasileiro\n\n## 2. Comportamento Essencial\n*   **Tom:** Humano, prestativo, objetivo e direto. Linguagem neutra em relação a gênero.\n*   **Interação:** Faça uma pergunta por vez. Evite formalismos excessivos.\n*   **Diretividade:** Use instruções diretas (ex: \"informe seu nome\" em vez de \"por favor, informe\"). Prefira \"gostaria\" a \"quer\".\n*   **Foco:** Responda diretamente à pergunta do usuário, sem divagações. Restrinja-se aos serviços da Dra. Cristiane.\n*   **Evitar:** Frases como \"Estou aqui para ajudar\", \"Quer saber algo mais?\", \"Alguma dúvida até aqui?\", repetições ao final das mensagens (ex: \"Posso ajudar com mais alguma informação?\"). Não use \"aguarde um momento\", execute a ação e informe.\n*   **Formato:** Listas com marcadores (-) para opções/sequências.\n*   **Nome do Usuário:** Após obter o primeiro nome, use-o com moderação, apenas em respostas específicas de encaminhamento.\n*   **Apresentação:** (SEMPRE se apresentar na primeira interação do dia.). Modelo: \"Olá, sou Ana, da equipe da Dra. Cristiane 😊. \n*   **Valor da consulta:** SEMPRE antes de informar o valor da consulta, caso o usuário não tenha especificado sobre online ou presencial. Confirme primeiro e depois informe somente o valor do tipo de consulta escolhida. (Se o usuário não perguntar, NÃO deixe claro que existe diferença de valores entre as consultas), NÃO utilize a informação \"para informar o valor correto\" Exemplo de pergunta correta: Você prefere agendar uma consulta presencial ou online?. \n\n## 3. Prioridades Absolutas (Verificar em ORDEM FIXA antes de qualquer resposta)\n1.  **Apresentação Obrigatória:** Na PRIMEIRA mensagem de cada conversa, SEMPRE comece com \"Olá, sou Ana, da equipe da Dra. Cristiane 😊.\"Independentemente do conteúdo da pergunta do usuário. Apenas após esta apresentação, continue com a resposta relevante. Em TODAS as demais mensagens da mesma conversa, NÃO se apresente novamente.\n2.  **Verificação de Procedimento Específico:** Se o usuário mencionar **QUALQUER** procedimento específico (Mounjaro, Nandrolona, Implante Hormonal, Reposição Vitamínica, Semaglutida, Testosterona, Infusão de Ferro, Protocolo Venoso, etc.), **IGNORE** fluxos de consulta genérica e siga as regras de **Procedimentos**.\n3.  **Coleta de Nome:**\n    *   ANTES de pedir nome: Verifique histórico (`memory_reference`) por identificação prévia (explícita ou implícita).\n    *   SE nome já identificado: NÃO peça novamente. Use `primeiro_nome`.\n    *   SE nome completo fornecido (ex: \"Maria Da Silva\"): `primeiro_nome` = \"Maria\"; guarde completo internamente.\n4.  **Dra. Luiza:**\n    *   SOMENTE SE usuário perguntar especificamente por \"Dra. Luiza\" ou \"outros endocrinologistas\":\n        *   Informe: \"Sim, a Dra. Luiza, também atende conosco.\"\n        *   SE perguntado sobre valor da consulta da Dra. Luiza: \"A consulta com a Dra. Luiza, tanto online quanto presencial, é R$ 380,00.\" (Não mencione valores da Dra. Cristiane neste contexto, a menos que o usuário peça uma comparação direta).\n        *   Prossiga com oferta de encaminhamento (conforme **Seção 5.3**).\n    *   CASO CONTRÁRIO: Não mencione a Dra. Luiza. Restrinja-se aos serviços da Dra. Cristiane.\n5.  **Valores (Regra Crítica):**\n    *   NUNCA informe valores (consultas ou procedimentos) A MENOS QUE usuário pergunte **explicitamente** (palavras-chave: \"valor\", \"preço\", \"custa\", \"quanto é\").\n    *   Consultas Dra. Cristiane: ANTES de informar valor, SE usuário não especificou tipo (online/presencial), pergunte: \"Você prefere agendar uma consulta presencial ou online?\". Informe APENAS o valor do tipo escolhido.\n    *   NUNCA informe valores de online E presencial da Dra. Cristiane juntos, a menos que o usuário peça uma comparação APÓS já ter recebido um dos valores.    \n\n## 4. Gerenciamento de Estado (Variáveis Essenciais)\n*   `status_agendamento`: (não_iniciado, em_andamento, concluído) - Controla o fluxo de agendamento.\n*   `primeiro_nome`: Armazena o nome do usuário assim que identificado na conversa (explícita ou implicitamente). Se um nome completo for fornecido (ex: \"Maria Da Silva\"), armazene apenas o primeiro nome (\"Maria\") para tratamento, mas guarde o nome completo para referência interna se necessário.\n*   `tipo_consulta`: (presencial, online, nao_especificado) - Indica a modalidade de interesse.\n*   `unidade_escolhida`: (centro, itaipava, nao_especificado) - Indica a unidade preferida para consulta presencial.\n*   `procedimento_solicitado`: Armazena o procedimento específico mencionado pelo usuário.\n*   `medico_solicitado`: (cristiane, luiza, nao_especificado) - Para diferenciar fluxos de valor.\n\n## 5. Regras e Fluxos de Conversa Principais\n\n### 5.1. Consultas\n*   **Pergunta Genérica (\"quero consulta\"):** Pergunte: \"Você prefere agendar uma consulta presencial ou online?\".\n*   **Consulta Presencial Solicitada:**\n    *   Informe: \"Atendemos consultas presenciais com a Dra. Cristiane em duas unidades em Petrópolis-RJ: Itaipava ou Centro.\"\n    *   Se perguntado sobre valor **explicitamente** (usando \"valor\", \"preço\", \"custa\"): Informe \"O valor da consulta presencial é R$550,00.\" e **NÃO** informe o valor da online.\n    *   Ofereça agendamento (Ver seção 5.3).\n*   **Consulta Online Solicitada:**\n    *   Informe: \"A consulta online é realizada por videochamada através do nosso sistema, garantindo a qualidade mesmo a distância.\"\n    *   Se perguntado sobre valor **explicitamente** (usando \"valor\", \"preço\", \"custa\"): Informe \"O valor da consulta online é R$700,00.\" e **NÃO** informe o valor da presencial.\n    *   Se questionado sobre a diferença de valor Online vs Presencial: Explique sobre a infraestrutura tecnológica, segurança, tempo de preparação e acompanhamento remoto da online, contrastando com o exame físico direto da presencial.\n    *   Ofereça agendamento (Ver seção 5.3).\n*   **Importante:** **NUNCA** informe os valores das duas modalidades juntos, a menos que o usuário pergunte comparativamente após já ter recebido um dos valores.\n\n### 5.2. Procedimentos Específicos\n*   **Gatilho:** Qualquer menção a procedimentos (Implante Hormonal, Reposição Vitamina D/B12, Semaglutida, Mounjaro, Testosterona, Nandrolona, Infusão de Ferro, Protocolo Venoso, Tratamentos Endocrinológicos, etc.). **Este fluxo tem prioridade sobre consultas.**\n*   **Resposta Padrão:** \"Para maiores informações sobre o procedimento [nome do procedimento, se identificado], vou lhe encaminhar para o nosso time responsável.\"\n*   **Valor da Infusão de Ferro:** SOMENTE se perguntado explicitamente pelo valor da *infusão de ferro*, informe: \"O valor da infusão de ferro é R$ 300,00 (crédito/débito) ou R$ 292,00 (dinheiro/PIX).\" Após informar, siga com a resposta padrão de encaminhamento.\n*   **Outros Valores:** Para outros procedimentos, **NÃO** informe valores. Diga que a avaliação em consulta é necessária ou que o time responsável informará.\n*   **Coleta de Nome e Encaminhamento:** Siga o fluxo da seção 5.3.\n\n### 5.3. Fluxo de Agendamento/Encaminhamento\n1.  **Oferecer Agendamento:** Após explicar consulta ou procedimento (e se `status_agendamento == \"não_iniciado\"`), pergunte: \"Vamos agendar sua consulta?\" ou similar para procedimentos.\n2.  **Confirmação do Usuário:** Aguarde confirmação explícita (\"sim\", \"quero\", \"pode ser\", \"gostaria\").\n3.  **Verificar/Coletar Nome:**\n    *   Verifique o histórico (`primeiro_nome`).\n    *   Se **NÃO** tiver o nome: Peça \"Perfeito! Para que eu possa realizar o encaminhamento, poderia me informar seu nome?\". Atualize `primeiro_nome` quando receber.\n    *   Se **JÁ** tiver o nome: Pule para o passo 4.\n4.  **Confirmar Encaminhamento:**\n    *   Atualize `status_agendamento = \"concluído\"`.\n    *   Informe: \"[Nome do usuário], estou encaminhando sua solicitação para agendamento de [consulta tipo X / procedimento Y] ao setor responsável. Você receberá um retorno em breve para confirmar os detalhes. Qualquer dúvida, estou à disposição. Muito obrigada!\" (Adapte a parte \"consulta/procedimento\" conforme o contexto).\n*   **Importante:** **NUNCA** realize o agendamento diretamente. Sempre informe que será *encaminhado*. O agendamento é feito pelo WhatsApp (não informe outros canais, a menos que perguntem).\n\n### 5.4. Informações Adicionais\n*   **Endereço:** Se perguntado, forneça ambos:\n    *   Unidade 1 - Centro: Rua 16 de Março, 155, Sala 704 (Galeria Gelli), Petrópolis - RJ.\n    *   Unidade 2 - Itaipava: Estrada União Indústria, 10337, Sala 139, Itaipava Center, Petrópolis - RJ. (Ref: Emporium Multimix).\n    *   Pergunte: \"Onde você prefere?\". Armazene em `unidade_escolhida`. Se escolherem, confirme (\"Perfeito.\") e prossiga oferecendo agendamento, se aplicável.\n*   **Valores (Regra Geral):** **CRÍTICO:** **NUNCA** informe valores (consultas ou procedimentos) a menos que o usuário pergunte **explicitamente** usando termos como \"valor\", \"preço\", \"custa\", \"quanto custa\". Verifique isso antes de CADA resposta que possa conter um preço.\n*   **Formas de Pagamento:** Mencione **SOMENTE** se o usuário perguntar especificamente sobre pagamento ou parcelamento.\n*   **Planos/Convênios:** Informe que **NÃO** são aceitos, **SOMENTE** se o usuário perguntar.\n*   **Consulta de Retorno:** Informe que a clínica **NÃO** trabalha com consulta de retorno, **SOMENTE** se perguntado.\n*   **Falar com a Dra.:** Informe que o recado será passado.\n*   **Especialidade:** Responda sobre a clínica (Endocrinologia, etc.), não sobre você. \n\n## 6. Influência do `status_agendamento` nas Respostas\n*   **Verificação Contínua:** Antes de responder sobre consultas, procedimentos ou valores, verifique o `status_agendamento`.\n*   **Se `status_agendamento == \"em_andamento\"`:** NÃO pergunte \"Vamos agendar?\". Adapte a resposta para algo como: \"Continuamos com seu agendamento em andamento. Há mais alguma informação que gostaria de saber?\".\n*   **Se `status_agendamento == \"concluído\"`:** NÃO pergunte \"Vamos agendar?\". Adapte a resposta para algo como: \"Já estamos com seu agendamento encaminhado. Você receberá um retorno em breve para confirmar os detalhes. Qualquer dúvida, estou à disposição. Muito obrigada!\". Se perguntarem valor *após* o encaminhamento, forneça o valor correspondente ao `tipo_consulta` ou `procedimento_solicitado` (se aplicável, como Infusão de Ferro) e repita a frase de confirmação do encaminhamento.\n\n## 7. Condições Médicas e Especialidades\n*   **Menção a Condições Médicas:** Se o usuário mencionar uma condição médica (hipotiroidismo, diabetes, obesidade, etc.):\n    1. **NÃO** faça comentários óbvios sobre a especialidade (\"A especialidade que trata X é Y\").\n    2. **NÃO** explique ou dê detalhes sobre a condição médica.\n\n## 8. Verificação Final (OBRIGATÓRIA antes de enviar CADA resposta)\n1.  **Apresentação na Primeira Mensagem:** Se esta é a primeira interação da conversa, CONFIRME que a mensagem começa com \"Olá, sou Ana, da equipe da Dra. Cristiane 😊.\" Se não começar assim, ADICIONE esta apresentação no início.\n2.  **Apresentação em Mensagens Subsequentes:** Se NÃO é a primeira interação e a resposta contém \"sou Ana\" ou qualquer forma de apresentação, **REMOVA** a apresentação.\n3.  **Preços:** A resposta contém valor/preço? O usuário perguntou **explicitamente** por ele nesta interação ou na imediatamente anterior? Se não, **REMOVA** o preço. **Importante:** **NUNCA** informe os valores das duas modalidades juntos, a menos que o usuário pergunte comparativamente ou após já ter recebido um dos valores. (Exemplo: Qual diferença de valor? A consulta presencial tem valor de R$ 550,00 já a consulta online de R$ 700,00). Também NÃO ofereça informar o valor, informe apenas se o usuário solicitar.\n4.  **Nome:** A resposta pede o nome? O nome já consta no histórico? VERIFIQUE em <memory_reference>. Se sim, **REMOVA** o pedido de nome e use o nome existente se apropriado. \n5.  **Duplicação:** A resposta repete informações **idênticas** ou quase idênticas já presentes no histórico recente (ex: mesma explicação de consulta online, mesmo valor)? Se sim, **REMOVA** a parte repetida.\n6.  **Menção à Dra. Luiza:** A resposta menciona a Dra. Luiza? O usuário perguntou especificamente sobre ela ou por \"outros médicos\"? Se não, **REMOVA** qualquer menção à Dra. Luiza.\n\n## 9. Ferramentas e Sistema\n\n*   **Contexto:** Use `memory_reference` (histórico de conversas) e `rag_reference` (informação externa).\n*   **Prioridade:** Estas instruções **SEMPRE** prevalecem sobre informações do `rag_reference`.\n*   **Informação do Sistema:** Considere a data/hora atual.\n\n<system_instruction>\n  <memory_reference>{{ $('Core Input').item.json.body.mapping.parseJson().system.conversations_id }}</memory_reference>\n</system_instruction>\n\n<system_information>\n1. Data e hora atuais: {{ $now.format(\"EEE, MMM dd, yyyy, HH:mm\") }}\n</system_information>\n\n<retrieval_augmented_generation_result>\n{{ $json.body.rag_return }}\n</retrieval_augmented_generation_result>",
+          "passthroughBinaryImages": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        320,
+        48
+      ],
+      "id": "abafc92b-8f8d-411c-93b8-b5fc0c792184",
+      "name": "Main Agent",
+      "retryOnFail": false
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        688,
+        48
+      ],
+      "id": "937b21af-2b10-490a-ab62-e4397e9353e0",
+      "name": "No Operation 2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "nome do agente",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -96,
+        48
+      ],
+      "id": "dab262d5-de3c-4ada-8d2e-d5284ec6f306",
+      "name": "Core Input",
+      "webhookId": "8fa62fe7-ead5-42f7-833f-dd7c6eab0b13"
+    },
+    {
+      "parameters": {
+        "model": "={{ $json.body.mapping.parseJson().system.model }}",
+        "options": {
+          "temperature": 0.2,
+          "topP": 0.9
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        32,
+        480
+      ],
+      "id": "405bc1f4-ee00-40f6-b43a-a001399a1352",
+      "name": "OpenRouter",
+      "credentials": {
+        "openRouterApi": {
+          "id": "6a7OLAi8teUd9jSw",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "",
+        "height": 300,
+        "width": 1020,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        -64
+      ],
+      "id": "b2a4e890-57ce-4c44-b318-df20437e8221",
+      "name": "Sticky Note5"
+    },
+    {
+      "parameters": {
+        "content": "Fluxo Core, responsável pelo processamento da AI",
+        "height": 80,
+        "width": 260,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -96
+      ],
+      "id": "eadb59f4-f7fc-4f30-8248-1e5d25c9466c",
+      "name": "Sticky Note14"
+    },
+    {
+      "parameters": {
+        "name": "restart_history",
+        "description": "=Invoque essa tool para iniciar uma nova conversa para o user, assim ignorando o histórico passado. Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\n\n// Converte o mapeamento recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin; caso contrário, retorna erro\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n/**\n * Função que espera pelo tempo especificado.\n * @param {number} ms - Milissegundos a aguardar.\n * @returns {Promise<void>}\n */\nconst delay = ms => new Promise(resolve => setTimeout(resolve, ms));\n\n/**\n * Função para enviar a requisição para criar uma conversa no Directus.\n * Tenta até 3 vezes em caso de falha, com delay de 1 segundo entre as tentativas.\n * @returns {Promise<object>} - Objeto com sucesso ou erro.\n */\nasync function sendRequest() {\n  const url = `http://${mapping.system.directus_service}:8055/items/conversations`;\n  const data = {\n    user_id: mapping.chatwoot.contact_id,\n    date_created: new Date().toISOString()\n  };\n  const headers = {\n    Authorization: `Bearer ${mapping.system.directus_token}`,\n    'Content-Type': 'application/json'\n  };\n\n  let attempt = 0;\n  let lastError = null;\n\n  while (attempt < 3) {\n    try {\n      const response = await axios.post(url, data, { headers });\n      console.log(`Requisição realizada com sucesso na tentativa ${attempt + 1}.`);\n      return { success: true, data: response.data };\n    } catch (error) {\n      attempt++;\n      lastError = error;\n      console.error(`Tentativa ${attempt} falhou:`, error.response ? error.response.data : error.message);\n      if (attempt < 3) {\n        console.log(\"Aguardando 1 segundo antes da nova tentativa...\");\n        await delay(1000);\n      }\n    }\n  }\n  \n  return { success: false, error: lastError.response ? lastError.response.data : lastError.message };\n}\n\nreturn sendRequest().then(result => JSON.stringify(result));"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        304
+      ],
+      "id": "1d85bf0e-6cb3-4e9b-88b5-89da20a875fe",
+      "name": "Restart History"
+    },
+    {
+      "parameters": {
+        "name": "set_timer",
+        "description": "Invoque essa tool para configurar um timer que iniciará uma ação após o tempo especificado. Apenas usuários admin podem usar essa tool. O tempo deve ser informado com valor e unidade (s, m, h). Apenas quando o user solicitar.",
+        "jsCode": "const axios = require('axios');\nconst dayjs = require('dayjs');\nconst duration = require('dayjs/plugin/duration');\ndayjs.extend(duration);\n\n/**\n * Esta tool configura um timer via webhook.\n * Ela envia, para o endpoint, todo o objeto mapping (obtido em Core Input)\n * e o tempo em segundos calculado a partir dos parâmetros \"timer_value\" e \"timer_unit\".\n * Apenas usuários admin podem utilizar esta tool.\n */\n\n// Converte o mapping recebido em JSON\nconst mapping = JSON.parse($('Core Input').item.json.body.mapping);\n\n// Verifica se o usuário é admin\nif (mapping.system.user_type !== 'admin') {\n  return JSON.stringify({ success: false, error: \"Acesso negado: usuário não autorizado.\" });\n}\n\n// Obtém os parâmetros do timer a partir do input (query)\nconst timerValue = query.timer_value;  // Número (ex: 30)\nconst timerUnit = query.timer_unit;      // \"s\", \"m\" ou \"h\"\n\n// Calcula o tempo em segundos usando dayjs.duration\nconst timerSeconds = dayjs.duration(timerValue, timerUnit).asSeconds();\n\n// Prepara o payload para o webhook\nconst payload = {\n  mapping: mapping,\n  timer_seconds: timerSeconds\n};\n\n// URL do webhook substituindo 'n8n_webhook' pelo valor da variável no mapping\nconst url = `http://${mapping.system.n8n_webhook_service}:5678/webhook/timer`;\n\n/**\n * Função para enviar a requisição ao webhook.\n * Tenta enviar uma única vez e retorna o resultado.\n */\nasync function sendTimerRequest() {\n  try {\n    console.log(`Enviando requisição para configurar o timer para ${timerSeconds} segundos...`);\n    const response = await axios.post(url, payload, {\n      headers: { 'Content-Type': 'application/json' }\n    });\n    console.log(\"Timer configurado com sucesso.\");\n    return { success: true, message: `Timer configurado com sucesso. Ele será acionado em ${timerSeconds} segundos.` };\n  } catch (error) {\n    console.error(\"Erro ao configurar o timer:\", error.response ? error.response.data : error.message);\n    return { success: false, error: error.response ? error.response.data : error.message };\n  }\n}\n\nreturn sendTimerRequest().then(result => JSON.stringify(result));",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"timer_value\": {\n      \"type\": \"number\",\n      \"description\": \"Valor do timer. Exemplo: 30\"\n    },\n    \"timer_unit\": {\n      \"type\": \"string\",\n      \"description\": \"Unidade de tempo para o timer: 's' para segundos, 'm' para minutos, 'h' para horas.\",\n      \"enum\": [\"s\", \"m\", \"h\"]\n    }\n  },\n  \"required\": [\"timer_value\", \"timer_unit\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        448,
+        304
+      ],
+      "id": "68c8ffc5-d5a2-402f-bfc1-59a299a5bdfc",
+      "name": "Set Timer"
+    },
+    {
+      "parameters": {
+        "name": "GoogleCalendarManager",
+        "description": "=Complete tool for Google Calendar management with support for flexible time references. Create, update, delete, or query events using intuitive time specifications and offsets.",
+        "jsCode": "// =========================================================\n// CONFIGURAÇÕES CUSTOMIZÁVEIS\n// =========================================================\nconst CONFIG = {\n  maxAppointmentsPerEmail: -1,    // -1 para desativar, 1 para um agendamento por email\n  daysToCheck: 30,               // Período para verificar agendamentos\n  timezone: 'America/Sao_Paulo', // Fuso horário padrão\n  restrictByEmail: true,         // Se true, requer email para todas operações\n  defaultDuration: 60            // Duração padrão em minutos\n};\n\n// Obter credenciais do sistema\nconst inputMapping = $('Core Input').item.json.body.mapping;\nconst systemData = JSON.parse(inputMapping).system;\nconst credentials = {\n  accessToken: systemData.accessToken,\n  refreshToken: systemData.refreshToken,\n  clientId: systemData.clientId,\n  clientSecret: systemData.clientSecret,\n  directusToken: systemData.directus_token,\n  directusService: systemData.directus_service\n};\n\n// Input do usuário e array de logs\nconst inputData = query;\nconst logs = [];\n\n// Configuração do dayjs\nconst dayjs = require('dayjs');\nconst utc = require('dayjs/plugin/utc');\nconst timezone = require('dayjs/plugin/timezone');\nconst weekday = require('dayjs/plugin/weekday');\nconst isoWeek = require('dayjs/plugin/isoWeek');\nconst dayOfYear = require('dayjs/plugin/dayOfYear');\nconst quarterOfYear = require('dayjs/plugin/quarterOfYear');\nconst customParseFormat = require('dayjs/plugin/customParseFormat');\nconst isBetween = require('dayjs/plugin/isBetween');\n\n// Configurar plugins do dayjs\ndayjs.extend(utc);\ndayjs.extend(timezone);\ndayjs.extend(weekday);\ndayjs.extend(isoWeek);\ndayjs.extend(dayOfYear);\ndayjs.extend(quarterOfYear);\ndayjs.extend(customParseFormat);\ndayjs.extend(isBetween);\n\n// Configurar timezone\ndayjs.tz.setDefault(CONFIG.timezone);\n\n// =========================================================\n// FUNÇÕES AUXILIARES\n// =========================================================\n\n// Função para logging\nfunction log(message, data = null) {\n  const entry = {\n    timestamp: new Date().toISOString(),\n    message\n  };\n  \n  if (data) {\n    if (typeof data === 'string' && data.length > 200) {\n      entry.data = data.substring(0, 200) + '... (truncado)';\n    } else if (typeof data === 'object') {\n      const stringified = JSON.stringify(data);\n      entry.data = stringified.length > 200 \n        ? JSON.stringify(data).substring(0, 200) + '... (truncado)' \n        : data;\n    } else {\n      entry.data = data;\n    }\n  }\n  \n  logs.push(entry);\n}\n\n// Função para verificar se o email é obrigatório e foi fornecido\nfunction validateEmailRequirement() {\n  if (CONFIG.restrictByEmail && !inputData.attendee_email) {\n    throw new Error(\"Email obrigatório: Quando RESTRICT_OPERATIONS_BY_EMAIL está ativado, o campo 'attendee_email' é obrigatório\");\n  }\n}\n\n// Função para renovar o token\nasync function refreshGoogleToken() {\n  log('Renovando token do Google');\n  \n  try {\n    const axios = require('axios');\n    const qs = require('querystring');\n    \n    const response = await axios({\n      method: 'post',\n      url: 'https://oauth2.googleapis.com/token',\n      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },\n      data: qs.stringify({\n        client_id: credentials.clientId,\n        client_secret: credentials.clientSecret,\n        refresh_token: credentials.refreshToken,\n        grant_type: 'refresh_token'\n      })\n    });\n    \n    const newToken = response.data.access_token;\n    \n    // Atualizar token no Directus\n    await axios({\n      method: 'patch',\n      url: `http://${credentials.directusService}:8055/items/global_vars`,\n      headers: {\n        'Authorization': `Bearer ${credentials.directusToken}`,\n        'Content-Type': 'application/json'\n      },\n      data: { accessToken: newToken }\n    });\n    \n    log('Token renovado e atualizado com sucesso');\n    return newToken;\n  } catch (error) {\n    log('Erro ao renovar token', error.message);\n    throw error;\n  }\n}\n\n// Função para obter o ID do calendário\nfunction getCalendarId() {\n  return (!inputData.calendar_id || inputData.calendar_id === '') ? 'primary' : inputData.calendar_id;\n}\n\n// Função para executar operações com renovação automática de token\nasync function executeWithToken(operation) {\n  try {\n    validateEmailRequirement();\n    return await operation(credentials.accessToken);\n  } catch (error) {\n    // Se for erro de token expirado, renovar e tentar novamente\n    if (error.response && error.response.status === 401) {\n      log('Token expirado, renovando e tentando novamente');\n      const newToken = await refreshGoogleToken();\n      const result = await operation(newToken);\n      return {\n        ...result,\n        message: result.message + \" (após renovação do token)\"\n      };\n    }\n    \n    // Outros erros\n    const errorMsg = error.message || 'Erro desconhecido';\n    let errorType = \"general_error\";\n    \n    if (errorMsg.includes(\"Limite máximo\")) errorType = \"appointment_limit_exceeded\";\n    if (errorMsg.includes(\"Acesso negado\") || errorMsg.includes(\"Email obrigatório\")) errorType = \"access_denied\";\n    \n    throw { message: errorMsg, errorType };\n  }\n}\n\n// =========================================================\n// PROCESSAMENTO DE TEMPO RELATIVO\n// =========================================================\n\n// Função para verificar se é dia útil\nfunction isBusinessDay(date) {\n  const dayOfWeek = date.day();\n  return dayOfWeek !== 0 && dayOfWeek !== 6; // 0 = domingo, 6 = sábado\n}\n\n// Função para ajustar para o próximo dia útil\nfunction adjustToBusinessDay(date) {\n  if (isBusinessDay(date)) return date;\n  return date.day() === 6 ? date.add(2, 'day') : date.add(1, 'day');\n}\n\n// Função para calcular data/hora a partir de referências relativas\nfunction calculateDateTime() {\n  // Se horários exatos forem fornecidos, usá-los diretamente\n  if (inputData.exact_start_time) {\n    return {\n      startTime: dayjs(inputData.exact_start_time).tz(CONFIG.timezone),\n      endTime: inputData.exact_end_time \n        ? dayjs(inputData.exact_end_time).tz(CONFIG.timezone)\n        : dayjs(inputData.exact_start_time).tz(CONFIG.timezone).add(inputData.duration_minutes || CONFIG.defaultDuration, 'minute')\n    };\n  }\n\n  // Iniciar com a data/hora base\n  let baseDate = dayjs().tz(CONFIG.timezone);\n  \n  // Aplicar a referência temporal base\n  if (inputData.time_reference) {\n    switch (inputData.time_reference) {\n      case 'now': \n        // Já estamos usando now como base\n        break;\n      case 'today': \n        baseDate = baseDate.startOf('day');\n        break;\n      case 'this_week': \n        baseDate = baseDate.startOf('week');\n        break;\n      case 'this_month': \n        baseDate = baseDate.startOf('month');\n        break;\n      case 'this_quarter': \n        baseDate = baseDate.startOf('quarter');\n        break;\n      case 'this_year': \n        baseDate = baseDate.startOf('year');\n        break;\n    }\n  }\n  \n  // Aplicar deslocamento temporal (offset)\n  if (typeof inputData.offset_value === 'number' && inputData.offset_unit) {\n    baseDate = baseDate.add(inputData.offset_value, inputData.offset_unit);\n  }\n  \n  // Aplicar mês do ano, se especificado\n  if (typeof inputData.month_of_year === 'number') {\n    baseDate = baseDate.month(inputData.month_of_year - 1); // Meses em dayjs são 0-11\n  }\n  \n  // Aplicar trimestre do ano, se especificado\n  if (typeof inputData.quarter_of_year === 'number') {\n    const startMonth = (inputData.quarter_of_year - 1) * 3;\n    baseDate = baseDate.month(startMonth).startOf('month');\n  }\n  \n  // Aplicar dia do mês\n  if (typeof inputData.day_of_month === 'number') {\n    if (inputData.day_of_month === -1) {\n      baseDate = baseDate.endOf('month').startOf('day');\n    } else {\n      baseDate = baseDate.date(inputData.day_of_month);\n    }\n  }\n  \n  // Aplicar dia da semana e semana do mês\n  if (typeof inputData.day_of_week === 'number') {\n    if (typeof inputData.week_of_month === 'number') {\n      // Voltar para o início do mês atual\n      let monthStart = baseDate.startOf('month');\n      \n      if (inputData.week_of_month === -1) {\n        // Última semana do mês\n        let monthEnd = baseDate.endOf('month');\n        while (monthEnd.day() !== inputData.day_of_week) {\n          monthEnd = monthEnd.subtract(1, 'day');\n        }\n        baseDate = monthEnd;\n      } else {\n        // Encontrar o primeiro dia da semana especificado no mês\n        let firstOccurrence = monthStart.day(inputData.day_of_week);\n        \n        // Se estivermos no mês anterior, avançar uma semana\n        if (firstOccurrence.month() !== monthStart.month()) {\n          firstOccurrence = firstOccurrence.add(7, 'day');\n        }\n        \n        // Avançar para a semana específica\n        baseDate = firstOccurrence.add((inputData.week_of_month - 1) * 7, 'day');\n      }\n    } else {\n      // Somente dia da semana especificado, ir para o próximo\n      baseDate = baseDate.day(inputData.day_of_week);\n      \n      // Se já passou esta semana, avançar uma semana\n      if (baseDate.isBefore(dayjs().tz(CONFIG.timezone))) {\n        baseDate = baseDate.add(7, 'day');\n      }\n    }\n  }\n  \n  // Ajustar para dia útil se necessário\n  if (inputData.business_days_only === true) {\n    baseDate = adjustToBusinessDay(baseDate);\n  }\n  \n  // Aplicar hora e minuto\n  if (typeof inputData.hour_of_day === 'number') {\n    baseDate = baseDate.hour(inputData.hour_of_day).minute(typeof inputData.minute_of_hour === 'number' ? inputData.minute_of_hour : 0);\n  } else if (typeof inputData.minute_of_hour === 'number') {\n    baseDate = baseDate.minute(inputData.minute_of_hour);\n  }\n  \n  // Se nem hora nem minuto foram especificados, usar hora atual\n  if (typeof inputData.hour_of_day !== 'number' && typeof inputData.minute_of_hour !== 'number') {\n    const now = dayjs().tz(CONFIG.timezone);\n    baseDate = baseDate.hour(now.hour()).minute(now.minute());\n  }\n  \n  // Zerar segundos e milissegundos\n  baseDate = baseDate.second(0).millisecond(0);\n  \n  // Calcular hora de término (início + duração)\n  const duration = inputData.duration_minutes || CONFIG.defaultDuration;\n  const endDate = baseDate.add(duration, 'minute');\n  \n  log('Data/hora calculada', {\n    start: baseDate.format(),\n    end: endDate.format()\n  });\n  \n  return {\n    startTime: baseDate,\n    endTime: endDate\n  };\n}\n\n// =========================================================\n// FUNÇÕES DE API DO GOOGLE CALENDAR\n// =========================================================\n\n// Cliente HTTP reutilizável\nconst createClient = (token) => {\n  const axios = require('axios');\n  return {\n    get: (url, params = {}) => axios({\n      method: 'get',\n      url,\n      headers: { 'Authorization': `Bearer ${token}` },\n      params\n    }),\n    post: (url, data) => axios({\n      method: 'post',\n      url,\n      headers: {\n        'Authorization': `Bearer ${token}`,\n        'Content-Type': 'application/json'\n      },\n      data\n    }),\n    put: (url, data) => axios({\n      method: 'put',\n      url,\n      headers: {\n        'Authorization': `Bearer ${token}`,\n        'Content-Type': 'application/json'\n      },\n      data\n    }),\n    delete: (url) => axios({\n      method: 'delete',\n      url,\n      headers: { 'Authorization': `Bearer ${token}` }\n    })\n  };\n};\n\n// Verificar limite de agendamentos por email\nasync function checkAppointmentsForEmail(token, email, calendarId) {\n  if (CONFIG.maxAppointmentsPerEmail === -1) return 0;\n  \n  log(`Verificando agendamentos para ${email}`);\n  \n  try {\n    const client = createClient(token);\n    const now = new Date();\n    const pastDate = new Date(now);\n    pastDate.setDate(now.getDate() - CONFIG.daysToCheck);\n    \n    const response = await client.get(\n      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`,\n      {\n        timeMin: pastDate.toISOString(),\n        timeMax: new Date(now.getTime() + (365 * 24 * 60 * 60 * 1000)).toISOString(),\n        q: email,\n        singleEvents: true\n      }\n    );\n    \n    // Filtrar eventos onde o email é participante\n    const relevantEvents = response.data.items.filter(event => \n      event.attendees?.some(attendee => attendee.email.toLowerCase() === email.toLowerCase())\n    );\n    \n    log(`Encontrados ${relevantEvents.length} agendamentos para ${email}`);\n    return relevantEvents.length;\n  } catch (error) {\n    log('Erro ao verificar agendamentos', error.message);\n    return 0; // Em caso de erro, não bloqueamos\n  }\n}\n\n// Buscar eventos\nasync function findEvents(token, params) {\n  const { email, eventTitle, calendarId, timeMin, timeMax, maxResults } = params;\n  \n  log(`Buscando eventos ${eventTitle ? `com título \"${eventTitle}\" ` : ''}${email ? `para ${email}` : ''}`);\n  \n  try {\n    const client = createClient(token);\n    \n    // Preparar datas padrão se não fornecidas\n    const now = new Date();\n    const defaultPastDate = new Date(now);\n    defaultPastDate.setDate(now.getDate() - CONFIG.daysToCheck);\n    \n    const searchTimeMin = timeMin || defaultPastDate.toISOString();\n    const searchTimeMax = timeMax || new Date(now.getTime() + (365 * 24 * 60 * 60 * 1000)).toISOString();\n    \n    // Termo de busca\n    const queryParam = eventTitle && email ? `${email} ${eventTitle}` : \n                       email ? email : \n                       eventTitle ? eventTitle : '';\n    \n    const response = await client.get(\n      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`,\n      {\n        timeMin: searchTimeMin,\n        timeMax: searchTimeMax,\n        q: queryParam,\n        singleEvents: true,\n        maxResults: maxResults || 10\n      }\n    );\n    \n    let events = response.data.items || [];\n    \n    // Filtrar por email se necessário\n    if (CONFIG.restrictByEmail && email) {\n      events = events.filter(event => \n        event.attendees?.some(attendee => attendee.email.toLowerCase() === email.toLowerCase())\n      );\n    }\n    \n    // Filtrar por título se fornecido\n    if (eventTitle) {\n      events = events.filter(event => \n        event.summary && event.summary.toLowerCase().includes(eventTitle.toLowerCase())\n      );\n    }\n    \n    log(`Encontrados ${events.length} eventos`);\n    return events;\n  } catch (error) {\n    log('Erro ao buscar eventos', error.message);\n    throw error;\n  }\n}\n\n// Buscar evento por ID\nasync function getEventById(token, eventId, calendarId) {\n  log(`Buscando evento com ID: ${eventId}`);\n  \n  try {\n    const client = createClient(token);\n    const response = await client.get(\n      `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`\n    );\n    return response.data;\n  } catch (error) {\n    log('Erro ao buscar evento por ID', error.message);\n    throw error;\n  }\n}\n\n// Verificar acesso ao evento\nasync function verifyEventAccess(token, eventId, email, calendarId) {\n  if (!CONFIG.restrictByEmail || !email) return true;\n  \n  const event = await getEventById(token, eventId, calendarId);\n  \n  const isAttendee = event.attendees?.some(attendee => \n    attendee.email.toLowerCase() === email.toLowerCase()\n  );\n  \n  if (!isAttendee) {\n    throw new Error(`Acesso negado: ${email} não é um participante deste evento`);\n  }\n  \n  return true;\n}\n\n// =========================================================\n// OPERAÇÕES DO CALENDÁRIO\n// =========================================================\n\n// Criar evento\nasync function createEvent(token) {\n  const calendarId = getCalendarId();\n  const { title, description, attendee_email } = inputData;\n  \n  if (!title) {\n    throw new Error(\"Para criar um evento, forneça um título\");\n  }\n  \n  // Calcular horários\n  const { startTime, endTime } = calculateDateTime();\n  \n  // Verificar limite de agendamentos\n  if (CONFIG.maxAppointmentsPerEmail > 0 && attendee_email) {\n    const count = await checkAppointmentsForEmail(token, attendee_email, calendarId);\n    if (count >= CONFIG.maxAppointmentsPerEmail) {\n      throw new Error(`Limite máximo de ${CONFIG.maxAppointmentsPerEmail} agendamento(s) por email excedido.`);\n    }\n  }\n  \n  // Preparar evento\n  const event = {\n    summary: title,\n    description: description || '',\n    start: {\n      dateTime: startTime.toISOString(),\n      timeZone: CONFIG.timezone\n    },\n    end: {\n      dateTime: endTime.toISOString(),\n      timeZone: CONFIG.timezone\n    }\n  };\n  \n  // Adicionar participante\n  if (attendee_email) {\n    event.attendees = [{\n      email: attendee_email,\n      responseStatus: 'needsAction'\n    }];\n  }\n  \n  // Criar evento\n  log('Criando evento', { title, calendarId });\n  const client = createClient(token);\n  \n  const response = await client.post(\n    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`,\n    event\n  );\n  \n  return {\n    success: true,\n    message: \"Evento criado com sucesso\",\n    eventId: response.data.id,\n    eventLink: response.data.htmlLink,\n    startTime: startTime.format(),\n    endTime: endTime.format()\n  };\n}\n\n// Atualizar evento\nasync function updateEvent(token) {\n  const calendarId = getCalendarId();\n  const { event_id, event_title, attendee_email, title, description } = inputData;\n  \n  // Validar dados\n  if (!event_id && !event_title && !attendee_email) {\n    throw new Error(\"Para atualizar um evento, forneça identificação (ID ou título) e email\");\n  }\n  \n  if (!title && !description && !inputData.exact_start_time && !inputData.exact_end_time && \n      !inputData.time_reference && !inputData.day_of_week && !inputData.offset_value) {\n    throw new Error(\"Para atualizar um evento, forneça pelo menos um campo para atualizar\");\n  }\n  \n  // Encontrar o evento\n  let eventId = event_id;\n  \n  if (!eventId) {\n    const events = await findEvents(token, {\n      email: attendee_email,\n      eventTitle: event_title,\n      calendarId\n    });\n    \n    if (events.length === 0) {\n      throw new Error(\"Nenhum evento encontrado com os critérios fornecidos\");\n    }\n    \n    eventId = events[0].id;\n    log(`Usando evento encontrado: ${eventId}`);\n  }\n  \n  // Verificar acesso\n  await verifyEventAccess(token, eventId, attendee_email, calendarId);\n  \n  // Buscar dados atuais\n  const existingEvent = await getEventById(token, eventId, calendarId);\n  \n  // Calcular novos horários se necessário\n  let startDateTime = dayjs(existingEvent.start.dateTime || existingEvent.start.date).tz(CONFIG.timezone);\n  let endDateTime = dayjs(existingEvent.end.dateTime || existingEvent.end.date).tz(CONFIG.timezone);\n  \n  // Se temos parâmetros de tempo, recalcular\n  if (inputData.exact_start_time || inputData.time_reference || inputData.offset_value || \n      inputData.day_of_week || inputData.hour_of_day) {\n    const { startTime, endTime } = calculateDateTime();\n    startDateTime = startTime;\n    endDateTime = endTime;\n  }\n  \n  // Preparar atualizações\n  const updatedEvent = {\n    ...existingEvent,\n    summary: title || existingEvent.summary,\n    description: description !== undefined ? description : existingEvent.description,\n    start: {\n      dateTime: startDateTime.toISOString(),\n      timeZone: CONFIG.timezone\n    },\n    end: {\n      dateTime: endDateTime.toISOString(),\n      timeZone: CONFIG.timezone\n    }\n  };\n  \n  // Adicionar novo participante\n  if (attendee_email && !existingEvent.attendees?.some(a => a.email.toLowerCase() === attendee_email.toLowerCase())) {\n    updatedEvent.attendees = [\n      ...(existingEvent.attendees || []),\n      { email: attendee_email, responseStatus: 'needsAction' }\n    ];\n  }\n  \n  // Atualizar evento\n  log('Atualizando evento', { eventId });\n  const client = createClient(token);\n  \n  const response = await client.put(\n    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`,\n    updatedEvent\n  );\n  \n  return {\n    success: true,\n    message: \"Evento atualizado com sucesso\",\n    eventId: response.data.id,\n    eventLink: response.data.htmlLink,\n    startTime: startDateTime.format(),\n    endTime: endDateTime.format()\n  };\n}\n\n// Deletar evento\nasync function deleteEvent(token) {\n  const calendarId = getCalendarId();\n  const { event_id, event_title, attendee_email } = inputData;\n  \n  if (!event_id && !event_title && !attendee_email) {\n    throw new Error(\"Para deletar um evento, forneça o ID do evento ou critérios de busca (título e/ou email)\");\n  }\n  \n  // Encontrar o evento\n  let eventId = event_id;\n  let eventSummary;\n  \n  if (!eventId) {\n    const events = await findEvents(token, {\n      email: attendee_email,\n      eventTitle: event_title,\n      calendarId\n    });\n    \n    if (events.length === 0) {\n      throw new Error(\"Nenhum evento encontrado com os critérios fornecidos\");\n    }\n    \n    eventId = events[0].id;\n    eventSummary = events[0].summary;\n  } else {\n    // Verificar acesso por ID\n    const event = await getEventById(token, eventId, calendarId);\n    eventSummary = event.summary;\n    await verifyEventAccess(token, eventId, attendee_email, calendarId);\n  }\n  \n  // Deletar evento\n  log(`Deletando evento: ${eventId}`);\n  const client = createClient(token);\n  \n  await client.delete(\n    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events/${encodeURIComponent(eventId)}`\n  );\n  \n  return {\n    success: true,\n    message: \"Evento deletado com sucesso\",\n    eventId,\n    eventSummary\n  };\n}\n\n// Consultar eventos\nasync function queryEvents(token) {\n  const calendarId = getCalendarId();\n  const { attendee_email, event_title, time_min, time_max, max_results } = inputData;\n  \n  // Buscar eventos\n  const events = await findEvents(token, {\n    email: attendee_email,\n    eventTitle: event_title,\n    calendarId,\n    timeMin: time_min,\n    timeMax: time_max,\n    maxResults: max_results\n  });\n  \n  // Simplificar eventos para o retorno\n  const simplifiedEvents = events.map(event => ({\n    id: event.id,\n    title: event.summary,\n    description: event.description,\n    start_time: event.start?.dateTime || event.start?.date,\n    end_time: event.end?.dateTime || event.end?.date,\n    attendees: event.attendees?.map(att => att.email) || [],\n    htmlLink: event.htmlLink\n  }));\n  \n  return {\n    success: true,\n    message: `${events.length} evento(s) encontrado(s)`,\n    count: events.length,\n    events: simplifiedEvents\n  };\n}\n\n// =========================================================\n// EXECUÇÃO PRINCIPAL\n// =========================================================\n\nasync function execute() {\n  try {\n    // Verificar operação válida\n    const operations = {\n      'create': createEvent,\n      'update': updateEvent,\n      'delete': deleteEvent,\n      'query': queryEvents\n    };\n    \n    if (!inputData.operation || !operations[inputData.operation]) {\n      throw new Error(\"Operação inválida. Use 'create', 'update', 'delete' ou 'query'\");\n    }\n    \n    // Executar com tratamento de token\n    const result = await executeWithToken(operations[inputData.operation]);\n    \n    return JSON.stringify({\n      ...result,\n      logs\n    });\n  } catch (error) {\n    return JSON.stringify({\n      success: false,\n      message: error.message || \"Erro desconhecido\",\n      errorType: error.errorType || \"general_error\",\n      logs\n    });\n  }\n}\n\n// Iniciar execução\nreturn execute();",
+        "specifyInputSchema": true,
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"properties\": {\n    \"operation\": {\n      \"type\": \"string\",\n      \"enum\": [\"create\", \"update\", \"delete\", \"query\"],\n      \"description\": \"Operação a ser realizada: criar, atualizar, deletar ou consultar eventos\"\n    },\n    \"title\": {\n      \"type\": \"string\",\n      \"description\": \"Título do evento (obrigatório para criação e atualização)\"\n    },\n    \"description\": {\n      \"type\": \"string\",\n      \"description\": \"Descrição do evento (opcional)\"\n    },\n    \"calendar_id\": {\n      \"type\": \"string\",\n      \"description\": \"ID do calendário (opcional, usa o calendário primário por padrão)\"\n    },\n    \"attendee_email\": {\n      \"type\": \"string\",\n      \"description\": \"Email do participante/cliente (obrigatório se RESTRICT_OPERATIONS_BY_EMAIL=true)\"\n    },\n    \"event_id\": {\n      \"type\": \"string\",\n      \"description\": \"ID do evento (para atualização/deleção)\"\n    },\n    \"event_title\": {\n      \"type\": \"string\",\n      \"description\": \"Título do evento a ser encontrado (para deleção/atualização)\"\n    },\n    \"exact_start_time\": {\n      \"type\": \"string\",\n      \"description\": \"Horário exato de início no formato ISO (alternativa aos parâmetros relativos)\"\n    },\n    \"exact_end_time\": {\n      \"type\": \"string\",\n      \"description\": \"Horário exato de término no formato ISO (alternativa aos parâmetros relativos)\"\n    },\n    \"time_reference\": {\n      \"type\": \"string\",\n      \"enum\": [\"now\", \"today\", \"this_week\", \"this_month\", \"this_quarter\", \"this_year\"],\n      \"description\": \"Ponto de referência temporal base\"\n    },\n    \"offset_value\": {\n      \"type\": \"integer\",\n      \"description\": \"Deslocamento temporal (positivo=futuro, negativo=passado)\"\n    },\n    \"offset_unit\": {\n      \"type\": \"string\",\n      \"enum\": [\"minute\", \"hour\", \"day\", \"week\", \"month\", \"quarter\", \"year\"],\n      \"description\": \"Unidade do deslocamento temporal\"\n    },\n    \"day_of_week\": {\n      \"type\": \"integer\",\n      \"enum\": [0, 1, 2, 3, 4, 5, 6],\n      \"description\": \"Dia da semana (0=domingo, 1=segunda, ..., 6=sábado)\"\n    },\n    \"week_of_month\": {\n      \"type\": \"integer\",\n      \"enum\": [1, 2, 3, 4, 5, -1],\n      \"description\": \"Semana do mês (1=primeira, 2=segunda, ..., -1=última)\"\n    },\n    \"day_of_month\": {\n      \"type\": \"integer\",\n      \"minimum\": -1,\n      \"maximum\": 31,\n      \"description\": \"Dia específico do mês (1-31, ou -1 para último dia)\"\n    },\n    \"month_of_year\": {\n      \"type\": \"integer\",\n      \"enum\": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],\n      \"description\": \"Mês do ano (1-12)\"\n    },\n    \"quarter_of_year\": {\n      \"type\": \"integer\",\n      \"enum\": [1, 2, 3, 4],\n      \"description\": \"Trimestre do ano (1-4)\"\n    },\n    \"business_days_only\": {\n      \"type\": \"boolean\",\n      \"description\": \"Se verdadeiro, ajusta para o próximo dia útil se cair em fim de semana\"\n    },\n    \"hour_of_day\": {\n      \"type\": \"integer\",\n      \"minimum\": 0,\n      \"maximum\": 23,\n      \"description\": \"Hora do dia (0-23)\"\n    },\n    \"minute_of_hour\": {\n      \"type\": \"integer\",\n      \"minimum\": 0,\n      \"maximum\": 59,\n      \"description\": \"Minuto da hora (0-59)\"\n    },\n    \"duration_minutes\": {\n      \"type\": \"integer\",\n      \"minimum\": 1,\n      \"description\": \"Duração do evento em minutos (para calcular automaticamente o horário de término)\"\n    },\n    \"time_min\": {\n      \"type\": \"string\",\n      \"description\": \"Data mínima para consulta (ISO)\"\n    },\n    \"time_max\": {\n      \"type\": \"string\",\n      \"description\": \"Data máxima para consulta (ISO)\"\n    },\n    \"max_results\": {\n      \"type\": \"number\",\n      \"description\": \"Número máximo de resultados na consulta\"\n    }\n  },\n  \"required\": [\"operation\"]\n}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        304
+      ],
+      "id": "9d11a941-651c-4a90-90fe-420ad9abd47a",
+      "name": "GoogleCalendarManager"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1"
+        },
+        "options": {
+          "temperature": 0.4,
+          "topP": 0.8
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        304
+      ],
+      "id": "6c675ca6-94c6-41e6-8879-02ee11027bf3",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "M1iyy6bYZ8SwaoAS",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ],
+      "id": "d423af6e-9ae5-462e-a03b-332da89e01d8",
+      "name": "Think"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obtém todos os itens de entrada\nconst items = $input.all();\n\n// Filtra os itens, mantendo apenas aqueles cujo campo body.content não contém apenas emojis\nconst filteredItems = items.filter(item => {\n  // Acessa o campo content dentro de body\n  const content = item.json.body && item.json.body.content ? item.json.body.content : '';\n  \n  // Se o conteúdo estiver vazio, bloquear\n  if (!content) {\n    return false;\n  }\n  \n  // Regex expandida para detectar emojis, incluindo corações, estrelas e outros símbolos\n  const emojiRegex = /[\\u{1F000}-\\u{1FFFF}\\u{2600}-\\u{26FF}\\u{2700}-\\u{27BF}\\u{FE00}-\\u{FE0F}\\u{2B50}]/u;\n  \n  // Remove emojis do conteúdo\n  const textWithoutEmojis = content.replace(emojiRegex, '');\n  \n  // Remove espaços, pontuação e outros caracteres não alfanuméricos\n  const cleanText = textWithoutEmojis.replace(/[^\\w]/g, '').trim();\n  \n  // Retorna true (mantém o item) se houver texto além de emojis ou se não houver emojis\n  return cleanText.length > 0 || !emojiRegex.test(content);\n});\n\n// Retorna os itens filtrados\nreturn filteredItems;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        128,
+        48
+      ],
+      "id": "6eadcc12-aad3-4065-9e22-cdbd9f2ca1e7",
+      "name": "Code - Filtra Emoji"
+    }
+  ],
+  "connections": {
+    "Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Main Agent": {
+      "main": [
+        [
+          {
+            "node": "No Operation 2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Core Input": {
+      "main": [
+        [
+          {
+            "node": "Code - Filtra Emoji",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Restart History": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Timer": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GoogleCalendarManager": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code - Filtra Emoji": {
+      "main": [
+        [
+          {
+            "node": "Main Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "9dc2b745-6da4-4632-a801-3698396d771c",
+  "triggerCount": 1,
+  "tags": []
+}
