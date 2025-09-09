@@ -1,0 +1,41 @@
+
+version: "3.7"
+
+services:
+  qdrant3f1b88b:
+    image: qdrant/qdrant:latest
+    volumes:
+      - qdrant3f1b88b-data:/qdrant/storage
+    networks:
+      - interna
+      - externa
+    environment:
+      - QDRANT__SERVICE__HTTP_PORT=6333
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__CLUSTER__ENABLED=false  # Desative se não precisar de cluster
+      - QDRANT_API_KEY=gCrjaY7VbR9MJh49
+    deploy:
+      labels:
+        - traefik.enable=true
+        # Roteamento HTTP
+        - traefik.http.routers.qdrant3f1b88b.rule=Host(`qdrdomuss.domussimob.com.br`)
+        - traefik.http.routers.qdrant3f1b88b.entrypoints=websecure
+        - traefik.http.routers.qdrant3f1b88b.tls=true
+        - traefik.http.routers.qdrant3f1b88b.tls.certresolver=letsencryptresolver
+        - traefik.http.services.qdrant3f1b88b.loadbalancer.server.port=6333
+        # Autenticação Básica (Opcional)
+        - traefik.http.middlewares.qdrant3f1b88b-auth.basicauth.users=domuss:$$apr1$$dxN5AwBS$$LJy635a1L8QYrE/4wb.ST/
+        - traefik.http.routers.qdrant3f1b88b.middlewares=qdrant3f1b88b-auth@docker
+
+
+volumes:
+  qdrant3f1b88b-data:
+
+
+networks:
+  externa: 
+    external: true
+  interna: 
+    external: true
+
+
