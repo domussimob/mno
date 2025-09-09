@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T13:28:56.188Z",
-  "updatedAt": "2025-09-09T19:34:19.060Z",
+  "updatedAt": "2025-09-09T19:52:58.048Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
   "active": true,
@@ -24,15 +24,6 @@
                 "type": "string",
                 "operation": "equals",
                 "name": "filter.operator.equals"
-              }
-            },
-            {
-              "id": "e7c5046d-44f3-4090-9774-c78a75f4c459",
-              "leftValue": "={{ $json.body.meta.assignee.type }}",
-              "rightValue": "user",
-              "operator": {
-                "type": "string",
-                "operation": "notEquals"
               }
             }
           ],
@@ -738,7 +729,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "ae334c38-c97a-4453-a921-2e1578b0cab5",
+  "versionId": "49ce4cdc-79cf-4d59-aade-fa7f4be00e15",
   "triggerCount": 1,
   "tags": []
 }
