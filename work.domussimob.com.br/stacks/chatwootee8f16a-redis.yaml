@@ -1,0 +1,37 @@
+
+version: "3.7"
+
+services:
+  chatwootee8f16a-redis:
+    image: redis:latest
+    command: [
+        "redis-server",
+        "--appendonly",
+        "yes",
+        "--port",
+        "6379"
+      ]
+    volumes:
+      - chatwootee8f16a-redis-data:/data
+    networks: 
+      - interna
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+     # resources:
+      #  limits:
+        #  cpus: "0.5"
+        #  memory: 1024M
+
+volumes:
+  chatwootee8f16a-redis-data:
+    external: true
+    name: chatwootee8f16a-redis-data
+
+
+networks: 
+  interna: 
+    external: true
+
+
