@@ -1,0 +1,697 @@
+{
+  "createdAt": "2025-09-05T12:51:30.706Z",
+  "updatedAt": "2025-09-05T13:41:28.227Z",
+  "id": "0yGX0y2kBx6r999F",
+  "name": "Rodizio Chatwoot",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contador",
+              "value": "={{ $json.contador }}"
+            },
+            {
+              "name": "total_agentes",
+              "value": "={{ $json.total_agentes }}"
+            },
+            {
+              "name": "account_id",
+              "value": "={{ $('Info Base').item.json[\"account_id\"] }}"
+            },
+            {
+              "name": "conversation_id",
+              "value": "={{ $('Webhook').item.json.body.messages[0].conversation_id }}\n"
+            },
+            {
+              "name": "lead_rodizio",
+              "value": "={{ $json.contador }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "234df4c2-8e3b-4c78-8af5-02f9fc2e2e21",
+      "name": "Variaveis_Globais",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.messages[0].conversation.assignee_id }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "id": "1e465f27-160c-46ce-8926-122bd7bcf441",
+      "name": "conversa_Nao_atribuida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -2224,
+        336
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "9683df25-d524-497a-ae5b-7e7452184e70",
+      "name": "No Op1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "chatwoot_url",
+              "stringValue": "https://atendimento.domussimob.com.br"
+            },
+            {
+              "name": "conversation_id",
+              "stringValue": "={{ $json.body.id }}\n"
+            },
+            {
+              "name": "chatwoot_token",
+              "stringValue": "v5KbHpAurkE5q1okNXWyVYTh"
+            },
+            {
+              "name": "account_id",
+              "type": "numberValue",
+              "numberValue": "={{ $json.body.messages[0].account_id }}"
+            },
+            {
+              "name": "payload",
+              "type": "arrayValue",
+              "arrayValue": "={{ $json.body.labels }}"
+            }
+          ]
+        },
+        "include": "none",
+        "options": {}
+      },
+      "id": "b1c9118b-f80b-472d-9daf-e59531128219",
+      "name": "Info Base",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        -2896,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}\n\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "54b99f3a-111e-4fc3-aa8a-505f7e6db602",
+      "name": "Verifica_Coversa15",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2400,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}/assignments",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "assignee_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "97d204ac-b451-4413-8182-79d5e566dff9",
+      "name": "Atribui_Agente",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -720,
+        544
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.contadoratual }}",
+              "operation": "larger",
+              "value2": "={{ $('Variaveis_Globais').item.json[\"total_agentes\"] }}"
+            }
+          ]
+        }
+      },
+      "id": "427d2530-5781-4957-9097-4a36a94c6829",
+      "name": "ChecaContadorFim3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contador_final",
+              "value": 1
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1621f553-4418-4f79-a440-0f43fdd50298",
+      "name": "VoltaContadorPara3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contador_final",
+              "value": "={{ $json.contadoratual }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5857949-b145-4f34-968d-fb239812a2c9",
+      "name": "Mantem_Contador3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        224
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "fa64c4f8-a6bc-4639-92d1-201f1769536b",
+      "name": "contador_final3",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contadoratual",
+              "value": "={{ $('Variaveis_Globais').item.json[\"contador\"] + 1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d752aaa6-85cc-40c1-bb97-f65aa376c057",
+      "name": "incrementa1noContador3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}/labels\n\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ $json.payload }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "57a3e535-c03e-4322-9a86-b9541b30928c",
+      "name": "Etiq_Coversa",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1808,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rodizio_chatwoot_atendimento",
+        "options": {}
+      },
+      "id": "497c08ce-c344-4000-ad6f-d04adcb13902",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -3520,
+        400
+      ],
+      "webhookId": "63e8070a-4f96-4436-86bb-c67bb0022ab0"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contador",
+          "mode": "list",
+          "cachedResultName": "contador"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1616,
+        384
+      ],
+      "id": "d4941e10-babc-4cd0-a61d-82745aecbcc5",
+      "name": "Postgres Busca Contador",
+      "credentials": {
+        "postgres": {
+          "id": "gaNrIGNWZQbW9GSr",
+          "name": "Postgres chatwootee8f16a-rodizio"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contador",
+          "mode": "list",
+          "cachedResultName": "contador"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "contador": "={{ $json.contador_final }}",
+            "total_agentes": "={{ $('Postgres Busca Contador').item.json.total_agentes }}"
+          },
+          "matchingColumns": [
+            "total_agentes"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "contador",
+              "displayName": "contador",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_agentes",
+              "displayName": "total_agentes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -112,
+        16
+      ],
+      "id": "5a586d9e-0a83-469c-919b-8866c5563a4c",
+      "name": "Postgres Atualiza Contador2",
+      "credentials": {
+        "postgres": {
+          "id": "gaNrIGNWZQbW9GSr",
+          "name": "Postgres chatwootee8f16a-rodizio"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "agentes",
+          "mode": "list",
+          "cachedResultName": "agentes"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "ordem",
+              "value": "={{ $json.contador }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1104,
+        464
+      ],
+      "id": "6824edd5-c7e7-42d6-94fd-c2fbf5b7c5f1",
+      "name": "Postgres Busca_proximo_agente",
+      "credentials": {
+        "postgres": {
+          "id": "gaNrIGNWZQbW9GSr",
+          "name": "Postgres chatwootee8f16a-rodizio"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -3216,
+        400
+      ],
+      "id": "8960512e-e77f-4a30-b6f4-c9cc43e7aecb",
+      "name": "delay de 5 segundos",
+      "webhookId": "740bdce4-1eff-42dc-abfa-5fbb8c682b4a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a934192a-8f22-46f7-b6c9-fd06a7d0caa0",
+              "name": "payload",
+              "value": "={{ [...$('Info Base').item.json.payload, \"em-fila\"] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2016,
+        240
+      ],
+      "id": "28b64812-e22e-4c9e-810d-6347e5fe418a",
+      "name": "adiciona tag em-fila"
+    }
+  ],
+  "connections": {
+    "Variaveis_Globais": {
+      "main": [
+        [
+          {
+            "node": "incrementa1noContador3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Postgres Busca_proximo_agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "conversa_Nao_atribuida?": {
+      "main": [
+        [
+          {
+            "node": "adiciona tag em-fila",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Op1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Info Base": {
+      "main": [
+        [
+          {
+            "node": "Verifica_Coversa15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verifica_Coversa15": {
+      "main": [
+        [
+          {
+            "node": "conversa_Nao_atribuida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atribui_Agente": {
+      "main": [
+        []
+      ]
+    },
+    "ChecaContadorFim3": {
+      "main": [
+        [
+          {
+            "node": "VoltaContadorPara3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mantem_Contador3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VoltaContadorPara3": {
+      "main": [
+        [
+          {
+            "node": "contador_final3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mantem_Contador3": {
+      "main": [
+        [
+          {
+            "node": "contador_final3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "contador_final3": {
+      "main": [
+        [
+          {
+            "node": "Postgres Atualiza Contador2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "incrementa1noContador3": {
+      "main": [
+        [
+          {
+            "node": "ChecaContadorFim3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Etiq_Coversa": {
+      "main": [
+        [
+          {
+            "node": "Postgres Busca Contador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "delay de 5 segundos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Busca Contador": {
+      "main": [
+        [
+          {
+            "node": "Variaveis_Globais",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Busca_proximo_agente": {
+      "main": [
+        [
+          {
+            "node": "Atribui_Agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "delay de 5 segundos": {
+      "main": [
+        [
+          {
+            "node": "Info Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adiciona tag em-fila": {
+      "main": [
+        [
+          {
+            "node": "Etiq_Coversa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "f94fe43a-11f3-4eb8-b5ce-fcd6562b8eea",
+  "triggerCount": 1,
+  "tags": []
+}
