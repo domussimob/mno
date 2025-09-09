@@ -1,0 +1,75 @@
+
+version: "3.7"
+services:
+
+
+  stirlingpdf5ff88e8:
+    image: frooodle/s-pdf:latest ## Versão da aplicação
+
+    volumes:
+      - stirlingpdf5ff88e8-data:/usr/share/tessdata
+      - stirlingpdf5ff88e8-config:/configs
+      - stirlingpdf5ff88e8-logs:/logs
+    
+    networks:
+      - interna
+      - externa
+
+    environment:
+      ## Liberar cadastros
+      - SECURITY_ENABLELOGIN=true #Habilita o login via configurações internas
+      - SECURITY_INITIALLOGIN_USERNAME=domuss # Define o usuário inicial
+      - SECURITY_INITIALLOGIN_PASSWORD=gCrjaY7VbR9MJh49 # Define a senha inicial
+
+      ## Branding
+      - UI_APPNAME=DOMUSSPDF
+      - UI_APPNAMENAVBAR=DOMUSSPDF
+      - UI_HOMEDESCRIPTION=Meu app de PDF
+
+      ## Configurações
+      - DOCKER_ENABLE_SECURITY=true
+      - SYSTEM_MAXFILESIZE=100
+      - LANGS=en_GB,en_US,ar_AR,de_DE,fr_FR,es_ES,zh_CN,zh_TW,ca_CA,it_IT,sv_SE,pl_PL,ro_RO,ko_KR,pt_BR,ru_RU,el_GR,hi_IN,hu_HU,tr_TR,id_ID
+      - SYSTEM_DEFAULTLOCALE=BR
+      - METRICS_ENABLED=true
+      - SYSTEM_GOOGLEVISIBILITY=false
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "1"
+          memory: 1024M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.stirlingpdf5ff88e8.rule=Host(`str.domussimob.com.br`) ## Url da aplicação
+        - traefik.http.services.stirlingpdf5ff88e8.loadbalancer.server.port=8080
+        - traefik.http.routers.stirlingpdf5ff88e8.service=stirlingpdf5ff88e8
+        - traefik.http.routers.stirlingpdf5ff88e8.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.stirlingpdf5ff88e8.entrypoints=websecure
+        - traefik.http.routers.stirlingpdf5ff88e8.tls=true
+
+
+volumes:
+  stirlingpdf5ff88e8-data:
+    external: true
+    name: stirlingpdf5ff88e8-data
+  stirlingpdf5ff88e8-config:
+    external: true
+    name: stirlingpdf5ff88e8-config
+  stirlingpdf5ff88e8-logs:
+    external: true
+    name: stirlingpdf5ff88e8-logs
+
+networks:
+  externa:
+    name: externa
+    external: true
+  interna:
+    name: interna
+    external: true
+
