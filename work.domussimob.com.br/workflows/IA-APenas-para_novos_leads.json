@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T13:28:56.188Z",
-  "updatedAt": "2025-09-09T18:13:09.417Z",
+  "updatedAt": "2025-09-09T19:34:19.060Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
   "active": true,
@@ -27,17 +27,16 @@
               }
             },
             {
-              "id": "0d2a412d-3658-49f4-a087-ffb49e1d5af6",
-              "leftValue": "={{ $('nova mensagem').item.json.body.meta.sender.type }}",
-              "rightValue": "contact",
+              "id": "e7c5046d-44f3-4090-9774-c78a75f4c459",
+              "leftValue": "={{ $json.body.meta.assignee.type }}",
+              "rightValue": "user",
               "operator": {
                 "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
+                "operation": "notEquals"
               }
             }
           ],
-          "combinator": "or"
+          "combinator": "and"
         },
         "options": {}
       },
@@ -739,7 +738,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "cdf6bbd9-2e40-4cde-8e6a-9ab5f21a9c9a",
+  "versionId": "ae334c38-c97a-4453-a921-2e1578b0cab5",
   "triggerCount": 1,
   "tags": []
 }
