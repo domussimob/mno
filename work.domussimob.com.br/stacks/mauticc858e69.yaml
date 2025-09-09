@@ -1,0 +1,177 @@
+
+version: "3.7"
+services:
+
+
+  mautic_webc858e69:
+    image: mautic/mautic:6.0.3-20250707-apache
+
+    volumes:
+      - mauticc858e69-config:/var/www/html/config
+      - mauticc858e69-docroot:/var/www/html/docroot
+      - mauticc858e69-media:/var/www/html/docroot/media
+      - mauticc858e69-logs:/var/www/html/var/logs
+      - mauticc858e69-cron:/opt/mautic/cron
+
+    networks: 
+      - externa
+      - interna
+
+    environment:
+      ## Dados MySQL
+      - MAUTIC_DB_NAME=mauticc858e69
+      - MAUTIC_DB_HOST=mysql
+      - MAUTIC_DB_PORT=3306
+      - MAUTIC_DB_USER=root
+      - MAUTIC_DB_PASSWORD=1e46ea0d3bf4ad47
+      
+      ## Dados de acesso
+      - MAUTIC_ADMIN_EMAIL=
+      - MAUTIC_ADMIN_USERNAME=
+      - MAUTIC_ADMIN_PASSWORD=
+      - MAUTIC_URL=https://mkt.domussimob.com.br
+
+      ## Configurações
+      - MAUTIC_TRUSTED_PROXIES=["0.0.0.0/0"]
+      - DOCKER_MAUTIC_ROLE=mautic_web
+      - DOCKER_MAUTIC_WORKERS_CONSUME_EMAIL=2
+      - DOCKER_MAUTIC_WORKERS_CONSUME_HIT=2
+      - DOCKER_MAUTIC_WORKERS_CONSUME_FAILED=2
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.mauticc858e69.rule=Host(`mkt.domussimob.com.br`) # substitua SeuDominio.com.br pelo seu domínio
+        - traefik.http.services.mauticc858e69.loadbalancer.server.port=80
+        - traefik.http.routers.mauticc858e69.entrypoints=websecure
+        - traefik.http.routers.mauticc858e69.service=mauticc858e69
+        - traefik.http.routers.mauticc858e69.tls.certresolver=letsencryptresolver
+        - traefik.http.services.mauticc858e69.loadbalancer.passHostHeader=true
+
+  mautic_workerc858e69:
+    image: mautic/mautic:6.0.3-20250707-apache
+
+    volumes:
+      - mauticc858e69-config:/var/www/html/config
+      - mauticc858e69-docroot:/var/www/html/docroot
+      - mauticc858e69-media:/var/www/html/docroot/media
+      - mauticc858e69-logs:/var/www/html/var/logs
+      - mauticc858e69-cron:/opt/mautic/cron
+
+    networks: 
+      - externa
+      - interna
+
+    environment:
+      ## Dados MySQL
+      - MAUTIC_DB_NAME=mauticc858e69
+      - MAUTIC_DB_HOST=mysql
+      - MAUTIC_DB_PORT=3306
+      - MAUTIC_DB_USER=root
+      - MAUTIC_DB_PASSWORD=1e46ea0d3bf4ad47
+      
+       ## Dados de acesso
+      - MAUTIC_ADMIN_EMAIL=
+      - MAUTIC_ADMIN_USERNAME=
+      - MAUTIC_ADMIN_PASSWORD=
+      - MAUTIC_URL=https://mkt.domussimob.com.br
+
+      ## Configurações
+      - MAUTIC_TRUSTED_PROXIES=["0.0.0.0/0"]
+      - DOCKER_MAUTIC_ROLE=mautic_worker
+      - DOCKER_MAUTIC_WORKERS_CONSUME_EMAIL=2
+      - DOCKER_MAUTIC_WORKERS_CONSUME_HIT=2
+      - DOCKER_MAUTIC_WORKERS_CONSUME_FAILED=2
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 2048M
+
+
+  mautic_cronc858e69:
+    image: mautic/mautic:6.0.3-20250707-apache
+
+    volumes:
+      - mauticc858e69-config:/var/www/html/config
+      - mauticc858e69-docroot:/var/www/html/docroot
+      - mauticc858e69-media:/var/www/html/docroot/media
+      - mauticc858e69-logs:/var/www/html/var/logs
+      - mauticc858e69-cron:/opt/mautic/cron
+
+    networks: 
+      - externa
+      - interna
+
+    environment:
+      ## Dados MySQL
+      - MAUTIC_DB_NAME=mauticc858e69
+      - MAUTIC_DB_HOST=mysql
+      - MAUTIC_DB_PORT=3306
+      - MAUTIC_DB_USER=root
+      - MAUTIC_DB_PASSWORD=1e46ea0d3bf4ad47
+      
+       ## Dados de acesso
+      - MAUTIC_ADMIN_EMAIL=
+      - MAUTIC_ADMIN_USERNAME=
+      - MAUTIC_ADMIN_PASSWORD=
+      - MAUTIC_URL=https://mkt.domussimob.com.br
+
+      ## Configurações
+      - MAUTIC_TRUSTED_PROXIES=["0.0.0.0/0"]
+      - DOCKER_MAUTIC_ROLE=mautic_cron
+      - DOCKER_MAUTIC_WORKERS_CONSUME_EMAIL=2
+      - DOCKER_MAUTIC_WORKERS_CONSUME_HIT=2
+      - DOCKER_MAUTIC_WORKERS_CONSUME_FAILED=2
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
+
+
+volumes:
+  mauticc858e69-config:
+    external: true
+    name: mauticc858e69-config
+  mauticc858e69-docroot:
+    external: true
+    name: mauticc858e69-docroot
+  mauticc858e69-media:
+    external: true
+    name: mauticc858e69-media
+  mauticc858e69-logs:
+    external: true
+    name: mauticc858e69-logs
+  mauticc858e69-cron:
+    external: true
+    name: mauticc858e69-cron
+
+networks: 
+  externa: 
+    external: true
+  interna: 
+    external: true
+
+
