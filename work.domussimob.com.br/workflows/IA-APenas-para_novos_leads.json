@@ -1,0 +1,745 @@
+{
+  "createdAt": "2025-09-05T13:28:56.188Z",
+  "updatedAt": "2025-09-09T15:58:15.216Z",
+  "id": "vwg8ju3UygeTol0s",
+  "name": "IA-APenas-para_novos_leads",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "2ae069c1-7d9c-48dd-8517-a26ed031ef09",
+              "leftValue": "={{ $('nova mensagem').item.json.body.messages[0].sender_type }}",
+              "rightValue": "Contact",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "0d2a412d-3658-49f4-a087-ffb49e1d5af6",
+              "leftValue": "={{ $('nova mensagem').item.json.body.meta.sender.type }}",
+              "rightValue": "contact",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        496,
+        544
+      ],
+      "id": "54b27ff1-e73a-49b9-8c92-cac1de1e8f96",
+      "name": "contato?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        704,
+        720
+      ],
+      "id": "79958990-63ec-4856-a647-39ebab49d10e",
+      "name": "fim"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "89ab56f0-4cf3-4711-9d11-2a11485de63c",
+              "leftValue": "={{ $json.custom_attributes }}",
+              "rightValue": "teste",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1024,
+        432
+      ],
+      "id": "e23f0ac6-53be-4797-91f5-962d7eefac5b",
+      "name": "cliente ou contato?"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contacts",
+          "mode": "list",
+          "cachedResultName": "contacts"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.body.contact_inbox.contact_id }}\n\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        816,
+        480
+      ],
+      "id": "004f73a2-1a02-4f45-a7a1-4a5687854689",
+      "name": "Busca Contato",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "82031118-8ac3-4e95-b13d-69d658fe4829",
+              "name": "chatwoot_url",
+              "value": "https://atendimento.domussimob.com.br",
+              "type": "string"
+            },
+            {
+              "id": "ccd641ba-e287-4a7e-ab33-0268cb1616ce",
+              "name": "api_user_token",
+              "value": "v5KbHpAurkE5q1okNXWyVYTh",
+              "type": "string"
+            },
+            {
+              "id": "cf9585eb-08f2-4cba-94fc-1e704973d043",
+              "name": "chatwoot_account_id",
+              "value": 1,
+              "type": "number"
+            },
+            {
+              "id": "98c061fc-72d8-406e-b8f8-479264cf2bf7",
+              "name": "conversation_id",
+              "value": "={{ $json.body.id }}",
+              "type": "number"
+            },
+            {
+              "id": "e4bd11a3-d652-406a-a6db-4f01e70cf901",
+              "name": "payload",
+              "value": "={{ $json.body.labels }}",
+              "type": "array"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        560
+      ],
+      "id": "a35b2b71-6b9b-4d9a-bb04-3240eb817048",
+      "name": "info base"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contacts",
+          "mode": "list",
+          "cachedResultName": "contacts"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "={{ $('Busca Contato').item.json.id }}",
+            "custom_attributes": "{\n  \"status\": \"novo-lead\"\n}"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "name",
+              "displayName": "name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone_number",
+              "displayName": "phone_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "account_id",
+              "displayName": "account_id",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "updated_at",
+              "displayName": "updated_at",
+              "required": true,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "additional_attributes",
+              "displayName": "additional_attributes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "identifier",
+              "displayName": "identifier",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "custom_attributes",
+              "displayName": "custom_attributes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "object",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "last_activity_at",
+              "displayName": "last_activity_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "dateTime",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "contact_type",
+              "displayName": "contact_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "middle_name",
+              "displayName": "middle_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "last_name",
+              "displayName": "last_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "location",
+              "displayName": "location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "country_code",
+              "displayName": "country_code",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "blocked",
+              "displayName": "blocked",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "boolean",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.5,
+      "position": [
+        1552,
+        512
+      ],
+      "id": "234e1c1f-05dd-4958-83b9-4420fee2bd93",
+      "name": "marca campo do Contato como novo-lead",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/conversations/{{ $('info base').item.json.conversation_id }}/labels",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "api_access_token",
+              "value": "={{ $('info base').item.json.api_user_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"novo-lead\", \"ia-ativada\"]   }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1888,
+        512
+      ],
+      "id": "fb372c7f-fdc2-44e1-b182-1406766550ef",
+      "name": "Etiqueta Conversa novo-lead"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/conversations/{{ $('info base').item.json.conversation_id }}/labels",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "api_access_token",
+              "value": "={{ $('info base').item.json.api_user_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"ia-desativada\", \"contato\"]   }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1296,
+        304
+      ],
+      "id": "a95d4dc1-7618-49a4-adfc-5d9f9ea55025",
+      "name": "Etiqueta Conversa - ia-desativada"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/contacts/{{ $('Busca Contato').item.json.id }}/labels",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "api_access_token",
+              "value": "={{ $('info base').item.json.api_user_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"novo-lead\", \"ia-ativada\"]   }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        2144,
+        464
+      ],
+      "id": "fb0c7b51-82f1-4efd-833f-736f2ee10ea1",
+      "name": "Etiqueta contato novo-lead1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/contacts/{{ $('Busca Contato').item.json.id }}/labels",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "api_access_token",
+              "value": "={{ $('info base').item.json.api_user_token }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"ia-desativada\", \"contato\"]   }}\"\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1520,
+        272
+      ],
+      "id": "4fdbc282-54b4-4c29-8c99-49b6cbf1967d",
+      "name": "Etiqueta contato - ia-desativada1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ia-apenas-novos-leads",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        560
+      ],
+      "id": "67bd71d6-52a7-4a7a-b72a-bcd1049c4ccb",
+      "name": "nova mensagem",
+      "webhookId": "59ce2cc2-0561-44dd-be4b-81c181c2dd58"
+    },
+    {
+      "parameters": {
+        "content": "## FLUXO VERIFICADOR SE MENSAGEM VEM DE UM CONTATO OU NOVO-LEAD \n## CASO MENSAGEM VEM DE CONTATO, A IA NÃO DEVERÁ FUNCIONAR \n## ESTE FLUXO APENAS CRIA TAGS NOS CONTATOS E CONVERSAS (IA-ATIVADA, IA-DESATIVADA, CONTATO E NOVO-LEAD)\n\n**PREENCHER NODE info base COM DADOS OBRIGATÓRIOS** ",
+        "height": 220,
+        "width": 1420
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -128,
+        -16
+      ],
+      "typeVersion": 1,
+      "id": "ab5edf22-2106-4b26-8f98-1a50326c2446",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "16dd8e2b-fe57-418b-99fa-afcef7e2be02",
+              "leftValue": "={{ $('nova mensagem').item.json.body.labels }}",
+              "rightValue": "ia-pausada",
+              "operator": {
+                "type": "array",
+                "operation": "notContains",
+                "rightType": "any"
+              }
+            },
+            {
+              "id": "8fd3c516-19db-4bd6-ae09-d2382decfbf8",
+              "leftValue": "={{ $('nova mensagem').item.json.body.labels }}",
+              "rightValue": "ia-desativada",
+              "operator": {
+                "type": "array",
+                "operation": "notContains",
+                "rightType": "any"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1296,
+        544
+      ],
+      "id": "6ffe5c6e-93bf-4021-885c-79c86bb84c64",
+      "name": "ia-pausada ou desativada?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1552,
+        864
+      ],
+      "id": "9106e0cb-4aaf-4da2-b508-ce6619c1adf8",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "connections": {
+    "contato?": {
+      "main": [
+        [
+          {
+            "node": "Busca Contato",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "fim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "cliente ou contato?": {
+      "main": [
+        [
+          {
+            "node": "Etiqueta Conversa - ia-desativada",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "ia-pausada ou desativada?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Busca Contato": {
+      "main": [
+        [
+          {
+            "node": "cliente ou contato?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "info base": {
+      "main": [
+        [
+          {
+            "node": "contato?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "marca campo do Contato como novo-lead": {
+      "main": [
+        [
+          {
+            "node": "Etiqueta Conversa novo-lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Etiqueta Conversa novo-lead": {
+      "main": [
+        [
+          {
+            "node": "Etiqueta contato novo-lead1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Etiqueta Conversa - ia-desativada": {
+      "main": [
+        [
+          {
+            "node": "Etiqueta contato - ia-desativada1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "nova mensagem": {
+      "main": [
+        [
+          {
+            "node": "info base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ia-pausada ou desativada?": {
+      "main": [
+        [
+          {
+            "node": "marca campo do Contato como novo-lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "America/Sao_Paulo"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "f6305712-9957-45a1-ac9d-c50fd0c067e5",
+  "triggerCount": 1,
+  "tags": []
+}
