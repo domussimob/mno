@@ -1,0 +1,46 @@
+
+version: "3.7"
+services:
+  rabbitmqee8f16a:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmqee8f16a
+    volumes:
+    - rabbitmqee8f16a-data:/var/lib/rabbitmq/
+    networks:
+      - externa
+      - interna
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+    - RABBITMQ_DEFAULT_USER=domuss
+    - RABBITMQ_DEFAULT_PASS=gCrjaY7VbR9MJh49
+    - RABBITMQ_ERLANG_COOKIE=server
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+        - node.role == manager
+      labels:
+      - traefik.enable=1
+      - traefik.http.routers.rabbitmqee8f16a.rule=Host(`fila.domussimob.com.br`)
+      - traefik.http.routers.rabbitmqee8f16a.entrypoints=websecure
+      - traefik.http.routers.rabbitmqee8f16a.priority=1
+      - traefik.http.routers.rabbitmqee8f16a.tls.certresolver=letsencryptresolver
+      - traefik.http.routers.rabbitmqee8f16a.service=rabbitmqee8f16a
+      - traefik.http.services.rabbitmqee8f16a.loadbalancer.server.port=15672
+      - traefik.http.services.rabbitmqee8f16a.loadbalancer.passHostHeader=1
+volumes:
+  rabbitmqee8f16a-data:
+    external: true
+    name: rabbitmqee8f16a-data
+networks:
+  externa:
+    external: true
+  interna:
+    external: true
+
+
+
+
