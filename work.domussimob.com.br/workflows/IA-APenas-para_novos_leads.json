@@ -1,9 +1,9 @@
 {
   "createdAt": "2025-09-05T13:28:56.188Z",
-  "updatedAt": "2025-09-09T17:14:59.508Z",
+  "updatedAt": "2025-09-09T17:20:35.532Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -200,7 +200,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "id": "={{ $('Busca Contato').item.json.id }}",
-            "custom_attributes": "{|  \"status\": \"teste\"}"
+            "custom_attributes": "{|  \"status\": \"novo-lead\"}"
           },
           "matchingColumns": [
             "id"
@@ -384,7 +384,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.5,
       "position": [
-        1552,
+        1568,
         512
       ],
       "id": "234e1c1f-05dd-4958-83b9-4420fee2bd93",
@@ -738,8 +738,138 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "pinData": {},
-  "versionId": "636dc57d-bf73-4c67-9eda-fdf77233ee89",
+  "pinData": {
+    "nova mensagem": [
+      {
+        "json": {
+          "headers": {
+            "host": "hook.domussimob.com.br",
+            "user-agent": "rest-client/2.1.0 (linux-musl aarch64) ruby/3.3.3p89",
+            "content-length": "2876",
+            "accept": "application/json",
+            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "hook.domussimob.com.br",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "6929e8675dbf",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "additional_attributes": {},
+            "can_reply": true,
+            "channel": "Channel::Api",
+            "contact_inbox": {
+              "id": 20,
+              "contact_id": 13,
+              "inbox_id": 2,
+              "source_id": "97ad73b4-8a0c-452b-8f2e-022734f23fdc",
+              "created_at": "2025-09-05T15:55:21.854Z",
+              "updated_at": "2025-09-05T15:55:21.854Z",
+              "hmac_verified": false,
+              "pubsub_token": "vkRfLjiWuXBPLiSyxtpjSSfw"
+            },
+            "id": 14,
+            "inbox_id": 2,
+            "messages": [
+              {
+                "id": 18672,
+                "content": "Boa tarde. Testando",
+                "account_id": 1,
+                "inbox_id": 2,
+                "conversation_id": 14,
+                "message_type": 0,
+                "created_at": 1757437894,
+                "updated_at": "2025-09-09T17:11:34.833Z",
+                "private": false,
+                "status": "sent",
+                "source_id": "WAID:AC6DB222898908488B7D1C15AA501FE6",
+                "content_type": "text",
+                "content_attributes": {},
+                "sender_type": "Contact",
+                "sender_id": 13,
+                "external_source_ids": {},
+                "additional_attributes": {},
+                "processed_message_content": "Boa tarde. Testando",
+                "sentiment": {},
+                "conversation": {
+                  "assignee_id": 3,
+                  "unread_count": 0,
+                  "last_activity_at": 1757437894,
+                  "contact_inbox": {
+                    "source_id": "97ad73b4-8a0c-452b-8f2e-022734f23fdc"
+                  }
+                },
+                "sender": {
+                  "additional_attributes": {},
+                  "custom_attributes": {
+                    "status": "teste"
+                  },
+                  "email": null,
+                  "id": 13,
+                  "identifier": "5511968162690@s.whatsapp.net",
+                  "name": "Francis Breit",
+                  "phone_number": "+5511968162690",
+                  "thumbnail": "https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBMQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--549c9b035eb56e38a2450dbd0a02471d91bf9762/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg",
+                  "type": "contact"
+                }
+              }
+            ],
+            "labels": [
+              "em-fila",
+              "novo-lead",
+              "ia-ativada"
+            ],
+            "meta": {
+              "sender": {
+                "additional_attributes": {},
+                "custom_attributes": {
+                  "status": "teste"
+                },
+                "email": null,
+                "id": 13,
+                "identifier": "5511968162690@s.whatsapp.net",
+                "name": "Francis Breit",
+                "phone_number": "+5511968162690",
+                "thumbnail": "https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBMQT09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--549c9b035eb56e38a2450dbd0a02471d91bf9762/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg",
+                "type": "contact"
+              },
+              "assignee": {
+                "id": 3,
+                "name": "Jean",
+                "available_name": "Jean",
+                "avatar_url": "",
+                "type": "user",
+                "availability_status": null,
+                "thumbnail": ""
+              },
+              "team": null,
+              "hmac_verified": false
+            },
+            "status": "open",
+            "custom_attributes": {},
+            "snoozed_until": null,
+            "unread_count": 0,
+            "first_reply_created_at": null,
+            "priority": null,
+            "waiting_since": 1757087721,
+            "agent_last_seen_at": 1757437895,
+            "contact_last_seen_at": 0,
+            "last_activity_at": 1757437894,
+            "timestamp": 1757437894,
+            "created_at": 1757087721,
+            "event": "automation_event.message_created"
+          },
+          "webhookUrl": "https://hook.domussimob.com.br/webhook/ia-apenas-novos-leads",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "versionId": "4665c599-c441-4a66-b514-0b0ad2f908be",
   "triggerCount": 1,
   "tags": []
 }
