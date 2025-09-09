@@ -1,0 +1,199 @@
+
+version: "3.7"
+
+##############
+#
+# Execute o  comando para migrar o banco:
+#
+# bundle exec rails db:chatwoot_prepare
+# bundle exec rails db:migrate
+#############
+
+services:
+  chatwootee8f16a-app:
+    image: sendingtk/chatwoot-arm:v3.15.8
+    hostname: chatwootee8f16a
+    command: bundle exec rails s -p 3000 -b 0.0.0.0
+    entrypoint: docker/entrypoints/rails.sh
+    restart: always
+    #volumes:
+      #- chatwootee8f16a-data:/app/storage # solo usar cuando no tengas configurado s3 de minio, si piensas usar no es lo agreges
+      #- chatwootee8f16a-public:/app/public # agrega solo para poder cambir los icones y logos
+      #- chatwootee8f16a-mailers:/app/app/views/mailers # agrega solo para poder modificar las plantillas de email
+      #- chatwootee8f16a-mail-admin:/app/app/views/devise/mailer
+    networks:
+      - traefik
+      - interna
+    environment: 
+      - INSTALLATION_NAME=chatwootee8f16a
+      - NODE_ENV=production
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - ENABLE_DB_POOLING=true
+      - DB_POOL=10  # Deve ser <= max_client_conn do PgBouncer
+      - PGSSLMODE=disable  # Se não usar SSL
+      - INSTALLATION_ENV=docker
+      - SECRET_KEY_BASE=89ae305e674e5ae0c8633c956d4e3376
+      - FRONTEND_URL=https://atendimento.domussimob.com.br
+      - DEFAULT_LOCALE=pt_BR
+      - FORCE_SSL=false
+      - ENABLE_ACCOUNT_SIGNUP=false
+      - REDIS_URL=redis://chatwootee8f16a-redis:6379/1
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=gCrjaY7VbR9MJh49
+      - POSTGRES_DATABASE=chatwootee8f16a
+      #- DATABASE_URL=postgresql://postgres:gCrjaY7VbR9MJh49@postgres:5432/chatwootee8f16a?prepared_statements=false
+      # Servidor storage Minio
+      - ACTIVE_STORAGE_SERVICE=s3_compatible  # local
+      - STORAGE_BUCKET_NAME=chatwootee8f16a
+      - STORAGE_SECRET_ACCESS_KEY=W5LmV4yWS+scOUjq0lYVQXFYCyRm4tyrIOLly+Jy
+      - STORAGE_ACCESS_KEY_ID=NYHNPHVWRER3VK3HTKWS
+      - STORAGE_REGION=us-east
+      - STORAGE_ENDPOINT=https://s3.domussimob.com.br
+      - STORAGE_FORCE_PATH_STYLE=true
+      - RAILS_LOG_TO_STDOUT=true
+      - USE_INBOX_AVATAR_FOR_BOT=true
+      # Servidor de Email
+      - MAILER_SENDER_EMAIL=Domuss <fabio.inves@yahoo.com.br>
+      - SMTP_DOMAIN=seudominio_smtp.com.br
+      - SMTP_ADDRESS=mail.seudominio_smtp.com.br
+      - SMTP_PORT=465
+      - SMTP_USERNAME=usuario@seusite.com.br
+      - SMTP_PASSWORD=102030
+      - SMTP_AUTHENTICATION=login
+      - SMTP_ENABLE_STARTTLS_AUTO=true
+      - SMTP_OPENSSL_VERIFY_MODE=peer
+      - MAILER_INBOUND_EMAIL_DOMAIN=fabio.inves@yahoo.com.br
+      - IGNORE_YOURSELF_MESSAGES=false
+      #performance
+      - SIDEKIQ_CONCURRENCY=60
+      - RACK_TIMEOUT_SERVICE_TIMEOUT=0
+      - WEBHOOKS_TRIGGER_TIMEOUT=50
+      - RAILS_MAX_THREADS=20
+      - WEB_CONCURRENCY=2
+      - ENABLE_RACK_ATTACK=false
+      - ENABLE_PUSH_RELAY_SERVER=true
+      - TZ=America/Sao_Paulo
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      #resources:
+        #limits:
+          #cpus: "1"
+          #memory: 1024M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.chatwootee8f16a.rule=Host(`atendimento.domussimob.com.br`)
+        - traefik.http.routers.chatwootee8f16a.entrypoints=websecure
+        - traefik.http.routers.chatwootee8f16a.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.chatwootee8f16a.priority=1
+        - traefik.http.routers.chatwootee8f16a.service=chatwootee8f16a
+        - traefik.http.services.chatwootee8f16a.loadbalancer.server.port=3000 
+        - traefik.http.services.chatwootee8f16a.loadbalancer.passhostheader=true 
+        - traefik.http.middlewares.chatwootee8f16a_sslheader.headers.customrequestheaders.X-Forwarded-Proto=https
+        - traefik.http.routers.chatwootee8f16a.middlewares=chatwootee8f16a_sslheader@docker
+
+  chatwootee8f16a-sidekiq:
+    image: sendingtk/chatwoot-arm:v3.15.8
+    hostname: chatwootee8f16a
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    restart: always
+    #volumes:
+      #- chatwootee8f16a-data:/app/storage # solo usar cuando no tengas configurado s3 de minio, si piensas usar no es lo agreges
+      #- chatwootee8f16a-public:/app/public # agrega solo para poder cambir los icones y logos
+      #- chatwootee8f16a-mailers:/app/app/views/mailers # agrega solo para poder modificar las plantillas de email
+      #- chatwootee8f16a-mail-admin:/app/app/views/devise/mailer
+    networks:
+      - traefik
+      - interna
+    environment:
+      - INSTALLATION_NAME=chatwootee8f16a
+      - NODE_ENV=production
+      - RAILS_ENV=production
+      - DISABLE_DATABASE_ENVIRONMENT_CHECK=1
+      - ENABLE_DB_POOLING=true
+      - DB_POOL=10  # Deve ser <= max_client_conn do PgBouncer
+      - PGSSLMODE=disable  # Se não usar SSL
+      - INSTALLATION_ENV=docker
+      - SECRET_KEY_BASE=89ae305e674e5ae0c8633c956d4e3376
+      - FRONTEND_URL=https://atendimento.domussimob.com.br
+      - DEFAULT_LOCALE=pt_BR
+      - FORCE_SSL=false
+      - ENABLE_ACCOUNT_SIGNUP=false
+      - REDIS_URL=redis://chatwootee8f16a-redis:6379/1
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=gCrjaY7VbR9MJh49
+      - POSTGRES_DATABASE=chatwootee8f16a
+      #- DATABASE_URL=postgresql://postgres:gCrjaY7VbR9MJh49@postgres:5432/chatwootee8f16a?prepared_statements=false
+      # Servidor storage Minio
+      - ACTIVE_STORAGE_SERVICE=s3_compatible  # local
+      - STORAGE_BUCKET_NAME=chatwootee8f16a
+      - STORAGE_SECRET_ACCESS_KEY=W5LmV4yWS+scOUjq0lYVQXFYCyRm4tyrIOLly+Jy
+      - STORAGE_ACCESS_KEY_ID=NYHNPHVWRER3VK3HTKWS
+      - STORAGE_REGION=us-east
+      - STORAGE_ENDPOINT=https://s3.domussimob.com.br
+      - STORAGE_FORCE_PATH_STYLE=true
+      - RAILS_LOG_TO_STDOUT=true
+      - USE_INBOX_AVATAR_FOR_BOT=true
+      # Servidor de Email
+      - MAILER_SENDER_EMAIL=Domuss <fabio.inves@yahoo.com.br>
+      - SMTP_DOMAIN=seudominio_smtp.com.br
+      - SMTP_ADDRESS=mail.seudominio_smtp.com.br
+      - SMTP_PORT=465
+      - SMTP_USERNAME=usuario@seusite.com.br
+      - SMTP_PASSWORD=102030
+      - SMTP_AUTHENTICATION=login
+      - SMTP_ENABLE_STARTTLS_AUTO=true
+      - SMTP_OPENSSL_VERIFY_MODE=peer
+      - MAILER_INBOUND_EMAIL_DOMAIN=fabio.inves@yahoo.com.br
+      - IGNORE_YOURSELF_MESSAGES=false
+      #performance
+      - SIDEKIQ_CONCURRENCY=60
+      - RACK_TIMEOUT_SERVICE_TIMEOUT=0
+      - WEBHOOKS_TRIGGER_TIMEOUT=50
+      - RAILS_MAX_THREADS=20
+      - WEB_CONCURRENCY=2
+      - ENABLE_RACK_ATTACK=false
+      - ENABLE_PUSH_RELAY_SERVER=true
+      - TZ=America/Sao_Paulo
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      #resources:
+        #limits:
+          #cpus: "1"
+          #memory: 1024M
+
+#volumes:
+  #chatwootee8f16a-data:
+    #external: true
+    #name: chatwootee8f16a-data
+  #chatwootee8f16a-public:
+    #external: true
+    #name: chatwootee8f16a-public
+ # chatwootee8f16a-mailers:
+   # external: true
+    #name: chatwootee8f16a-mailers
+  #chatwootee8f16a-mail-admin:
+    #external: true
+    #name: chatwootee8f16a-mail-admin
+ 
+networks: 
+  traefik: 
+    external: true
+    name: externa
+  interna: 
+    external: true
+    name: interna
+
+
