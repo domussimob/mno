@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T13:28:56.188Z",
-  "updatedAt": "2025-09-09T17:21:47.872Z",
+  "updatedAt": "2025-09-09T18:13:09.417Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
   "active": true,
@@ -74,10 +74,10 @@
             {
               "id": "89ab56f0-4cf3-4711-9d11-2a11485de63c",
               "leftValue": "={{ $json.custom_attributes }}",
-              "rightValue": "teste",
+              "rightValue": "contato",
               "operator": {
                 "type": "string",
-                "operation": "notContains"
+                "operation": "contains"
               }
             }
           ],
@@ -200,7 +200,7 @@
           "mappingMode": "defineBelow",
           "value": {
             "id": "={{ $('Busca Contato').item.json.id }}",
-            "custom_attributes": "={  \"status\": \"teste\"}"
+            "custom_attributes": "={  \"status\": \"novo-lead\"}"
           },
           "matchingColumns": [
             "id"
@@ -739,7 +739,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "16439886-04c6-41a8-9fe3-108713604334",
+  "versionId": "cdf6bbd9-2e40-4cde-8e6a-9ab5f21a9c9a",
   "triggerCount": 1,
   "tags": []
 }
