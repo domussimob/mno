@@ -1,0 +1,106 @@
+
+version: "3.7"
+services:
+  n8n_editora322fda:
+    image: n8nio/n8n:1.106.3
+    command: start
+    networks:
+      - traefik_public
+      - app_network
+      - interna
+      - externa
+    environment:
+      # Habilita o Uso de Pacotes da Comunidade
+      - N8N_COMMUNITY_PACKAGES_ENABLED=true
+      - N8N_COMMUNITY_PACKAGES_ALLOW_TOOL_USAGE=true
+      # novas variáveis implementadas 25/03/2025
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=false
+      - N8N_RUNNERS_MODE=internal
+      - OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=false
+      - N8N_NODE_PATH=/home/node/.n8n/nodes
+      # Reinstala os Pacotes após um Upgrade
+      - N8N_REINSTALL_MISSING_PACKAGES=true
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_DATABASE=n8na322fda
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_USER=postgres
+      - DB_POSTGRESDB_PASSWORD=gCrjaY7VbR9MJh49
+      - N8N_ENCRYPTION_KEY=428f974ab44aecdbd0534d4812f77f6c
+      - N8N_HOST=work.domussimob.com.br
+      - N8N_EDITOR_BASE_URL=https://work.domussimob.com.br/
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://hook.domussimob.com.br/
+      - EXECUTIONS_MODE=queue
+      - QUEUE_BULL_REDIS_HOST=redis
+      - QUEUE_BULL_REDIS_PORT=6379
+      - QUEUE_BULL_REDIS_DB=11
+      #- QUEUE_BULL_REDIS_PASSWORD=prww4IsPPswMuaNQ
+      #- NODE_FUNCTION_ALLOW_EXTERNAL=moment,lodash,moment-with-locales,axios,form-data,dayjs
+      - NODE_FUNCTION_ALLOW_EXTERNAL=*
+      - NODE_FUNCTION_ALLOW_BUILTIN=*
+      - N8N_PAYLOAD_SIZE_MAX=512
+      - EXECUTIONS_DATA_PRUNE=true
+      - EXECUTIONS_DATA_MAX_AGE=336 # 2 semanas
+      - N8N_VERSION_NOTIFICATIONS_ENABLED=true
+      - N8N_PUBLIC_API_SWAGGERUI_DISABLED=false
+      - N8N_EMAIL_MODE=smtp
+      - N8N_SMTP_HOST=smtp-relay.brevo.com
+      - N8N_SMTP_PORT=587
+      - N8N_SMTP_USER=9647e5001@smtp-brevo.com
+      - N8N_SMTP_PASS=JxHUhmVIEjyRBAT9
+      - N8N_SMTP_SENDER=noreply@domussimob.com.br
+      - N8N_SMTP_SSL=false
+      # Configuracao de IA (ajuda nos node code)
+      - N8N_AI_ENABLED=false
+      - N8N_AI_PROVIDER=openai
+      - N8N_AI_OPENAI_API_KE=
+      # Armazenamento S3
+      #- N8N_EXTERNAL_STORAGE_S3_HOST=s3.seusite.com.br
+      #- N8N_EXTERNAL_STORAGE_S3_BUCKET_NAME=n8n
+      #- N8N_EXTERNAL_STORAGE_S3_BUCKET_REGION=eu-south 
+      #- N8N_EXTERNAL_STORAGE_S3_ACCESS_KEY= 
+      #- N8N_EXTERNAL_STORAGE_S3_ACCESS_SECRET=
+    volumes:
+    - n8na322fda-data:/data/backup
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+          # - node.hostname == worker1
+          # - node.labels.app == http # nome do label: app, valor do label: http
+     # resources:
+      #  limits:
+          # cpus: "4"
+          # memory: 2048M
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.n8n_editora322fda.rule=Host(`work.domussimob.com.br`)
+        - traefik.http.routers.n8n_editora322fda.entrypoints=websecure
+        - traefik.http.routers.n8n_editora322fda.tls.certresolver=letsencryptresolver
+        - traefik.http.routers.n8n_editora322fda.service=n8n_editora322fda
+        - traefik.http.services.n8n_editora322fda.loadbalancer.server.port=5678
+        - traefik.http.services.n8n_editora322fda.loadbalancer.passHostHeader=true
+volumes:
+  n8na322fda-data:
+    external: true
+    name: n8na322fda-datad
+
+networks:
+  traefik_public:
+    external: true
+    name: externa
+  app_network:
+    external: true
+    name: interna
+
+
+  interna:
+    external: true
+  externa:
+    external: true
+
