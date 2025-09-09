@@ -1,0 +1,225 @@
+{
+  "createdAt": "2025-09-09T12:45:19.205Z",
+  "updatedAt": "2025-09-09T12:45:19.205Z",
+  "id": "ZSP8bxVX24dYanfD",
+  "name": "Insert_documents_Qdrant",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "mode": "insert",
+        "qdrantCollection": {
+          "__rl": true,
+          "value": "teste2000",
+          "mode": "list",
+          "cachedResultName": "teste2000"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
+      "typeVersion": 1,
+      "position": [
+        -660,
+        180
+      ],
+      "id": "8f1686fe-d557-4ebb-a58c-a5b9e7926c60",
+      "name": "Qdrant Vector Store",
+      "credentials": {
+        "qdrantApi": {
+          "id": "AO288z4M4JhVyQva",
+          "name": "QdrantApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0a0c2f16-c6f6-4f8b-af46-5fc88abda45b",
+              "name": "content",
+              "value": "={{ $json.chatInput }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -1040,
+        180
+      ],
+      "id": "42303b66-cd44-4cbf-b76a-44ac90a7ac45",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        -760,
+        480
+      ],
+      "id": "86bf2a83-73b4-4560-aa09-a989b3f445f4",
+      "name": "Embeddings OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "M1iyy6bYZ8SwaoAS",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1,
+      "position": [
+        -540,
+        440
+      ],
+      "id": "59e88b4f-5975-40ca-ad5b-f5a945965a17",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "options": {
+          "allowFileUploads": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -1300,
+        180
+      ],
+      "id": "b6a02ed2-f7cb-44da-a7e4-c2ebc3464065",
+      "name": "When chat message received",
+      "webhookId": "b127893d-c555-4b7d-aa75-bfcbdba1cb5b"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Obter o texto de entrada de forma segura\nconst inputText = $json.base || $json.chatInput || '';\nconsole.log(\"Texto de Entrada Completo:\\n\", inputText);\n\nlet titulo = \"\";\nlet conteudo = \"\";\nlet tags = [];\n\n// --- Extração Principal usando Regex ---\n// Regex para capturar o Título (entre \"Título:\" e \"Conteúdo:\" ou fim do texto)\n// \\s* -> pega espaços/newlines. (.*?) -> captura não-gulosa. (?=...) -> lookahead positivo (não consome o próximo marcador)\n// s -> . (ponto) casa com newlines. i -> case-insensitive (opcional, mas seguro)\nconst titleMatch = inputText.match(/\\*{0,2}Título\\*{0,2}:\\s*(.*?)(?=\\n*\\s*\\*{0,2}Conteúdo\\*{0,2}:|$)/si);\nif (titleMatch && titleMatch[1]) {\n    titulo = titleMatch[1].trim();\n    console.log(\"Regex - Título encontrado:\", titulo);\n} else {\n    console.warn(\"Regex - Título não encontrado.\");\n}\n\n// Regex para capturar o Conteúdo (entre \"Conteúdo:\" e \"Tags:\" ou fim do texto)\nconst contentMatch = inputText.match(/\\*{0,2}Conteúdo\\*{0,2}:\\s*(.*?)(?=\\n*\\s*\\*{0,2}Tags\\*{0,2}:|$)/si);\nif (contentMatch && contentMatch[1]) {\n    conteudo = contentMatch[1].trim();\n    console.log(\"Regex - Conteúdo encontrado:\", `\"${conteudo}\"`); // Aspas para ver espaços extras\n} else {\n    console.warn(\"Regex - Conteúdo não encontrado.\");\n    // Se o conteúdo falhar, talvez o texto inteiro seja o conteúdo se não houver marcadores?\n    // Ou talvez o input esteja mal formatado. Por segurança, deixamos vazio.\n}\n\n// Regex para capturar a string do array de Tags\nconst tagsSectionMatch = inputText.match(/\\*{0,2}Tags\\*{0,2}:\\s*(\\[.*?\\])/si);\nif (tagsSectionMatch && tagsSectionMatch[1]) {\n    const tagsString = tagsSectionMatch[1];\n    console.log(\"Regex - String de Tags encontrada:\", tagsString);\n    try {\n        tags = JSON.parse(tagsString);\n        // Validar se o resultado é realmente um array\n        if (!Array.isArray(tags)) {\n            console.warn(\"JSON.parse das Tags não retornou um array. Resetando para []. String original:\", tagsString);\n            tags = [];\n        } else {\n            console.log(\"Regex - Tags parseadas com sucesso:\", tags);\n        }\n    } catch (e) {\n        console.error(\"Falha ao fazer JSON.parse da string de Tags:\", e);\n        console.warn(\"String de Tags que falhou:\", tagsString);\n        tags = []; // Resetar em caso de erro no parse\n    }\n} else {\n    console.warn(\"Regex - Seção/String de Tags não encontrada ou não está no formato [...] esperado.\");\n}\n\n\n// --- Preparar o objeto de retorno ---\n// Garantir que temos valores padrão se a extração falhar\nconst finalTitulo = titulo || \"Título não encontrado\";\nconst finalConteudo = conteudo || \"Conteúdo não encontrado\"; // Ou poderia ser inputText se nenhum marcador for achado? Decisão de negócio.\nconst finalTags = tags; // Já é um array vazio por padrão se a extração falhar\n\nconsole.log(\"Valores Finais para Saída:\");\nconsole.log(\"  Título:\", finalTitulo);\nconsole.log(\"  Conteúdo:\", `\"${finalConteudo}\"`);\nconsole.log(\"  Tags:\", finalTags);\n\nreturn [{\n  json: {\n    // pageContent é frequentemente usado por nós de embedding, mas 'content' também funciona se configurado\n    pageContent: finalConteudo, // Apenas o conteúdo extraído\n    metadata: {\n      // Usar chaves consistentes (lowercase é comum)\n      titulo: finalTitulo,     // Apenas o título extraído\n      tags: finalTags          // O array de tags extraído (ou vazio)\n      // Você pode adicionar outras fontes de metadados aqui se necessário\n      // source: $json.metadata?.source // Exemplo se você tiver isso vindo de antes\n    }\n  }\n  \n}];\nreturn [{\n  json: {\n    // Retorna os campos extraídos individualmente\n    extracted_title: titulo,\n    extracted_content: conteudo,\n    extracted_tags: tags\n    // Inclua outros dados brutos se necessário para o ID, etc.\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -140,
+        -80
+      ],
+      "id": "89d2efae-d8e1-4601-b874-53831f0fbcbc",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "separator": "\\n\\n",
+        "chunkSize": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        600
+      ],
+      "id": "58203e59-4521-41cc-b4ef-78e2a10122f7",
+      "name": "Character Text Splitter"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "http://qdrantd7aade4:6333/collections/DoctorGrowth/points",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"points\": [\n    {\n      \"id\": \"{{ $json.id }}\", // O ID único do ponto (UUID, número, etc.)\n      \"vector\": {{ JSON.stringify($json.vector) }}, // O vetor de embedding gerado\n      \"payload\": {{ JSON.stringify($json.payload_data) }} // O objeto payload preparado no nó anterior\n    }\n    // Você pode adicionar mais objetos de ponto neste array se estiver inserindo em lote\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        120,
+        -60
+      ],
+      "id": "1d0e9c6a-f074-4f86-a6c1-36f7b26b3e1b",
+      "name": "HTTP Request"
+    }
+  ],
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings OpenAI": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Qdrant Vector Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "meta": null,
+  "pinData": null,
+  "versionId": "d85d6abf-2f83-40a0-9021-03a1f5fcf8b2",
+  "triggerCount": 0,
+  "tags": []
+}
