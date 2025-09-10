@@ -3,7 +3,7 @@ version: "3.7"
 
 services:
   evolution2ee8f16a:
-    image: evoapicloud/evolution-api:v2.2.3
+    image: evoapicloud/evolution-api:v2.3.2
     networks:
       - externa
       - interna
@@ -33,7 +33,7 @@ services:
       ## pegue a versão em: https://web.whatsapp.com/check-update?version=0&platform=web
       #- CONFIG_SESSION_PHONE_VERSION=2.2413.51
       #- CONFIG_SESSION_PHONE_VERSION=2.2413.79
-      - CONFIG_SESSION_PHONE_VERSION=2.3000.1026747075
+      #- CONFIG_SESSION_PHONE_VERSION=2.3000.1026747075
       # Configurar el QR code
       - QRCODE_LIMIT=5
       - QRCODE_COLOR=#000000
