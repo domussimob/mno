@@ -1501,6 +1501,10 @@
               "value": "nvidia/nemotron-nano-9b-v2:free"
             },
             {
+              "text": "NVIDIA: Nemotron Nano 9B V2",
+              "value": "nvidia/nemotron-nano-9b-v2"
+            },
+            {
               "text": "Sonoma Dusk Alpha",
               "value": "openrouter/sonoma-dusk-alpha"
             },
@@ -3041,12 +3045,12 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
