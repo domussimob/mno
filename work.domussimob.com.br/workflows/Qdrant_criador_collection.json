@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-10T15:50:20.314Z",
-  "updatedAt": "2025-09-10T15:50:28.696Z",
+  "updatedAt": "2025-09-10T15:51:54.621Z",
   "id": "dUIfveDSPEotMKtT",
   "name": "Qdrant_criador_collection",
   "active": false,
@@ -51,13 +51,13 @@
             {
               "id": "69e2b9a9-c725-4401-96af-8f4c97eb05d8",
               "name": "collection_name",
-              "value": "dra.cristina.moraes.ramalho",
+              "value": "anna",
               "type": "string"
             },
             {
               "id": "21469f9d-cec5-42d6-af23-341eff3b84d5",
               "name": "service_qdrant",
-              "value": "qdrantd7aade4",
+              "value": "qdrant3f1b88b",
               "type": "string"
             }
           ]
@@ -106,7 +106,7 @@
   "staticData": null,
   "meta": null,
   "pinData": {},
-  "versionId": "e30cad18-7d72-4b93-9a01-2ab244200f17",
+  "versionId": "7d3345fc-1b8a-4f51-9103-2981512de9f3",
   "triggerCount": 0,
   "tags": []
 }
