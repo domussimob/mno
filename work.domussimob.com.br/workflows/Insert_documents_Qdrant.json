@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-09T12:45:19.205Z",
-  "updatedAt": "2025-09-09T12:45:19.205Z",
+  "updatedAt": "2025-09-10T16:38:29.663Z",
   "id": "ZSP8bxVX24dYanfD",
   "name": "Insert_documents_Qdrant",
   "active": false,
@@ -11,17 +11,17 @@
         "mode": "insert",
         "qdrantCollection": {
           "__rl": true,
-          "value": "teste2000",
+          "value": "anna",
           "mode": "list",
-          "cachedResultName": "teste2000"
+          "cachedResultName": "anna"
         },
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStoreQdrant",
       "typeVersion": 1,
       "position": [
-        -660,
-        180
+        -656,
+        192
       ],
       "id": "8f1686fe-d557-4ebb-a58c-a5b9e7926c60",
       "name": "Qdrant Vector Store",
@@ -50,7 +50,7 @@
       "typeVersion": 3.4,
       "position": [
         -1040,
-        180
+        192
       ],
       "id": "42303b66-cd44-4cbf-b76a-44ac90a7ac45",
       "name": "Edit Fields"
@@ -62,7 +62,7 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsOpenAi",
       "typeVersion": 1.2,
       "position": [
-        -760,
+        -768,
         480
       ],
       "id": "86bf2a83-73b4-4560-aa09-a989b3f445f4",
@@ -81,8 +81,8 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1,
       "position": [
-        -540,
-        440
+        -544,
+        448
       ],
       "id": "59e88b4f-5975-40ca-ad5b-f5a945965a17",
       "name": "Default Data Loader"
@@ -96,8 +96,8 @@
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        -1300,
-        180
+        -1296,
+        192
       ],
       "id": "b6a02ed2-f7cb-44da-a7e4-c2ebc3464065",
       "name": "When chat message received",
@@ -110,7 +110,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -140,
+        -144,
         -80
       ],
       "id": "89d2efae-d8e1-4601-b874-53831f0fbcbc",
@@ -124,8 +124,8 @@
       "type": "@n8n/n8n-nodes-langchain.textSplitterCharacterTextSplitter",
       "typeVersion": 1,
       "position": [
-        -440,
-        600
+        -448,
+        608
       ],
       "id": "58203e59-4521-41cc-b4ef-78e2a10122f7",
       "name": "Character Text Splitter"
@@ -151,8 +151,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        120,
-        -60
+        128,
+        -64
       ],
       "id": "1d0e9c6a-f074-4f86-a6c1-36f7b26b3e1b",
       "name": "HTTP Request"
@@ -218,8 +218,8 @@
   "settings": {},
   "staticData": null,
   "meta": null,
-  "pinData": null,
-  "versionId": "d85d6abf-2f83-40a0-9021-03a1f5fcf8b2",
+  "pinData": {},
+  "versionId": "4986cdd6-7948-462f-8b80-50449542cc01",
   "triggerCount": 0,
   "tags": []
 }
