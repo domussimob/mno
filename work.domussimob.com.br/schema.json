@@ -1509,6 +1509,14 @@
               "value": "meituan/longcat-flash-chat"
             },
             {
+              "text": "Qwen: Qwen Plus 0728",
+              "value": "qwen/qwen-plus-2025-07-28"
+            },
+            {
+              "text": "Qwen: Qwen Plus 0728 (thinking)",
+              "value": "qwen/qwen-plus-2025-07-28:thinking"
+            },
+            {
               "text": "NVIDIA: Nemotron Nano 9B V2 (free)",
               "value": "nvidia/nemotron-nano-9b-v2:free"
             },
@@ -2453,12 +2461,12 @@
               "value": "anthropic/claude-3.5-sonnet"
             },
             {
-              "text": "Mistral: Ministral 8B",
-              "value": "mistralai/ministral-8b"
-            },
-            {
               "text": "Mistral: Ministral 3B",
               "value": "mistralai/ministral-3b"
+            },
+            {
+              "text": "Mistral: Ministral 8B",
+              "value": "mistralai/ministral-8b"
             },
             {
               "text": "Qwen2.5 7B Instruct",
@@ -2469,12 +2477,12 @@
               "value": "nvidia/llama-3.1-nemotron-70b-instruct"
             },
             {
-              "text": "Inflection: Inflection 3 Productivity",
-              "value": "inflection/inflection-3-productivity"
-            },
-            {
               "text": "Inflection: Inflection 3 Pi",
               "value": "inflection/inflection-3-pi"
+            },
+            {
+              "text": "Inflection: Inflection 3 Productivity",
+              "value": "inflection/inflection-3-productivity"
             },
             {
               "text": "Google: Gemini 1.5 Flash 8B",
@@ -2489,20 +2497,20 @@
               "value": "anthracite-org/magnum-v2-72b"
             },
             {
-              "text": "Meta: Llama 3.2 3B Instruct (free)",
-              "value": "meta-llama/llama-3.2-3b-instruct:free"
-            },
-            {
-              "text": "Meta: Llama 3.2 3B Instruct",
-              "value": "meta-llama/llama-3.2-3b-instruct"
+              "text": "Meta: Llama 3.2 90B Vision Instruct",
+              "value": "meta-llama/llama-3.2-90b-vision-instruct"
             },
             {
               "text": "Meta: Llama 3.2 1B Instruct",
               "value": "meta-llama/llama-3.2-1b-instruct"
             },
             {
-              "text": "Meta: Llama 3.2 90B Vision Instruct",
-              "value": "meta-llama/llama-3.2-90b-vision-instruct"
+              "text": "Meta: Llama 3.2 3B Instruct (free)",
+              "value": "meta-llama/llama-3.2-3b-instruct:free"
+            },
+            {
+              "text": "Meta: Llama 3.2 3B Instruct",
+              "value": "meta-llama/llama-3.2-3b-instruct"
             },
             {
               "text": "Meta: Llama 3.2 11B Vision Instruct",
@@ -3061,16 +3069,16 @@
               "value": "eleven_english_sts_v2"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
