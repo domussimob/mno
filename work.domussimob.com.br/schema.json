@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Qwen: Qwen3 Next 80B A3B Instruct",
+              "value": "qwen/qwen3-next-80b-a3b-instruct"
+            },
+            {
               "text": "Meituan: LongCat Flash Chat",
               "value": "meituan/longcat-flash-chat"
             },
@@ -3049,20 +3053,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
