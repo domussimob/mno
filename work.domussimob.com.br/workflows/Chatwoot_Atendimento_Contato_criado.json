@@ -1,9 +1,9 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-12T16:03:54.572Z",
+  "updatedAt": "2025-09-12T16:15:38.518Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -552,8 +552,49 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "pinData": {},
-  "versionId": "c67853f1-8828-4386-be0a-8bfecdb6df28",
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "hook.domussimob.com.br",
+            "user-agent": "rest-client/2.1.0 (linux-musl aarch64) ruby/3.3.3p89",
+            "content-length": "254",
+            "accept": "application/json",
+            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+            "content-type": "application/json",
+            "x-forwarded-for": "172.18.0.1",
+            "x-forwarded-host": "hook.domussimob.com.br",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "6929e8675dbf",
+            "x-real-ip": "172.18.0.1"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "account": {
+              "id": 1,
+              "name": "Domuss"
+            },
+            "additional_attributes": {},
+            "avatar": "",
+            "custom_attributes": {},
+            "email": null,
+            "id": 23,
+            "identifier": "5585921566737@s.whatsapp.net",
+            "name": "Lourinha",
+            "phone_number": "+5585921566737",
+            "thumbnail": "",
+            "event": "contact_created"
+          },
+          "webhookUrl": "https://hook.domussimob.com.br/webhook/contato_criado_web",
+          "executionMode": "production"
+        }
+      }
+    ]
+  },
+  "versionId": "760f5353-e410-4653-a296-e0e04e825bb6",
   "triggerCount": 1,
   "tags": []
 }
