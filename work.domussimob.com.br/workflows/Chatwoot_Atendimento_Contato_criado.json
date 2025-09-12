@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-10T14:18:50.423Z",
+  "updatedAt": "2025-09-12T15:49:10.025Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": true,
@@ -139,7 +139,8 @@
       "position": [
         -32,
         16
-      ]
+      ],
+      "retryOnFail": true
     },
     {
       "parameters": {
@@ -204,7 +205,9 @@
         16
       ],
       "retryOnFail": true,
-      "alwaysOutputData": true
+      "alwaysOutputData": true,
+      "waitBetweenTries": 2000,
+      "maxTries": 5
     },
     {
       "parameters": {
@@ -547,7 +550,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "cdff2ce7-5d01-45d9-aa22-a712647eb656",
+  "versionId": "4426799e-5c7e-4a84-9d84-155ed4b5875d",
   "triggerCount": 1,
   "tags": []
 }
