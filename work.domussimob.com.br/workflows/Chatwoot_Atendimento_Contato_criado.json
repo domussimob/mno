@@ -1,9 +1,9 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-12T16:31:46.031Z",
+  "updatedAt": "2025-09-12T16:37:12.732Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -528,49 +528,8 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "pinData": {
-    "Webhook": [
-      {
-        "json": {
-          "headers": {
-            "host": "hook.domussimob.com.br",
-            "user-agent": "rest-client/2.1.0 (linux-musl aarch64) ruby/3.3.3p89",
-            "content-length": "259",
-            "accept": "application/json",
-            "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
-            "content-type": "application/json",
-            "x-forwarded-for": "172.18.0.1",
-            "x-forwarded-host": "hook.domussimob.com.br",
-            "x-forwarded-port": "443",
-            "x-forwarded-proto": "https",
-            "x-forwarded-server": "6929e8675dbf",
-            "x-real-ip": "172.18.0.1"
-          },
-          "params": {},
-          "query": {},
-          "body": {
-            "account": {
-              "id": 1,
-              "name": "Domuss"
-            },
-            "additional_attributes": {},
-            "avatar": "",
-            "custom_attributes": {},
-            "email": null,
-            "id": 24,
-            "identifier": "558587916278@s.whatsapp.net",
-            "name": "Denison Azevedo",
-            "phone_number": "+558587916278",
-            "thumbnail": "",
-            "event": "contact_created"
-          },
-          "webhookUrl": "https://hook.domussimob.com.br/webhook/contato_criado_web",
-          "executionMode": "production"
-        }
-      }
-    ]
-  },
-  "versionId": "a4e81320-6605-4928-923d-2211cd4a84cb",
+  "pinData": {},
+  "versionId": "4c7e16fc-bd43-4955-a1ab-55333f0d391b",
   "triggerCount": 1,
   "tags": []
 }
