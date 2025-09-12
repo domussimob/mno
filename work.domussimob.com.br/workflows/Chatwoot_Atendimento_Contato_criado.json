@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-12T16:25:36.771Z",
+  "updatedAt": "2025-09-12T16:30:39.053Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": false,
@@ -80,49 +80,25 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        -240,
-        16
+        -176,
+        80
       ]
     },
     {
       "parameters": {
-        "url": "={{ $json.chatwootUrl }}/api/v1/accounts/{{ $json.chatwootAccountId }}/contacts/{{ $json.contact_id }}",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "api_access_token",
-              "value": "={{ $json.chatwootToken }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        96,
-        -144
-      ],
-      "id": "cc84b198-9c1c-44e7-af5d-ffd3e395d74b",
-      "name": "HTTP Request",
-      "disabled": true
-    },
-    {
-      "parameters": {
         "method": "POST",
-        "url": "={{ $json.krayinUrl }}/api/v1/login",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/login",
         "sendBody": true,
         "contentType": "multipart-form-data",
         "bodyParameters": {
           "parameters": [
             {
               "name": "email",
-              "value": "={{ $json.krayinEmail }}"
+              "value": "={{ $('Info Base').item.json.krayinEmail }}"
             },
             {
               "name": "password",
-              "value": "={{ $json.krayinSenha }}"
+              "value": "={{ $('Info Base').item.json.krayinSenha }}"
             },
             {
               "name": "device_name",
@@ -137,8 +113,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -32,
-        16
+        560,
+        96
       ],
       "retryOnFail": true
     },
@@ -169,46 +145,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        608,
-        240
+        784,
+        112
       ],
       "retryOnFail": true,
-      "waitBetweenTries": 2000,
-      "maxTries": 5
-    },
-    {
-      "parameters": {
-        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/contacts/persons/search",
-        "sendQuery": true,
-        "queryParameters": {
-          "parameters": [
-            {
-              "name": "searchFields",
-              "value": "={{ $('Info Base').item.json.identifier }}"
-            }
-          ]
-        },
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Authorization",
-              "value": "=Bearer {{ $json.token }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "id": "d5bce15a-910a-4aa7-a0a7-985bf6192f99",
-      "name": "Procura_contato_CRM",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        192,
-        16
-      ],
-      "retryOnFail": true,
-      "alwaysOutputData": true,
       "waitBetweenTries": 2000,
       "maxTries": 5
     },
@@ -240,8 +180,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        336,
-        160
+        320,
+        80
       ],
       "id": "1736f04a-8f5c-46b8-9654-e95114fa661e",
       "name": "Contato_existe?"
@@ -293,8 +233,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        800,
-        240
+        1024,
+        112
       ],
       "id": "bc4e2eaa-31ac-42db-ba6c-1b7191400fe4",
       "name": "Select rows from a table",
@@ -373,8 +313,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.4,
       "position": [
-        1040,
-        240
+        1280,
+        96
       ],
       "credentials": {
         "mySql": {
@@ -408,8 +348,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        1280,
-        224
+        1568,
+        96
       ],
       "id": "e7b575d6-c259-4e47-ae19-2d971dd7e680",
       "name": "Update rows in a table",
@@ -428,7 +368,7 @@
       "typeVersion": 1.1,
       "position": [
         -400,
-        16
+        80
       ],
       "id": "8908b124-3503-4605-acd9-baea15275e3b",
       "name": "Wait",
@@ -460,7 +400,7 @@
       "typeVersion": 2.4,
       "position": [
         48,
-        224
+        48
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -487,11 +427,6 @@
       "main": [
         [
           {
-            "node": "HTTP login",
-            "type": "main",
-            "index": 0
-          },
-          {
             "node": "Cadastra Lead",
             "type": "main",
             "index": 0
@@ -503,16 +438,11 @@
       "main": [
         [
           {
-            "node": "Procura_contato_CRM",
+            "node": "HTTP criar usuario",
             "type": "main",
             "index": 0
           }
         ]
-      ]
-    },
-    "Procura_contato_CRM": {
-      "main": [
-        []
       ]
     },
     "Contato_existe?": {
@@ -524,7 +454,13 @@
             "index": 0
           }
         ],
-        []
+        [
+          {
+            "node": "HTTP login",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "HTTP criar usuario": {
@@ -634,7 +570,7 @@
       }
     ]
   },
-  "versionId": "bcb16855-ac4c-4319-920e-d5ed4b2a9edc",
+  "versionId": "edb25231-366c-4103-b3ee-fb7e281e2ffb",
   "triggerCount": 1,
   "tags": []
 }
