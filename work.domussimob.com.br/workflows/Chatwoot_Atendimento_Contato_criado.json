@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-12T16:00:45.213Z",
+  "updatedAt": "2025-09-12T16:03:54.572Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": true,
@@ -553,7 +553,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "edc2e6a8-5e36-4c4e-847a-4a0c82f39f7d",
+  "versionId": "c67853f1-8828-4386-be0a-8bfecdb6df28",
   "triggerCount": 1,
   "tags": []
 }
