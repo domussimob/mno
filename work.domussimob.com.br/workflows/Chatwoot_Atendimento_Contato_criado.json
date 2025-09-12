@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-12T16:15:38.518Z",
+  "updatedAt": "2025-09-12T16:25:36.771Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": false,
@@ -169,8 +169,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        592,
-        32
+        608,
+        240
       ],
       "retryOnFail": true,
       "waitBetweenTries": 2000,
@@ -184,7 +184,7 @@
           "parameters": [
             {
               "name": "searchFields",
-              "value": "=identifier:{{ $('Info Base').item.json.identifier }}"
+              "value": "={{ $('Info Base').item.json.identifier }}"
             }
           ]
         },
@@ -224,7 +224,7 @@
           "conditions": [
             {
               "id": "29471e8e-0bf1-4dd1-88f8-10db9e48cae1",
-              "leftValue": "={{ $json.data[0].id }}",
+              "leftValue": "={{ $json.id }}",
               "rightValue": "",
               "operator": {
                 "type": "number",
@@ -240,8 +240,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        400,
-        16
+        336,
+        160
       ],
       "id": "1736f04a-8f5c-46b8-9654-e95114fa661e",
       "name": "Contato_existe?"
@@ -251,8 +251,8 @@
       "type": "n8n-nodes-base.noOp",
       "typeVersion": 1,
       "position": [
-        848,
-        -160
+        704,
+        -192
       ],
       "id": "93f89df2-dcca-4a2f-b675-57c50fcf686d",
       "name": "fim"
@@ -293,8 +293,8 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        784,
-        32
+        800,
+        240
       ],
       "id": "bc4e2eaa-31ac-42db-ba6c-1b7191400fe4",
       "name": "Select rows from a table",
@@ -373,8 +373,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.4,
       "position": [
-        1024,
-        32
+        1040,
+        240
       ],
       "credentials": {
         "mySql": {
@@ -408,8 +408,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        1216,
-        16
+        1280,
+        224
       ],
       "id": "e7b575d6-c259-4e47-ae19-2d971dd7e680",
       "name": "Update rows in a table",
@@ -422,7 +422,7 @@
     },
     {
       "parameters": {
-        "amount": 20
+        "amount": 3
       },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
@@ -433,6 +433,42 @@
       "id": "8908b124-3503-4605-acd9-baea15275e3b",
       "name": "Wait",
       "webhookId": "7b418319-79d3-42ea-b753-fc126f7ccd2b"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "emails",
+              "condition": "LIKE",
+              "value": "=%{{ $json.identifier }}%"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "455777ab-c87f-4c67-a712-8cda9076cee2",
+      "name": "Cadastra Lead",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        48,
+        224
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
     }
   ],
   "connections": {
@@ -454,6 +490,11 @@
             "node": "HTTP login",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Cadastra Lead",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -471,13 +512,7 @@
     },
     "Procura_contato_CRM": {
       "main": [
-        [
-          {
-            "node": "Contato_existe?",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Contato_existe?": {
@@ -489,13 +524,7 @@
             "index": 0
           }
         ],
-        [
-          {
-            "node": "HTTP criar usuario",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "HTTP criar usuario": {
@@ -536,6 +565,17 @@
         [
           {
             "node": "Info Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead": {
+      "main": [
+        [
+          {
+            "node": "Contato_existe?",
             "type": "main",
             "index": 0
           }
@@ -594,7 +634,7 @@
       }
     ]
   },
-  "versionId": "760f5353-e410-4653-a296-e0e04e825bb6",
+  "versionId": "bcb16855-ac4c-4319-920e-d5ed4b2a9edc",
   "triggerCount": 1,
   "tags": []
 }
