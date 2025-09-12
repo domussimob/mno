@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-12T16:30:39.053Z",
+  "updatedAt": "2025-09-12T16:31:46.031Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": false,
@@ -15,8 +15,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -592,
-        16
+        -624,
+        80
       ],
       "id": "0722f808-aac2-4fbe-9a12-657444cbdd8a",
       "name": "Webhook",
@@ -535,7 +535,7 @@
           "headers": {
             "host": "hook.domussimob.com.br",
             "user-agent": "rest-client/2.1.0 (linux-musl aarch64) ruby/3.3.3p89",
-            "content-length": "254",
+            "content-length": "259",
             "accept": "application/json",
             "accept-encoding": "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
             "content-type": "application/json",
@@ -557,10 +557,10 @@
             "avatar": "",
             "custom_attributes": {},
             "email": null,
-            "id": 23,
-            "identifier": "5585921566737@s.whatsapp.net",
-            "name": "Lourinha",
-            "phone_number": "+5585921566737",
+            "id": 24,
+            "identifier": "558587916278@s.whatsapp.net",
+            "name": "Denison Azevedo",
+            "phone_number": "+558587916278",
             "thumbnail": "",
             "event": "contact_created"
           },
@@ -570,7 +570,7 @@
       }
     ]
   },
-  "versionId": "edb25231-366c-4103-b3ee-fb7e281e2ffb",
+  "versionId": "a4e81320-6605-4928-923d-2211cd4a84cb",
   "triggerCount": 1,
   "tags": []
 }
