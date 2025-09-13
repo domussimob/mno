@@ -1,0 +1,1816 @@
+{
+  "createdAt": "2025-09-13T13:13:30.053Z",
+  "updatedAt": "2025-09-13T13:13:30.053Z",
+  "id": "2MAp0YHTvIiE1i4Q",
+  "name": "My workflow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "get",
+        "messageId": "={{ $json.id }}",
+        "simple": false,
+        "options": {}
+      },
+      "id": "98622b69-3414-4cbc-9f4f-6d06a7920166",
+      "name": "Get Message Contents",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        2320,
+        1120
+      ],
+      "webhookId": "fa1d496f-17fa-4e50-bae9-84ca85ed4502",
+      "typeVersion": 2.1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2006c806-42db-4457-84c2-35f59ed39018",
+              "name": "date",
+              "type": "string",
+              "value": "={{ $json.date }}"
+            },
+            {
+              "id": "872278d2-b97c-45ba-a9d3-162f154fe7dc",
+              "name": "subject",
+              "type": "string",
+              "value": "={{ $json.subject }}"
+            },
+            {
+              "id": "282f03e9-1d0f-4a17-b9ed-75b44171d4ee",
+              "name": "text",
+              "type": "string",
+              "value": "={{ $json.text }}"
+            },
+            {
+              "id": "9421776c-ff53-4490-b0e1-1e610534ba25",
+              "name": "from",
+              "type": "string",
+              "value": "={{ $json.from.value[0].name }} ({{ $json.from.value[0].address }})"
+            },
+            {
+              "id": "3b6716e8-5582-4da3-ae9d-e8dd1afad530",
+              "name": "to",
+              "type": "string",
+              "value": "={{ $json.to.value[0].name }} ({{ $json.to.value[0].address }})"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2c73ec8f-0e63-417d-9e51-3968329ed493",
+      "name": "Simplify Emails",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2480,
+        1120
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "mode": "list",
+          "value": "c_5792bdf04bc395cbcbc6f7b754268245a33779d36640cc80a357711aa2f09a0a@group.calendar.google.com",
+          "cachedResultName": "n8n-events"
+        },
+        "limit": 1,
+        "options": {
+          "timeMin": "={{ $now.toUTC() }}",
+          "timeMax": "={{ $now.toUTC().plus(1, 'hour') }}",
+          "singleEvents": true,
+          "orderBy": "startTime"
+        }
+      },
+      "id": "87d639be-3ec3-4b62-8a20-1d62959c317e",
+      "name": "Check For Upcoming Meetings",
+      "type": "n8n-nodes-base.googleCalendar",
+      "position": [
+        768,
+        432
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-2024-08-06",
+        "options": {}
+      },
+      "id": "0f690c3e-325c-4092-9b8c-36de40c1445a",
+      "name": "OpenAI Chat Model2",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        1168,
+        592
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "text": "=start: {{ $json.start.dateTime }}\nmeeting url: {{ $json.hangoutLink }}\nsummary: {{ $json.summary }}\ndescription: {{ $json.description }}\norganiser: {{ $json.organizer.displayName }} ({{ $json.organizer.email }})\nattendees: {{ $json.attendees.filter(item => !item.organizer).map(item => item.email).join(',') }}",
+        "schemaType": "manual",
+        "inputSchema": "{\n\t\"type\": \"object\",\n\t\"properties\": {\n\t\t\"attendees\": {\n \"type\": \"array\",\n \"description\": \"list of attendees excluding the meeting organiser\",\n \"items\": {\n\t\t\t\"type\": \"object\",\n\t\t\t\"properties\": {\n\t\t\t \"name\": { \"type\": \"string\" },\n \"email\": { \"type\": \"string\" },\n \"linkedin_url\": { \"type\": \"string\" }\n\t\t\t}\n }\n\t\t}\n\t}\n}",
+        "options": {
+          "systemPromptTemplate": "You are an expert extraction algorithm. Try to link any information found in the description to help fill in the attendee details.\nIf you do not know the value of an attribute asked to extract, you may omit the attribute's value."
+        }
+      },
+      "id": "2ebea22d-3feb-4804-ba21-bb2fc2d6ab68",
+      "name": "Extract Attendee Information",
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "position": [
+        1168,
+        432
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {},
+      "id": "77a8cb2c-f442-4fd6-9ce0-42a96d41979d",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "position": [
+        1168,
+        1200
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-2024-08-06",
+        "options": {}
+      },
+      "id": "1c5c816b-8aa3-41f5-973d-fa968c6be560",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        2704,
+        1264
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": 1,
+        "filters": {
+          "sender": "={{ $json.email }}"
+        }
+      },
+      "id": "4a93f646-eacd-4d1e-bec2-6c0b29d884cc",
+      "name": "Get Last Correspondence",
+      "type": "n8n-nodes-base.gmail",
+      "position": [
+        1984,
+        1120
+      ],
+      "webhookId": "b00c960c-3689-4fa1-9f0f-7d6c9479f0c6",
+      "typeVersion": 2.1,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-2024-08-06",
+        "options": {}
+      },
+      "id": "3581414a-ed08-48ed-84a4-57bd14c3bd87",
+      "name": "OpenAI Chat Model1",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        4272,
+        1936
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "gpt-4o-2024-08-06",
+        "options": {}
+      },
+      "id": "93f37beb-50eb-4d14-9c5a-6fcf71a6a765",
+      "name": "OpenAI Chat Model3",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        2960,
+        592
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "477115632141067",
+        "recipientPhoneNumber": "44123456789",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "6ec53fcc-4fbc-44e9-a980-ab209bb5f817",
+      "name": "WhatsApp Business Cloud",
+      "type": "n8n-nodes-base.whatsApp",
+      "position": [
+        3600,
+        480
+      ],
+      "typeVersion": 1,
+      "webhookId": "83497893-6b35-460d-9ca0-5d5bc540e171"
+    },
+    {
+      "parameters": {
+        "content": "## 1. Pesquise reuniões futuras periodicamente\n[Leia sobre o gatilho agendado](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.scheduletrigger)\n\nVamos usar o nó Gatilho Agendado para acionar nosso Assistente e notificá-lo sobre reuniões futuras. Aqui, vamos configurá-lo para intervalos de 1 hora para verificar as reuniões agendadas em nosso Google Agenda. Talvez seja necessário ajustar os intervalos e a frequência, dependendo de quantas reuniões você costuma ter.",
+        "height": 449.1424626006906,
+        "width": 616.7897454470152,
+        "color": 7
+      },
+      "id": "1cf51773-b72f-44dc-8031-fba69b702514",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        432,
+        224
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "13512e4c-6d49-45a8-8c25-f2dc4ee5617b",
+      "name": "Schedule Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        576,
+        432
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "## 2. Extrair Detalhes do Participante do Convite\n[Saiba mais sobre o nó Extrator de Informações](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor/)\n\nAssim que tivermos nossa próxima reunião, será interessante nos prepararmos para ela lembrando ao usuário sobre o assunto da reunião e algum contexto com os participantes. Este será o objetivo deste modelo e do nosso assistente! No entanto, primeiro precisaremos extrair algumas informações de contato dos participantes para isso.\n\nPara esta demonstração, assumiremos que o e-mail do participante e as URLs do perfil do LinkedIn estão incluídos no convite da reunião. Extrairemos essas informações para cada participante usando o nó Extrator de Informações. Este nó prático usa IA para analisar e extrair, o que nos poupa de escrever códigos complexos de correspondência de padrões.\n\nEm seu próprio cenário, sinta-se à vontade para usar seu CRM para obter essas informações.",
+        "height": 670.4114154200236,
+        "width": 655.5654775604146,
+        "color": 7
+      },
+      "id": "6aec924d-d61e-4308-bef9-dfabb1fffcd7",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1072,
+        96
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3. Buscar Correspondências Recentes e Atividade do LinkedIn\n[Saiba mais sobre o nó Executar Fluxo de Trabalho](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executeworkflow)\n\nComo as ações de busca de e-mails e de scraping do LinkedIn são bastante complexas, vamos dividi-las em execuções de subfluxos de trabalho. Fazer isso (na minha opinião sincera) ajuda no desenvolvimento e na manutenção do modelo. Aqui, realizaremos a pesquisa para todos os participantes aplicáveis, fazendo duas chamadas para o subfluxo de trabalho e mesclando-as novamente em um único nó no final.\n\nAcesse o subfluxo de trabalho (veja abaixo - etapa 3a) para ver como extraímos os resumos do Gmail e do LinkedIn.",
+        "height": 670.8210817031078,
+        "width": 1020.0959898041108,
+        "color": 7
+      },
+      "id": "96ee69fe-12ad-45c3-8aba-63f95f42e001",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1744,
+        96
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 4. Gerar Notificação Pré-Reunião\n[Saiba mais sobre o nó LLM Básico](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm)\n\nAgora que temos (1) os detalhes da nossa próxima reunião e (2) os resumos recentes por e-mail e/ou Linkedin sobre o nosso participante, vamos inseri-los no nosso nó LLM para gerar a melhor notificação pré-reunião já vista! É claro que precisaremos ser breves, pois pretendemos enviar esta notificação por mensagem do WhatsApp, mas caso você opte por usar outro canal, como e-mail, sinta-se à vontade para ajustar o tamanho da mensagem conforme for mais conveniente.",
+        "height": 582.1201380897592,
+        "width": 610.3630186140072,
+        "color": 7
+      },
+      "id": "212831bc-d6b3-45ce-a0d2-055f71362abe",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2800,
+        176
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 5. Enviar Notificações via WhatsApp\n[Saiba mais sobre o nó do WhatsApp](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.whatsapp)\n\nO nó do WhatsApp é uma maneira super conveniente de enviar mensagens para o WhatsApp, um dos muitos aplicativos de mensagens suportados pelo n8n. Não usa o WhatsApp? Basta trocá-lo por Twilio, Telegram, Slack e outros.",
+        "height": 454.24485615650235,
+        "width": 466.8967433831988,
+        "color": 7
+      },
+      "id": "8403b4af-febd-4127-bdc1-f816cb4c4ad3",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3424,
+        256
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3.2: Buscar a Última Correspondência de E-mail\n[Saiba mais sobre o nó do Gmail](https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.gmail)\n\nBuscar o último e-mail do participante certamente ajudará o usuário a \"recuperar\" a partir de quando ele saiu pela última vez. Para isso, assumiremos um usuário do Gmail e usaremos o nó do Gmail para filtrar mensagens pelo endereço de e-mail do participante.",
+        "height": 207,
+        "width": 519,
+        "color": 7
+      },
+      "id": "25e2c950-8cf9-41e9-890c-75d559326b8e",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1984,
+        864
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3.4 Scraping do LinkedIn com [Apify.com](https://www.apify.com?fpr=414q6)\n[Saiba mais sobre o Apify.com para Web Scraping](https://www.apify.com?fpr=414q6)\n\nPara obter a atividade recente do participante no LinkedIn, precisaremos de um web scraper capaz de renderizar o perfil do usuário no LinkedIn. Usaremos o [Apify.com](https://www.apify.com?fpr=414q6), que é um serviço comercial de web scraping, mas com uma mensalidade gratuita bem generosa (US$ 5/mês).\n\nEmbora a Apify ofereça diversos scrapers dedicados ao LinkedIn, criaremos o nosso próprio, que funciona imitando nossa conta do LinkedIn usando nosso cookie de login – ele pode ser obtido inspecionando as solicitações de rede quando conectado ao LinkedIn. **Adicione seu cookie do LinkedIn ao nó abaixo!**",
+        "height": 259.7914017217902,
+        "width": 667.8619481635637,
+        "color": 7
+      },
+      "id": "b894faae-c4df-45ce-b181-222c650a743d",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1984,
+        1472
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3.1 Subfluxo de Trabalho do Pesquisador Participante\n[Saiba mais sobre como usar o Acionador de Fluxo de Trabalho de Execução](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executeworkflowtrigger/)\n\nO Subfluxo de Trabalho do Pesquisador Participante tem como objetivo coletar e resumir tanto a última correspondência do participante com o usuário (se aplicável) quanto o perfil do participante no LinkedIn (se disponível). Ele usa o padrão de roteador para lidar com ambas as ramificações, permitindo cadeias de execução mais curtas. Usando o nó Switch, este subfluxo de trabalho é acionado para buscar e-mails ou extrair dados do LinkedIn, mas nunca ambos simultaneamente.",
+        "height": 295,
+        "width": 572,
+        "color": 7
+      },
+      "id": "9418f1ab-47f7-4fb2-a33d-9350566b2432",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1168,
+        864
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fc4b63a7-ad4d-49ff-9d42-715760910f6a",
+              "name": "linkedin_summary",
+              "type": "string",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "2efd01d7-a201-417b-b90e-d091ec3cdf5b",
+      "name": "Return LinkedIn Success",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        4608,
+        1792
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bf5a0781-3bad-4f63-a49c-273b03204747",
+              "name": "linkedin_summary",
+              "type": "string",
+              "value": "No activities found."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "47f4e397-81ad-4ba8-aa3f-96ef505ebc54",
+      "name": "Return LinkedIn Error",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2624,
+        1936
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a7efc9e-26b0-48c9-83aa-ae989f20b1df",
+              "name": "email_summary",
+              "type": "string",
+              "value": "No correspondance found."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c8055b22-5110-4b5d-8737-ccfbd22ecaba",
+      "name": "Return Email Error",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2320,
+        1296
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fc4b63a7-ad4d-49ff-9d42-715760910f6a",
+              "name": "email_summary",
+              "type": "object",
+              "value": "={{ $json.text }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "158fb13b-4970-4c89-9b00-c254ec0bc1ee",
+      "name": "Return Email Success",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3040,
+        1120
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ Object.assign({ \"route\": \"email\" }, $json) }}",
+        "options": {}
+      },
+      "id": "914eae03-7a04-419b-b9e2-fb08655e26f7",
+      "name": "Set Route Email",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1840,
+        352
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ Object.assign({ \"route\": \"linkedin\" }, $json) }}",
+        "options": {}
+      },
+      "id": "0a1e3074-5d4a-42b9-ad52-d14a36d920cc",
+      "name": "Set Route Linkedin",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1840,
+        512
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "email"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "email"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "version": 2,
+                  "leftValue": "",
+                  "caseSensitive": true,
+                  "typeValidation": "strict"
+                },
+                "combinator": "and",
+                "conditions": [
+                  {
+                    "id": "ba71a258-de67-4f61-a24a-33c86bd4c4f5",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "leftValue": "={{ $json.route }}",
+                    "rightValue": "linkedin"
+                  }
+                ]
+              },
+              "renameOutput": true,
+              "outputKey": "linkedin"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ff7a1469-e2ec-4213-8531-6110177f378d",
+      "name": "Router",
+      "type": "n8n-nodes-base.switch",
+      "position": [
+        1344,
+        1200
+      ],
+      "typeVersion": 3.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "bf5a0781-3bad-4f63-a49c-273b03204747",
+              "name": "linkedin_summary",
+              "type": "string",
+              "value": "No activities found."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f1b9bda7-2d43-4d14-856d-204d8a061ba5",
+      "name": "Return LinkedIn Error1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1680,
+        1488
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "ff11640a-33e4-4695-a62c-7dcab57f0ae5",
+              "operator": {
+                "type": "object",
+                "operation": "empty",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8fecd48d-48f8-4097-b5a0-9ec1471e5cb7",
+      "name": "Has Emails?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        2144,
+        1120
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a7efc9e-26b0-48c9-83aa-ae989f20b1df",
+              "name": "email_summary",
+              "type": "string",
+              "value": "No correspondance found."
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8b850c12-0754-4e41-8283-2aaa13ad7ac9",
+      "name": "Return Email Error1",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        1680,
+        1312
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "## 3.5: Extrair Perfil do LinkedIn e Atividade Recente\n[Saiba mais sobre o nó HTML](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.html)\n\nDepois de extrairmos nosso perfil do LinkedIn, basta analisar e extrair as seções relevantes da página.\nPara o nosso fluxo de trabalho, precisaremos apenas das seções \"Sobre\" e \"Atividade\", que extrairemos da página usando uma série de nós HTML. Sinta-se à vontade para extrair outras seções de acordo com suas necessidades! Após a extração, combinaremos os dados \"Sobre\" e \"Atividades\" para prepará-los e enviá-los ao nosso LLM.",
+        "height": 219.59936012669806,
+        "width": 682.7350931085596,
+        "color": 7
+      },
+      "id": "9d72e3e5-12b8-4d47-9973-ced3dd5c5e2a",
+      "name": "Sticky Note9",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2800,
+        1536
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "sections",
+        "options": {
+          "destinationFieldName": "data"
+        }
+      },
+      "id": "8d969358-eb60-4893-b291-562023761795",
+      "name": "Sections To List",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        2960,
+        1792
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b4354c00-cc1a-4a55-8b44-6ba4854cc6ba",
+              "name": "linkedin_profile_url",
+              "type": "string",
+              "value": "={{ $json.linkedin_url }}"
+            },
+            {
+              "id": "4888db89-2573-4246-8ab9-c106a7fe5f38",
+              "name": "linkedin_cookies",
+              "type": "string",
+              "value": "<COPY_YOUR_LINKEDIN_COOKIES_HERE>"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "f3f775b6-ce88-415d-8be2-de7e56cc2a5f",
+      "name": "Set LinkedIn Cookie",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2048,
+        1792
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "content": "### Esteja ciente dos Termos e Condições do LinkedIn!\nPara produção, você pode considerar não usar sua conta principal do LinkedIn, se puder!",
+        "height": 142,
+        "width": 308,
+        "color": 3
+      },
+      "id": "9550f55f-06f1-4a69-97d1-4073b6778ec1",
+      "name": "Sticky Note8",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1648,
+        1824
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "\n\n\n\n\n\n\n\n\n\n\n\n### 🚨 Entrada necessária!\nVocê precisa adicionar seus cookies atuais do LinkedIn aqui para continuar.",
+        "height": 301.5806674338321,
+        "width": 209.84856156501735
+      },
+      "id": "785f666a-a11d-46e2-afb3-6d8ed80cfeb4",
+      "name": "Sticky Note10",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1984,
+        1776
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "output.attendees",
+        "options": {}
+      },
+      "id": "5f367214-49bb-40e3-94cd-b901713b8327",
+      "name": "Attendees to List",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        1504,
+        432
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ Object.assign({}, $('Attendees to List').item.json, $json) }}",
+        "options": {}
+      },
+      "id": "7d214838-c9bb-4496-88f7-59a6f50d82bf",
+      "name": "Merge Attendee with Summaries",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        2400,
+        432
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "1382e335-bfae-4665-a2ee-a05496a7b463",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.email }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "69ca65c3-0179-4497-8bb9-8a053aced01d",
+      "name": "Has Email Address?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1520,
+        1200
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "1382e335-bfae-4665-a2ee-a05496a7b463",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.linkedin_url }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "eec5b34e-9578-4cfe-b9d1-4d69fc229246",
+      "name": "Has LinkedIn URL?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        1520,
+        1376
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "6b139db7-3aa4-4731-bd77-5144657ac562",
+      "name": "Get Correspondance",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        2032,
+        352
+      ],
+      "typeVersion": 1.1,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "c74eb5f9-8e91-4402-97af-7e5596375dbf",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        2240,
+        432
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "attendees",
+        "options": {}
+      },
+      "id": "73719061-0ea1-45e7-bc4f-bbceb8a578ac",
+      "name": "Aggregate Attendees",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        2592,
+        432
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "activity",
+        "options": {}
+      },
+      "id": "c2c792fa-f27b-40c0-8cb4-ecf42ff67691",
+      "name": "Activities To Array",
+      "type": "n8n-nodes-base.aggregate",
+      "position": [
+        3920,
+        1984
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "body",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "name",
+              "cssSelector": "h1"
+            },
+            {
+              "key": "tagline",
+              "cssSelector": ".pv-text-details__left-panel--full-width .text-body-medium"
+            },
+            {
+              "key": "location",
+              "cssSelector": ".pv-text-details__left-panel--full-width + div .text-body-small"
+            },
+            {
+              "key": "num_connections",
+              "cssSelector": "a[href=\"/mynetwork/invite-connect/connections/\"]"
+            },
+            {
+              "key": "num_followers",
+              "cssSelector": "a[href=\"https://www.linkedin.com/feed/followers/\"]"
+            },
+            {
+              "key": "sections",
+              "cssSelector": "section[data-view-name]",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "700d9b41-8017-456a-9574-00c15f903441",
+      "name": "Extract Profile Metadata",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        2800,
+        1792
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "activity",
+        "options": {}
+      },
+      "id": "ae381812-68ec-4b62-a387-163425ae21cc",
+      "name": "Activities To List",
+      "type": "n8n-nodes-base.splitOut",
+      "position": [
+        3600,
+        1984
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "url": "https://api.apify.com/v2/acts/apify~web-scraper/run-sync-get-dataset-items",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpQueryAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n \"startUrls\": [\n {\n \"url\": \"{{ $json.linkedin_profile_url }}\",\n \"method\": \"GET\"\n }\n ],\n \"initialCookies\": [\n {\n \"name\": \"li_at\",\n \"value\": \"{{ $json.linkedin_cookies.match(/li_at=([^;]+)/)[1] }}\",\n \"domain\": \".www.linkedin.com\"\n }\n ],\n \"breakpointLocation\": \"NONE\",\n \"browserLog\": false,\n \"closeCookieModals\": false,\n \"debugLog\": false,\n \"downloadCss\": false,\n \"downloadMedia\": false,\n \"excludes\": [\n {\n \"glob\": \"/**/*.{png,jpg,jpeg,pdf}\"\n }\n ],\n \"headless\": true,\n \"ignoreCorsAndCsp\": false,\n \"ignoreSslErrors\": false,\n \n \"injectJQuery\": true,\n \"keepUrlFragments\": false,\n \"linkSelector\": \"a[href]\",\n \"maxCrawlingDepth\": 1,\n \"maxPagesPerCrawl\": 1,\n \"maxRequestRetries\": 1,\n \"maxResultsPerCrawl\": 1,\n \"pageFunction\": \"// The function accepts a single argument: the \\\"context\\\" object.\\n// For a complete list of its properties and functions,\\n// see https://apify.com/apify/web-scraper#page-function \\nasync function pageFunction(context) {\\n\\n await new Promise(res => { setTimeout(res, 6000) });\\n // This statement works as a breakpoint when you're trying to debug your code. Works only with Run mode: DEVELOPMENT!\\n // debugger; \\n\\n // jQuery is handy for finding DOM elements and extracting data from them.\\n // To use it, make sure to enable the \\\"Inject jQuery\\\" option.\\n const $ = context.jQuery;\\n const title = $('title').first().text();\\n\\n // Clone the body to avoid modifying the original content\\n const bodyClone = $('body').clone();\\n bodyClone.find('iframe, img, script, style, object, embed, noscript, svg, video, audio').remove();\\n const body = bodyClone.html();\\n\\n // Return an object with the data extracted from the page.\\n // It will be stored to the resulting dataset.\\n return {\\n url: context.request.url,\\n title,\\n body\\n };\\n}\",\n \"postNavigationHooks\": \"// We need to return array of (possibly async) functions here.\\n// The functions accept a single argument: the \\\"crawlingContext\\\" object.\\n[\\n async (crawlingContext) => {\\n // ...\\n },\\n]\",\n \"preNavigationHooks\": \"// We need to return array of (possibly async) functions here.\\n// The functions accept two arguments: the \\\"crawlingContext\\\" object\\n// and \\\"gotoOptions\\\".\\n[\\n async (crawlingContext, gotoOptions) => {\\n // ...\\n },\\n]\\n\",\n \"proxyConfiguration\": {\n \"useApifyProxy\": true\n },\n \"runMode\": \"PRODUCTION\",\n \n \"useChrome\": false,\n \"waitUntil\": [\n \"domcontentloaded\"\n ],\n \"globs\": [],\n \"pseudoUrls\": [],\n \"proxyRotation\": \"RECOMMENDED\",\n \"maxConcurrency\": 50,\n \"pageLoadTimeoutSecs\": 60,\n \"pageFunctionTimeoutSecs\": 60,\n \"maxScrollHeightPixels\": 5000,\n \"customData\": {}\n}",
+        "options": {}
+      },
+      "id": "71e00d52-36a4-4e6c-81da-833a9dfce71d",
+      "name": "APIFY Web Scraper",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        2240,
+        1792
+      ],
+      "typeVersion": 4.2
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "activity",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "header",
+              "cssSelector": ".feed-mini-update-optional-navigation-context-wrapper",
+              "returnValue": "attribute",
+              "attribute": "aria-label"
+            },
+            {
+              "key": "url",
+              "cssSelector": ".feed-mini-update-optional-navigation-context-wrapper",
+              "returnValue": "attribute",
+              "attribute": "href"
+            },
+            {
+              "key": "content",
+              "cssSelector": ".inline-show-more-text--is-collapsed"
+            },
+            {
+              "key": "num_reactions",
+              "cssSelector": ".social-details-social-counts__reactions-count"
+            },
+            {
+              "key": "num_comments",
+              "cssSelector": ".social-details-social-counts__comments"
+            },
+            {
+              "key": "num_reposts",
+              "cssSelector": ".social-details-social-counts__item--truncate-text"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "64f4ce5e-1ba5-4422-9273-5307d8242971",
+      "name": "Get Activity Details",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        3760,
+        1984
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "title",
+              "cssSelector": "h2 [aria-hidden=true]"
+            },
+            {
+              "key": "content",
+              "cssSelector": "*",
+              "returnValue": "html"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "02a02cfe-8a5c-473a-be81-bddebe6a3586",
+      "name": "Get Sections",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        3120,
+        1792
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79d7943f-45a5-456c-a15b-cef53903409d",
+              "name": "html",
+              "type": "string",
+              "value": "={{\n$input.all()\n .find(input => input.json.title.toLowerCase().trim() === 'about')\n .json\n .content\n}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "867c2b38-198d-4300-ba63-5a8224ce524f",
+      "name": "Get About Section",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3280,
+        1792
+      ],
+      "executeOnce": true,
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "79d7943f-45a5-456c-a15b-cef53903409d",
+              "name": "html",
+              "type": "string",
+              "value": "={{\n$input.all()\n .find(input => input.json.title.toLowerCase().trim() === 'activity')\n .json\n .content\n}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7da51fed-9664-4ede-a054-2b0e4df5bef7",
+      "name": "Get Activity Section",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        3280,
+        1984
+      ],
+      "executeOnce": true,
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "html",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "activity",
+              "cssSelector": ".profile-creator-shared-feed-update__mini-container",
+              "returnValue": "html",
+              "returnArray": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "20df7655-cdb8-4908-b0f8-9dd71d47a4ed",
+      "name": "Extract Activities",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        3440,
+        1984
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "id": "e9fb3aaf-c6d2-4192-b175-a672a5fede60",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "position": [
+        4112,
+        1792
+      ],
+      "typeVersion": 3
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "3861abc7-7699-4459-b983-0c8b33e090b5",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              },
+              "leftValue": "={{ $json.body }}",
+              "rightValue": ""
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "25c8db11-aee2-45ec-8a4e-63997a0ad7f6",
+      "name": "Is Scrape Successful?",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        2432,
+        1792
+      ],
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "operation": "extractHtmlContent",
+        "dataPropertyName": "html",
+        "extractionValues": {
+          "values": [
+            {
+              "key": "about",
+              "cssSelector": "body"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "674d1dbc-a6ff-4e47-8777-9a028a096144",
+      "name": "Extract About",
+      "type": "n8n-nodes-base.html",
+      "position": [
+        3440,
+        1792
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "content": "## 3.6 Resumir o LinkedIn para o Participante\n[Saiba mais sobre o nó LLM Básico](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm)\n\nPor fim, usaremos o nó LLM Básico para resumir o perfil do LinkedIn e as atividades recentes do nosso participante. Nosso objetivo aqui é identificar e enviar informações interessantes que possam ser relevantes para a reunião, bem como informar o usuário. Caso necessite de critérios diferentes, basta editar o resumo para obter a resposta desejada.",
+        "height": 212.26880753952497,
+        "width": 508.12647286359606,
+        "color": 7
+      },
+      "id": "03530f53-f3ee-43ad-ab5f-1cab31f2cf0b",
+      "name": "Sticky Note11",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4112,
+        1552
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## 3.3: Resumir a Correspondência para o Participante\n[Saiba mais sobre o nó LLM Básico](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.chainllm)\n\nEm seguida, geraremos uma versão mais curta do(s) e-mail(s) usando o nó LLM Básico – útil se o e-mail fizer parte de uma cadeia grande. O objetivo aqui é, se aplicável, lembrar o usuário da conversa com este participante e destacar quaisquer expectativas que possam ser definidas antes de entrar na reunião.",
+        "height": 229,
+        "width": 594,
+        "color": 7
+      },
+      "id": "85654301-72db-480e-9552-5c0bb4cb64dd",
+      "name": "Sticky Note12",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2704,
+        864
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $workflow.id }}"
+        },
+        "mode": "each",
+        "options": {
+          "waitForSubWorkflow": true
+        }
+      },
+      "id": "17dd206b-4e41-40f0-819e-dd1054377405",
+      "name": "Get LinkedIn Profile & Activity",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "position": [
+        2032,
+        512
+      ],
+      "typeVersion": 1.1,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "content": "## Experimente!\n\n### Este fluxo de trabalho cria um assistente de reunião com IA que envia notificações pré-reunião repletas de informações sobre as próximas reuniões de um usuário. Este modelo é ideal para profissionais ocupados que estão constantemente em movimento e desejam economizar tempo e causar uma boa impressão.\n\n### Como funciona\n* Um gatilho agendado dispara a cada hora e verifica as próximas reuniões dentro de uma hora.\n* Quando encontrado, uma busca pela última correspondência e perfil do LinkedIn + atividade recente é realizada para cada participante.\n* Usando a correspondência disponível e/ou o perfil do LinkedIn, um AI/LLM é usado para resumir essas informações e gerar uma breve mensagem de notificação que deve ajudar o usuário a se preparar para a reunião.\n* A notificação é finalmente enviada para o WhatsApp do usuário.\n\n### Precisa de ajuda?\nParticipe do [Discord](https://discord.com/invite/XPKeKXeB7d) ou pergunte no [Fórum](https://community.n8n.io/)!\n\nBoas atividades de hacking!",
+        "height": 588.3011632094225,
+        "width": 453.4804561790962
+      },
+      "id": "3090fc79-728b-4e07-811f-25545a66f3e9",
+      "name": "Sticky Note13",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -80,
+        -48
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=from: {{ $json.from }}\nto: {{ $json.to }}\ndate: {{ $json.date }}\nsubject: {{ $json.subject }}\ntext:\n{{ $json.text }}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are helping the \"to\" user recap the last correspondance they had in this email thread. Summarize succiently what was discussed, changed or agreed to help the user prepare for their upcoming meeting."
+            }
+          ]
+        }
+      },
+      "id": "c7425618-30a0-403d-89a7-7c8eed9fd212",
+      "name": "Correspondance Recap Agent",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        2704,
+        1120
+      ],
+      "typeVersion": 1.4
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=meeting date: {{ $('Check For Upcoming Meetings').item.json.start.dateTime }}\nmeeting url: {{ $('Check For Upcoming Meetings').item.json.hangoutLink }}\nmeeting summary: {{ $('Check For Upcoming Meetings').first().json.summary }}\nmeeting description: {{ $('Check For Upcoming Meetings').item.json.description }}\nmeeting with: {{ $json.attendees.map(item => item.name).join(',') }}\n---\n{{\n$json.attendees.map(item => {\n return\n`attendee name: ${item.name}\n${item.name}'s last correspondance: ${item.email_summary.replaceAll('\\n', ' ') || `We have not had any correspondance with ${item.name}`}\n${item.name}'s linkedin profile: ${item.linkedin_summary.replaceAll('\\n', ' ') || `We were unable to find the linkedin profile for ${$json.name}`}\n`\n}).join('\\n---\\n')\n}}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=You are a personal meeing assistant.\nYou are helping to remind user of an upcoming meeting with {{ $json.attendees.map(item => item.name).join(',') }} (aka \"the attendee(s)\"}. You will structure your notification using the following guidance:\n1. Start by providing the meeting summary, mentioning the date, with whom and providing the meeting link.\n2. For each attendee, give a short bullet point summary of their last correspondance. Assess if the correspondance has any relevance to the meeting and if so, identify any important todos or items which should be mentioned during the meeting. Additionally, give a short bullet point summary of attendee's recent activity which makes for good talking points. These need not be relevant to the meeting.\n\nWrite your response in a casual tone as if sending a SMS message to the user. USe bullet points where appropriate."
+            }
+          ]
+        }
+      },
+      "id": "52ab497d-36c3-492b-a565-3d47d260507e",
+      "name": "Attendee Research Agent",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        2960,
+        432
+      ],
+      "typeVersion": 1.4
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=### name\n{{ $('Extract Profile Metadata').item.json.name }}\n### about\n\"{{ $('Extract Profile Metadata').item.json.tagline }}\"\n{{ $json.about.replaceAll('\\n', ' ')}}\n### recent activity\n{{\n$json.activity.map((item, idx) => {\n return [\n item.header.replace('View full post.', ''),\n `(${item.url})`,\n ' - ',\n item.content.replaceAll('\\n', ' ').replaceAll('…show more', '')\n ].join(' ')\n}).join('\\n---\\n')\n}}",
+        "messages": {
+          "messageValues": [
+            {
+              "message": "=Summarize briefly the person and their recent activities as seen in the given feed and highlight noteworthy awards or achievements which make for good talking points."
+            }
+          ]
+        }
+      },
+      "id": "8bdea55f-1541-48e2-a52b-6110751a60c3",
+      "name": "LinkedIn Summarizer Agent",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "position": [
+        4272,
+        1792
+      ],
+      "typeVersion": 1.4
+    }
+  ],
+  "connections": {
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge Attendee with Summaries",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn Summarizer Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Router": {
+      "main": [
+        [
+          {
+            "node": "Has Email Address?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Has LinkedIn URL?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Emails?": {
+      "main": [
+        [
+          {
+            "node": "Get Message Contents",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Email Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Sections": {
+      "main": [
+        [
+          {
+            "node": "Get About Section",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Get Activity Section",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract About": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Route Email": {
+      "main": [
+        [
+          {
+            "node": "Get Correspondance",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simplify Emails": {
+      "main": [
+        [
+          {
+            "node": "Correspondance Recap Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Check For Upcoming Meetings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sections To List": {
+      "main": [
+        [
+          {
+            "node": "Get Sections",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "APIFY Web Scraper": {
+      "main": [
+        [
+          {
+            "node": "Is Scrape Successful?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attendees to List": {
+      "main": [
+        [
+          {
+            "node": "Set Route Email",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set Route Linkedin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get About Section": {
+      "main": [
+        [
+          {
+            "node": "Extract About",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has LinkedIn URL?": {
+      "main": [
+        [
+          {
+            "node": "Set LinkedIn Cookie",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return LinkedIn Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Correspondance Recap Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activities To List": {
+      "main": [
+        [
+          {
+            "node": "Get Activity Details",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Activities": {
+      "main": [
+        [
+          {
+            "node": "Activities To List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Correspondance": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Email Address?": {
+      "main": [
+        [
+          {
+            "node": "Get Last Correspondence",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Email Error1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LinkedIn Summarizer Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Extract Attendee Information",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Attendee Research Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Route Linkedin": {
+      "main": [
+        [
+          {
+            "node": "Get LinkedIn Profile & Activity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Activities To Array": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Aggregate Attendees": {
+      "main": [
+        [
+          {
+            "node": "Attendee Research Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set LinkedIn Cookie": {
+      "main": [
+        [
+          {
+            "node": "APIFY Web Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Activity Details": {
+      "main": [
+        [
+          {
+            "node": "Activities To Array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Activity Section": {
+      "main": [
+        [
+          {
+            "node": "Extract Activities",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Message Contents": {
+      "main": [
+        [
+          {
+            "node": "Simplify Emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Scrape Successful?": {
+      "main": [
+        [
+          {
+            "node": "Extract Profile Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return LinkedIn Error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Attendee Research Agent": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Business Cloud",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Last Correspondence": {
+      "main": [
+        [
+          {
+            "node": "Has Emails?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Router",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Profile Metadata": {
+      "main": [
+        [
+          {
+            "node": "Sections To List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LinkedIn Summarizer Agent": {
+      "main": [
+        [
+          {
+            "node": "Return LinkedIn Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Correspondance Recap Agent": {
+      "main": [
+        [
+          {
+            "node": "Return Email Success",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check For Upcoming Meetings": {
+      "main": [
+        [
+          {
+            "node": "Extract Attendee Information",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Attendee Information": {
+      "main": [
+        [
+          {
+            "node": "Attendees to List",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Attendee with Summaries": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Attendees",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get LinkedIn Profile & Activity": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "60daa901-bdfe-4f03-85e5-1cce4209a743",
+  "triggerCount": 0,
+  "tags": []
+}
