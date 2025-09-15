@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-09T12:45:24.779Z",
-  "updatedAt": "2025-09-09T17:00:12.384Z",
+  "updatedAt": "2025-09-15T11:31:49.154Z",
   "id": "VtB9eKxyrqV7ZMJT",
   "name": "[PROJETO MNO - FERRAMENTAS] V3",
   "active": true,
@@ -925,7 +925,7 @@
         "rule": {
           "interval": [
             {
-              "field": "minutes"
+              "field": "hours"
             }
           ]
         }
@@ -1619,7 +1619,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "893ed65f-a1c3-480d-82a4-9eca8c419cf6",
+  "versionId": "811f8598-e242-48e8-84bd-cc92cc50a693",
   "triggerCount": 5,
   "tags": []
 }
