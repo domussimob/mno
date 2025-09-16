@@ -2369,14 +2369,6 @@
               "value": "openai/o1"
             },
             {
-              "text": "xAI: Grok 2 Vision 1212",
-              "value": "x-ai/grok-2-vision-1212"
-            },
-            {
-              "text": "xAI: Grok 2 1212",
-              "value": "x-ai/grok-2-1212"
-            },
-            {
               "text": "Cohere: Command R7B (12-2024)",
               "value": "cohere/command-r7b-12-2024"
             },
@@ -2633,16 +2625,16 @@
               "value": "sao10k/l3-euryale-70b"
             },
             {
+              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
+              "value": "nousresearch/hermes-2-pro-llama-3-8b"
+            },
+            {
               "text": "Mistral: Mistral 7B Instruct (free)",
               "value": "mistralai/mistral-7b-instruct:free"
             },
             {
               "text": "Mistral: Mistral 7B Instruct",
               "value": "mistralai/mistral-7b-instruct"
-            },
-            {
-              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
-              "value": "nousresearch/hermes-2-pro-llama-3-8b"
             },
             {
               "text": "Mistral: Mistral 7B Instruct v0.3",
@@ -3053,16 +3045,16 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
+            },
+            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
-            },
-            {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
