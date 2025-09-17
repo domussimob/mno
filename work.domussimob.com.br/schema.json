@@ -2153,10 +2153,6 @@
               "value": "openai/gpt-4o-search-preview"
             },
             {
-              "text": "Reka: Flash 3 (free)",
-              "value": "rekaai/reka-flash-3:free"
-            },
-            {
               "text": "Google: Gemma 3 27B (free)",
               "value": "google/gemma-3-27b-it:free"
             },
@@ -3049,16 +3045,16 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
