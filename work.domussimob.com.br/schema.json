@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Tongyi DeepResearch 30B A3B",
+              "value": "alibaba/tongyi-deepresearch-30b-a3b"
+            },
+            {
               "text": "Qwen: Qwen3 Coder Flash",
               "value": "qwen/qwen3-coder-flash"
             },
@@ -2437,12 +2441,12 @@
               "value": "thedrummer/unslopnemo-12b"
             },
             {
-              "text": "Anthropic: Claude 3.5 Haiku (2024-10-22)",
-              "value": "anthropic/claude-3.5-haiku-20241022"
-            },
-            {
               "text": "Anthropic: Claude 3.5 Haiku",
               "value": "anthropic/claude-3.5-haiku"
+            },
+            {
+              "text": "Anthropic: Claude 3.5 Haiku (2024-10-22)",
+              "value": "anthropic/claude-3.5-haiku-20241022"
             },
             {
               "text": "Magnum v4 72B",
@@ -2453,12 +2457,12 @@
               "value": "anthropic/claude-3.5-sonnet"
             },
             {
-              "text": "Mistral: Ministral 3B",
-              "value": "mistralai/ministral-3b"
-            },
-            {
               "text": "Mistral: Ministral 8B",
               "value": "mistralai/ministral-8b"
+            },
+            {
+              "text": "Mistral: Ministral 3B",
+              "value": "mistralai/ministral-3b"
             },
             {
               "text": "Qwen2.5 7B Instruct",
@@ -2489,6 +2493,14 @@
               "value": "anthracite-org/magnum-v2-72b"
             },
             {
+              "text": "Meta: Llama 3.2 11B Vision Instruct",
+              "value": "meta-llama/llama-3.2-11b-vision-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 90B Vision Instruct",
+              "value": "meta-llama/llama-3.2-90b-vision-instruct"
+            },
+            {
               "text": "Meta: Llama 3.2 3B Instruct (free)",
               "value": "meta-llama/llama-3.2-3b-instruct:free"
             },
@@ -2499,14 +2511,6 @@
             {
               "text": "Meta: Llama 3.2 1B Instruct",
               "value": "meta-llama/llama-3.2-1b-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 90B Vision Instruct",
-              "value": "meta-llama/llama-3.2-90b-vision-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 11B Vision Instruct",
-              "value": "meta-llama/llama-3.2-11b-vision-instruct"
             },
             {
               "text": "Qwen2.5 72B Instruct (free)",
@@ -3049,16 +3053,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
