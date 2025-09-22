@@ -2401,10 +2401,6 @@
               "value": "amazon/nova-pro-v1"
             },
             {
-              "text": "Qwen: QwQ 32B Preview",
-              "value": "qwen/qwq-32b-preview"
-            },
-            {
               "text": "OpenAI: GPT-4o (2024-11-20)",
               "value": "openai/gpt-4o-2024-11-20"
             },
@@ -3049,12 +3045,12 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v1",
