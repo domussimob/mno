@@ -2197,10 +2197,6 @@
               "value": "perplexity/sonar-deep-research"
             },
             {
-              "text": "Qwen: QwQ 32B (free)",
-              "value": "qwen/qwq-32b:free"
-            },
-            {
               "text": "Qwen: QwQ 32B",
               "value": "qwen/qwq-32b"
             },
@@ -2579,10 +2575,6 @@
             {
               "text": "Meta: Llama 3.1 8B Instruct",
               "value": "meta-llama/llama-3.1-8b-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.1 405B Instruct (free)",
-              "value": "meta-llama/llama-3.1-405b-instruct:free"
             },
             {
               "text": "Meta: Llama 3.1 405B Instruct",
@@ -3049,6 +3041,10 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
@@ -3059,10 +3055,6 @@
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
