@@ -2693,32 +2693,12 @@
               "value": "google/gemini-pro-1.5"
             },
             {
-              "text": "Cohere: Command R+",
-              "value": "cohere/command-r-plus"
-            },
-            {
-              "text": "Cohere: Command R+ (04-2024)",
-              "value": "cohere/command-r-plus-04-2024"
-            },
-            {
-              "text": "Cohere: Command R",
-              "value": "cohere/command-r"
-            },
-            {
-              "text": "Cohere: Command",
-              "value": "cohere/command"
-            },
-            {
               "text": "Anthropic: Claude 3 Haiku",
               "value": "anthropic/claude-3-haiku"
             },
             {
               "text": "Anthropic: Claude 3 Opus",
               "value": "anthropic/claude-3-opus"
-            },
-            {
-              "text": "Cohere: Command R (03-2024)",
-              "value": "cohere/command-r-03-2024"
             },
             {
               "text": "Mistral Large",
@@ -3041,10 +3021,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
@@ -3055,6 +3031,10 @@
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
