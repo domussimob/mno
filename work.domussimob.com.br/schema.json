@@ -1593,7 +1593,7 @@
               "value": "nousresearch/hermes-4-405b"
             },
             {
-              "text": "Google: Gemini 2.5 Flash Image Preview",
+              "text": "Gemini 2.5 Flash Image (Nano Banana)",
               "value": "google/gemini-2.5-flash-image-preview"
             },
             {
@@ -3021,10 +3021,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
@@ -3035,6 +3031,10 @@
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
