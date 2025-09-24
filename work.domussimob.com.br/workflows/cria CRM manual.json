@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-24T15:57:40.953Z",
-  "updatedAt": "2025-09-24T15:59:30.735Z",
+  "updatedAt": "2025-09-24T16:34:15.139Z",
   "id": "qzfYrkMMyQqlW52T",
   "name": "cria CRM manual",
   "active": false,
@@ -21,15 +21,11 @@
             },
             {
               "name": "chatwootAccountId",
-              "value": "={{ $json.body.account.id }}"
-            },
-            {
-              "name": "identifier",
-              "value": "={{ $json.body.identifier }}"
+              "value": "={{ $json.account_id }}"
             },
             {
               "name": "phonenumber",
-              "value": "={{ $json.body.phone_number.replace(/\\D/g, '')}}"
+              "value": "={{ $json.phone_number.replace(/\\D/g, '')}}"
             },
             {
               "name": "krayinUrl",
@@ -45,13 +41,17 @@
             },
             {
               "name": "contact_name",
-              "value": "={{ $json.body.name }}"
+              "value": "={{ $json.name }}"
+            },
+            {
+              "name": "identifier",
+              "value": "={{ $json.identifier }}"
             }
           ],
           "number": [
             {
               "name": "contact_id",
-              "value": "={{ $json.body.id }}"
+              "value": "={{ $json.id }}"
             }
           ]
         },
@@ -64,8 +64,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 2,
       "position": [
-        -176,
-        80
+        -96,
+        -32
       ]
     },
     {
@@ -169,17 +169,6 @@
       ],
       "id": "1367086b-1030-4908-80d8-c610685f09bb",
       "name": "Contato_existe?"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        704,
-        -192
-      ],
-      "id": "4fb0537f-3a00-4fbd-b9d7-0c874b7ba20d",
-      "name": "fim"
     },
     {
       "parameters": {
@@ -369,8 +358,8 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.4,
       "position": [
-        48,
-        48
+        80,
+        -32
       ],
       "alwaysOutputData": true,
       "credentials": {
@@ -385,8 +374,8 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        -960,
-        -16
+        -1072,
+        -64
       ],
       "id": "1eed5e51-2093-4177-89db-967f67ac5c82",
       "name": "When clicking ‘Execute workflow’"
@@ -406,13 +395,21 @@
           "cachedResultName": "conversations"
         },
         "returnAll": true,
+        "where": {
+          "values": [
+            {
+              "column": "account_id",
+              "value": "1"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        -704,
-        0
+        -768,
+        -64
       ],
       "id": "3f941853-afa4-4276-8658-92b91acc8a98",
       "name": "Select rows from a table1",
@@ -430,17 +427,226 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -512,
-        -48
+        -544,
+        -64
       ],
       "id": "ffdf916b-e8cb-4553-9746-ec34252ab38d",
       "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contacts",
+          "mode": "list",
+          "cachedResultName": "contacts"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "id",
+              "value": "={{ $json.contact_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -320,
+        -32
+      ],
+      "id": "793c1496-1dd4-496a-8434-b2156e135a64",
+      "name": "Select rows from a table2",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Info Base').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        832,
+        -160
+      ],
+      "id": "9144b00d-dcd6-4f47-b1cd-a60a0eda018e",
+      "name": "Select rows from a table3",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('Contato_existe?').item.json.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "101deaf5-3950-4e48-9d12-39050309f9c8",
+      "name": "Cadastra Lead2",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        1200,
+        -400
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('HTTP criar usuario1').item.json.data.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table3').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1376,
+        -176
+      ],
+      "id": "15b3674d-7170-4532-89ae-6e4de0391146",
+      "name": "Update rows in a table1",
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
     }
   ],
   "connections": {
     "Info Base": {
       "main": [
-        []
+        [
+          {
+            "node": "Cadastra Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "HTTP login": {
@@ -458,7 +664,7 @@
       "main": [
         [
           {
-            "node": "fim",
+            "node": "Loop Over Items",
             "type": "main",
             "index": 0
           }
@@ -543,11 +749,60 @@
         [],
         [
           {
+            "node": "Select rows from a table2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table2": {
+      "main": [
+        [
+          {
             "node": "Info Base",
             "type": "main",
             "index": 0
           }
         ]
+      ]
+    },
+    "Update rows in a table": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table3": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead2": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update rows in a table1": {
+      "main": [
+        []
       ]
     }
   },
@@ -561,7 +816,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "6494fe5e-66f5-4483-b63e-b472b10ad3f7",
+  "versionId": "701c7b9f-db39-4a5f-91f7-c47720515a62",
   "triggerCount": 1,
   "tags": []
 }
