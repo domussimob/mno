@@ -1,0 +1,567 @@
+{
+  "createdAt": "2025-09-24T15:57:40.953Z",
+  "updatedAt": "2025-09-24T15:59:30.735Z",
+  "id": "qzfYrkMMyQqlW52T",
+  "name": "cria CRM manual",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "chatwootUrl",
+              "value": "https://atendimento.domussimob.com.br"
+            },
+            {
+              "name": "chatwootToken",
+              "value": "v5KbHpAurkE5q1okNXWyVYTh"
+            },
+            {
+              "name": "chatwootAccountId",
+              "value": "={{ $json.body.account.id }}"
+            },
+            {
+              "name": "identifier",
+              "value": "={{ $json.body.identifier }}"
+            },
+            {
+              "name": "phonenumber",
+              "value": "={{ $json.body.phone_number.replace(/\\D/g, '')}}"
+            },
+            {
+              "name": "krayinUrl",
+              "value": "https://crm.domussimob.com.br"
+            },
+            {
+              "name": "krayinEmail",
+              "value": "domussimob@gmail.com"
+            },
+            {
+              "name": "krayinSenha",
+              "value": "gCrjaY7VbR9MJh49"
+            },
+            {
+              "name": "contact_name",
+              "value": "={{ $json.body.name }}"
+            }
+          ],
+          "number": [
+            {
+              "name": "contact_id",
+              "value": "={{ $json.body.id }}"
+            }
+          ]
+        },
+        "options": {
+          "dotNotation": false
+        }
+      },
+      "id": "ec150c41-0b95-4166-97ba-05b028b17e10",
+      "name": "Info Base",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -176,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/login",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "email",
+              "value": "={{ $('Info Base').item.json.krayinEmail }}"
+            },
+            {
+              "name": "password",
+              "value": "={{ $('Info Base').item.json.krayinSenha }}"
+            },
+            {
+              "name": "device_name",
+              "value": "n8n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "50adcbe5-02b2-4092-a79e-f6df9ab30e39",
+      "name": "HTTP login",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        560,
+        96
+      ],
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/contacts/persons",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('HTTP login').item.json.token }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $('Info Base').item.json.contact_name }}\",\n \"identifier\": \"{{ $('Info Base').item.json.identifier }}\",\n  \"emails\": [\n    {\n      \"value\": \"{{ $('Info Base').item.json.identifier }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"contact_numbers\": [\n    {\n      \"value\": \"{{ $('Info Base').item.json.phonenumber }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"entity_type\": \"persons\"\n}",
+        "options": {}
+      },
+      "id": "9313ddd0-fa8b-4ce9-a375-96d73744e8ae",
+      "name": "HTTP criar usuario",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        784,
+        112
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "29471e8e-0bf1-4dd1-88f8-10db9e48cae1",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        80
+      ],
+      "id": "1367086b-1030-4908-80d8-c610685f09bb",
+      "name": "Contato_existe?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        704,
+        -192
+      ],
+      "id": "4fb0537f-3a00-4fbd-b9d7-0c874b7ba20d",
+      "name": "fim"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Info Base').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        1024,
+        112
+      ],
+      "id": "6803ee3b-df85-4c39-afc3-89338b562f62",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('HTTP criar usuario').item.json.data.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c70cb74e-d079-4aab-8ce2-5e6e4ea8e55a",
+      "name": "Cadastra Lead1",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        1280,
+        96
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('HTTP criar usuario').item.json.data.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1568,
+        96
+      ],
+      "id": "d776562e-129c-40ed-adca-2aa916742677",
+      "name": "Update rows in a table",
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "emails",
+              "condition": "LIKE",
+              "value": "=%{{ $json.identifier }}%"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5bcc03eb-ba95-48d2-bca3-12d6deb23b8e",
+      "name": "Cadastra Lead",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        48,
+        48
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -960,
+        -16
+      ],
+      "id": "1eed5e51-2093-4177-89db-967f67ac5c82",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "returnAll": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -704,
+        0
+      ],
+      "id": "3f941853-afa4-4276-8658-92b91acc8a98",
+      "name": "Select rows from a table1",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -512,
+        -48
+      ],
+      "id": "ffdf916b-e8cb-4553-9746-ec34252ab38d",
+      "name": "Loop Over Items"
+    }
+  ],
+  "connections": {
+    "Info Base": {
+      "main": [
+        []
+      ]
+    },
+    "HTTP login": {
+      "main": [
+        [
+          {
+            "node": "HTTP criar usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contato_existe?": {
+      "main": [
+        [
+          {
+            "node": "fim",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP criar usuario": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead1": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead": {
+      "main": [
+        [
+          {
+            "node": "Contato_existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Info Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "6494fe5e-66f5-4483-b63e-b472b10ad3f7",
+  "triggerCount": 1,
+  "tags": []
+}
