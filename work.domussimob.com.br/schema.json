@@ -1497,6 +1497,14 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Qwen: Qwen3 VL 235B A22B Thinking",
+              "value": "qwen/qwen3-vl-235b-a22b-thinking"
+            },
+            {
+              "text": "Qwen: Qwen3 VL 235B A22B Instruct",
+              "value": "qwen/qwen3-vl-235b-a22b-instruct"
+            },
+            {
               "text": "Qwen: Qwen3 Max",
               "value": "qwen/qwen3-max"
             },
@@ -3029,10 +3037,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
@@ -3043,6 +3047,10 @@
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
