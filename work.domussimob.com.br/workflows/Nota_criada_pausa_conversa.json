@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-26T18:24:55.308Z",
-  "updatedAt": "2025-09-26T21:51:43.743Z",
+  "updatedAt": "2025-09-26T22:29:57.817Z",
   "id": "cn6Ts2KndkKnKSvf",
   "name": "Nota_criada_pausa_conversa",
   "active": false,
@@ -84,534 +84,6 @@
     },
     {
       "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "2ae069c1-7d9c-48dd-8517-a26ed031ef09",
-              "leftValue": "={{ $('nova mensagem').item.json.body.messages[0].sender_type }}",
-              "rightValue": "Contact",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        -352,
-        1184
-      ],
-      "id": "cca8cdc1-d48a-4470-839b-f454f5d5a79a",
-      "name": "contato?"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "loose",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "89ab56f0-4cf3-4711-9d11-2a11485de63c",
-              "leftValue": "={{ $json.custom_attributes }}",
-              "rightValue": "contato",
-              "operator": {
-                "type": "string",
-                "operation": "contains"
-              }
-            }
-          ],
-          "combinator": "or"
-        },
-        "looseTypeValidation": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        176,
-        1072
-      ],
-      "id": "0945fbd8-15bc-4da9-a4df-387f42d15596",
-      "name": "cliente ou contato?"
-    },
-    {
-      "parameters": {
-        "operation": "select",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "contacts",
-          "mode": "list",
-          "cachedResultName": "contacts"
-        },
-        "where": {
-          "values": [
-            {
-              "column": "id",
-              "value": "={{ $json.body.contact_inbox.contact_id }}\n\n"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        -32,
-        1120
-      ],
-      "id": "6c135a2e-8262-4f4c-8084-fe4d65556ed0",
-      "name": "Busca Contato",
-      "credentials": {
-        "postgres": {
-          "id": "WfYQSjRZbcT1Mx8H",
-          "name": "Postgres chatwootee8f16a"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "82031118-8ac3-4e95-b13d-69d658fe4829",
-              "name": "chatwoot_url",
-              "value": "https://atendimento.domussimob.com.br",
-              "type": "string"
-            },
-            {
-              "id": "ccd641ba-e287-4a7e-ab33-0268cb1616ce",
-              "name": "api_user_token",
-              "value": "v5KbHpAurkE5q1okNXWyVYTh",
-              "type": "string"
-            },
-            {
-              "id": "cf9585eb-08f2-4cba-94fc-1e704973d043",
-              "name": "chatwoot_account_id",
-              "value": 1,
-              "type": "number"
-            },
-            {
-              "id": "98c061fc-72d8-406e-b8f8-479264cf2bf7",
-              "name": "conversation_id",
-              "value": "={{ $json.body.id }}",
-              "type": "number"
-            },
-            {
-              "id": "e4bd11a3-d652-406a-a6db-4f01e70cf901",
-              "name": "payload",
-              "value": "={{ $json.body.labels }}",
-              "type": "array"
-            }
-          ]
-        },
-        "includeOtherFields": true,
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        -560,
-        1216
-      ],
-      "id": "d1ae203c-4305-4171-95c8-d4ae3b962a56",
-      "name": "info base"
-    },
-    {
-      "parameters": {
-        "operation": "update",
-        "schema": {
-          "__rl": true,
-          "mode": "list",
-          "value": "public"
-        },
-        "table": {
-          "__rl": true,
-          "value": "contacts",
-          "mode": "list",
-          "cachedResultName": "contacts"
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "id": "={{ $('Busca Contato').item.json.id }}",
-            "custom_attributes": "={  \"status\": \"novo-lead\"}"
-          },
-          "matchingColumns": [
-            "id"
-          ],
-          "schema": [
-            {
-              "id": "id",
-              "displayName": "id",
-              "required": false,
-              "defaultMatch": true,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": false
-            },
-            {
-              "id": "name",
-              "displayName": "name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "email",
-              "displayName": "email",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "phone_number",
-              "displayName": "phone_number",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "account_id",
-              "displayName": "account_id",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "created_at",
-              "displayName": "created_at",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "updated_at",
-              "displayName": "updated_at",
-              "required": true,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "additional_attributes",
-              "displayName": "additional_attributes",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "object",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "identifier",
-              "displayName": "identifier",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "custom_attributes",
-              "displayName": "custom_attributes",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "object",
-              "canBeUsedToMatch": true
-            },
-            {
-              "id": "last_activity_at",
-              "displayName": "last_activity_at",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "dateTime",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "contact_type",
-              "displayName": "contact_type",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "middle_name",
-              "displayName": "middle_name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "last_name",
-              "displayName": "last_name",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "location",
-              "displayName": "location",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "country_code",
-              "displayName": "country_code",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "canBeUsedToMatch": true,
-              "removed": true
-            },
-            {
-              "id": "blocked",
-              "displayName": "blocked",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "boolean",
-              "canBeUsedToMatch": true,
-              "removed": true
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.postgres",
-      "typeVersion": 2.5,
-      "position": [
-        720,
-        1216
-      ],
-      "id": "d8ba130c-7473-439b-96de-1cd1e6119baa",
-      "name": "marca campo do Contato como novo-lead",
-      "credentials": {
-        "postgres": {
-          "id": "WfYQSjRZbcT1Mx8H",
-          "name": "Postgres chatwootee8f16a"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/conversations/{{ $('info base').item.json.conversation_id }}/labels",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "api_access_token",
-              "value": "={{ $('info base').item.json.api_user_token }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"novo-lead\", \"ia-ativada\"]   }}\"\n  ]\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1040,
-        1152
-      ],
-      "id": "e452d8e5-f746-400f-9e17-8c937d85b2ba",
-      "name": "Etiqueta Conversa novo-lead"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/conversations/{{ $('info base').item.json.conversation_id }}/labels",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "api_access_token",
-              "value": "={{ $('info base').item.json.api_user_token }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"ia-desativada\", \"contato\"]   }}\"\n  ]\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        496,
-        1072
-      ],
-      "id": "e35298e0-d125-4dd1-8134-f6c70b8d40e2",
-      "name": "Etiqueta Conversa - ia-desativada"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "={{ $('info base').item.json.chatwoot_url }}/api/v1/accounts/{{ $('info base').item.json.chatwoot_account_id }}/contacts/{{ $('Busca Contato').item.json.id }}/labels",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            },
-            {
-              "name": "api_access_token",
-              "value": "={{ $('info base').item.json.api_user_token }}"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"labels\": [\n    \"{{ [...$('info base').item.json.payload, \"novo-lead\", \"ia-ativada\"]   }}\"\n  ]\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        1296,
-        1104
-      ],
-      "id": "56ad3ed5-6faf-4109-9ba5-f4cd8ba54f28",
-      "name": "Etiqueta contato novo-lead1"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "16dd8e2b-fe57-418b-99fa-afcef7e2be02",
-              "leftValue": "={{ $('nova mensagem').item.json.body.labels }}",
-              "rightValue": "ia-pausada",
-              "operator": {
-                "type": "array",
-                "operation": "notContains",
-                "rightType": "any"
-              }
-            },
-            {
-              "id": "8fd3c516-19db-4bd6-ae09-d2382decfbf8",
-              "leftValue": "={{ $('nova mensagem').item.json.body.labels }}",
-              "rightValue": "ia-desativada",
-              "operator": {
-                "type": "array",
-                "operation": "notContains",
-                "rightType": "any"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.if",
-      "typeVersion": 2.2,
-      "position": [
-        432,
-        1264
-      ],
-      "id": "e4d9694a-92d9-402f-97d7-46d247e48d60",
-      "name": "ia-pausada ou desativada?"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        704,
-        1504
-      ],
-      "id": "37a78268-80d6-4de1-b433-8c83e2f6e68b",
-      "name": "No Operation, do nothing"
-    },
-    {
-      "parameters": {},
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        -144,
-        1360
-      ],
-      "id": "7ed5f1dc-72f2-4c99-8d5a-ffce852f9f9d",
-      "name": "fim1"
-    },
-    {
-      "parameters": {
         "assignments": {
           "assignments": [
             {
@@ -673,8 +145,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        176,
-        -256
+        272,
+        -272
       ],
       "id": "02b55cae-6db1-4ad6-b60b-29c148757847",
       "name": "busca_conversa"
@@ -694,17 +166,43 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "=\n {\n      \"account\": {\n        \"id\": {{ $json.messages[0].account_id }},\n        \"name\": \"Domuss\"\n      },\n      \"additional_attributes\": {},\n      \"content_attributes\": {},\n      \"content_type\": \"{{ $json.messages[0].content_type }}\",\n      \"content\": \"{{ $json.messages[0].content }}\",\n      \"conversation\": {\n        \"additional_attributes\": {},\n        \"can_reply\": true,\n        \"channel\": \"{{ $json.meta.channel }}\",\n        \"contact_inbox\": {\n          \"id\": 90,\n          \"contact_id\": {{ $json.meta.sender.id }},\n          \"inbox_id\": {{ $json.messages[0].inbox_id }},\n          \"source_id\": \"{{ $json.messages[0].conversation.contact_inbox.source_id }}\",\n          \"created_at\": \"{{ $json.messages[0].created_at }}\",\n          \"updated_at\": \"{{ $json.messages[0].updated_at }}\",\n          \"hmac_verified\": false,\n          \"pubsub_token\": \"RsGghyxyL18RahwdkRVfh3Te\"\n        },\n        \"id\": {{ $json.messages[0].conversation_id }},\n        \"inbox_id\": {{ $json.messages[0].inbox_id }},\n        \"messages\": [\n          {\n            \"id\": {{ $json.messages[0].id }},\n            \"content\": \"{{ $json.messages[0].content }}\",\n            \"account_id\": {{ $json.messages[0].account_id }},\n            \"inbox_id\": {{ $json.messages[0].inbox_id }},\n            \"conversation_id\": {{ $json.messages[0].conversation_id }},\n            \"message_type\": {{ $json.messages[0].message_type }},\n            \"created_at\": {{ $json.messages[0].created_at }},\n            \"updated_at\": \"{{ $json.messages[0].updated_at }}\",\n            \"private\": false,\n            \"status\": \"{{ $json.messages[0].status }}\",\n            \"source_id\": {{ $json.messages[0].source_id }},\n            \"content_type\": \"{{ $json.messages[0].content_type }}\",\n            \"content_attributes\": {},\n            \"sender_type\": \"{{ $json.messages[0].sender_type }}\",\n            \"sender_id\": {{ $json.messages[0].sender_id }},\n            \"external_source_ids\": {},\n            \"additional_attributes\": {},\n            \"processed_message_content\": \"{{ $json.messages[0].processed_message_content }}\",\n            \"sentiment\": {},\n            \"conversation\": {\n              \"assignee_id\": {{ $json.messages[0].conversation.assignee_id }},\n              \"unread_count\": {{ $json.messages[0].conversation.unread_count }},\n              \"last_activity_at\": {{ $json.messages[0].conversation.last_activity_at }},\n              \"contact_inbox\": {\n                \"source_id\": \"{{ $json.messages[0].conversation.contact_inbox.source_id }}\"\n              }\n            },\n            \"sender\": {\n              \"id\": {{ $json.last_non_activity_message.sender.id }},\n              \"name\": \"{{ $json.last_non_activity_message.sender.name }}\",\n              \"available_name\": \"{{ $json.last_non_activity_message.sender.available_name }}\",\n              \"avatar_url\": \"\",\n              \"type\": \"{{ $json.last_non_activity_message.sender.type }}\",\n              \"availability_status\": \"{{ $json.last_non_activity_message.sender.availability_status }}\",\n              \"thumbnail\": \"\"\n            }\n          }\n        ],\n        \"labels\": [\n{{ $json.labels }}\n        ],\n        \"meta\": {\n          \"sender\": {\n            \"additional_attributes\": {},\n            \"custom_attributes\": {\n              \"status\": \"{{ $json.meta.sender.custom_attributes.status }}\"\n            },\n            \"email\": {{ $json.meta.sender.email }},\n            \"id\": {{ $json.meta.sender.id }},\n            \"identifier\": \"{{ $json.meta.sender.identifier }}\",\n            \"name\": \"{{ $json.meta.sender.name }}\",\n            \"phone_number\": \"{{ $json.meta.sender.phone_number }}\",\n            \"thumbnail\": \"{{ $json.meta.sender.thumbnail }}\",\n            \"type\": \"contact\"\n          },\n          \"assignee\": {\n            \"id\": {{ $json.meta.assignee.id }},\n            \"name\": \"{{ $json.meta.assignee.name }}\",\n            \"available_name\": \"{{ $json.meta.assignee.available_name }}\",\n            \"avatar_url\": \"\",\n            \"type\": \"user\",\n            \"availability_status\": \"{{ $json.meta.assignee.availability_status }}\",\n            \"thumbnail\": \"\"\n          },\n          \"team\": null,\n          \"hmac_verified\": false\n        },\n        \"status\": \"{{ $json.status }}\",\n        \"custom_attributes\": {},\n        \"snoozed_until\": null,\n        \"unread_count\": 0,\n        \"first_reply_created_at\": {{ $json.first_reply_created_at }},\n        \"priority\": null,\n        \"waiting_since\": 1758910352,\n        \"agent_last_seen_at\": 1758918868,\n        \"contact_last_seen_at\": 0,\n        \"last_activity_at\": {{ $json.last_activity_at }},\n        \"timestamp\": {{ $json.timestamp }},\n        \"created_at\": {{ $json.last_non_activity_message.created_at }}\n      },\n      \"created_at\": \"2025-09-26T20:34:49.515Z\",\n      \"id\": {{ $json.last_non_activity_message.id }},\n      \"inbox\": {\n        \"id\": {{ $json.messages[0].inbox_id }},\n        \"name\": \"Atendimento\"\n      },\n      \"message_type\": \"outgoing\",\n      \"status\": \"{{ $json.messages[0].status }}\",\n      \"private\": false,\n      \"sender\": {\n        \"id\": {{ $json.last_non_activity_message.sender.id }},\n        \"name\": \"{{ $json.last_non_activity_message.sender.name }}\",\n        \"email\": \"\",\n        \"type\": \"{{ $json.last_non_activity_message.sender.type }}\"\n      },\n      \"source_id\": null,\n      \"event\": \"message_created\"\n    }\n",
+        "jsonBody": "=\n {\n      \"account\": {\n        \"id\": {{ $json.messages[0].account_id }},\n        \"name\": \"Domuss\"\n      },\n      \"additional_attributes\": {},\n      \"content_attributes\": {},\n      \"content_type\": \"{{ $json.messages[0].content_type }}\",\n      \"content\": \"{{ $json.messages[0].content }}\",\n      \"conversation\": {\n        \"additional_attributes\": {},\n        \"can_reply\": true,\n        \"channel\": \"{{ $json.meta.channel }}\",\n        \"contact_inbox\": {\n          \"id\": 90,\n          \"contact_id\": {{ $json.meta.sender.id }},\n          \"inbox_id\": {{ $json.messages[0].inbox_id }},\n          \"source_id\": \"{{ $json.messages[0].conversation.contact_inbox.source_id }}\",\n          \"created_at\": {{ $json.messages[0].created_at }},\n          \"updated_at\": \"{{ $json.messages[0].updated_at }}\",\n          \"hmac_verified\": false,\n          \"pubsub_token\": \"RsGghyxyL18RahwdkRVfh3Te\"\n        },\n        \"id\": {{ $json.messages[0].conversation_id }},\n        \"inbox_id\": {{ $json.messages[0].inbox_id }},\n        \"messages\": [\n          {\n            \"id\": {{ $json.messages[0].id }},\n            \"content\": \"{{ $json.messages[0].content }}\",\n            \"account_id\": {{ $json.messages[0].account_id }},\n            \"inbox_id\": {{ $json.messages[0].inbox_id }},\n            \"conversation_id\": {{ $json.messages[0].conversation_id }},\n            \"message_type\": {{ $json.messages[0].message_type }},\n            \"created_at\": {{ $json.messages[0].created_at }},\n            \"updated_at\": \"{{ $json.messages[0].updated_at }}\",\n            \"private\": false,\n            \"status\": \"{{ $json.messages[0].status }}\",\n            \"source_id\": {{ $json.messages[0].source_id }},\n            \"content_type\": \"{{ $json.messages[0].content_type }}\",\n            \"content_attributes\": {},\n            \"sender_type\": \"{{ $json.last_non_activity_message.sender_type }}\",\n            \"sender_id\": {{ $json.messages[0].sender_id }},\n            \"external_source_ids\": {},\n            \"additional_attributes\": {},\n            \"processed_message_content\": \"{{ $json.messages[0].processed_message_content }}\",\n            \"sentiment\": {},\n            \"conversation\": {\n              \"assignee_id\": {{ $json.messages[0].conversation.assignee_id }},\n              \"unread_count\": {{ $json.messages[0].conversation.unread_count }},\n              \"last_activity_at\": {{ $json.messages[0].conversation.last_activity_at }},\n              \"contact_inbox\": {\n                \"source_id\": \"{{ $json.messages[0].conversation.contact_inbox.source_id }}\"\n              }\n            },\n            \"sender\": {\n              \"id\": {{ $json.last_non_activity_message.sender.id }},\n              \"name\": \"{{ $json.last_non_activity_message.sender.name }}\",\n              \"available_name\": \"{{ $json.last_non_activity_message.sender.available_name }}\",\n              \"avatar_url\": \"\",\n              \"type\": \"{{ $json.last_non_activity_message.sender.type }}\",\n              \"availability_status\": \"{{ $json.last_non_activity_message.sender.availability_status }}\",\n              \"thumbnail\": \"\"\n            }\n          }\n        ],\n        \"labels\": {{ $json.labels2 }},\n        \"meta\": {\n          \"sender\": {\n            \"additional_attributes\": {},\n            \"custom_attributes\": {\n              \"status\": \"{{ $json.meta.sender.custom_attributes.status }}\"\n            },\n            \"email\": {{ $json.meta.sender.email }},\n            \"id\": {{ $json.meta.sender.id }},\n            \"identifier\": \"{{ $json.meta.sender.identifier }}\",\n            \"name\": \"{{ $json.meta.sender.name }}\",\n            \"phone_number\": \"{{ $json.meta.sender.phone_number }}\",\n            \"thumbnail\": \"{{ $json.meta.sender.thumbnail }}\",\n            \"type\": \"contact\"\n          },\n          \"assignee\": {\n            \"id\": {{ $json.meta.assignee.id }},\n            \"name\": \"{{ $json.meta.assignee.name }}\",\n            \"available_name\": \"{{ $json.meta.assignee.available_name }}\",\n            \"avatar_url\": \"\",\n            \"type\": \"user\",\n            \"availability_status\": \"{{ $json.meta.assignee.availability_status }}\",\n            \"thumbnail\": \"\"\n          },\n          \"team\": null,\n          \"hmac_verified\": false\n        },\n        \"status\": \"{{ $json.status }}\",\n        \"custom_attributes\": {},\n        \"snoozed_until\": null,\n        \"unread_count\": 0,\n        \"first_reply_created_at\": {{ $json.first_reply_created_at }},\n        \"priority\": null,\n        \"waiting_since\": 1758910352,\n        \"agent_last_seen_at\": 1758918868,\n        \"contact_last_seen_at\": 0,\n        \"last_activity_at\": {{ $json.last_activity_at }},\n        \"timestamp\": {{ $json.timestamp }},\n        \"created_at\": {{ $json.last_non_activity_message.created_at }}\n      },\n      \"created_at\": {{ $json.last_non_activity_message.created_at }},\n      \"id\": {{ $json.last_non_activity_message.id }},\n      \"inbox\": {\n        \"id\": {{ $json.messages[0].inbox_id }},\n        \"name\": \"Atendimento\"\n      },\n      \"message_type\": \"outgoing\",\n      \"status\": \"{{ $json.messages[0].status }}\",\n      \"private\": false,\n      \"sender\": {\n        \"id\": {{ $json.last_non_activity_message.sender.id }},\n        \"name\": \"{{ $json.last_non_activity_message.sender.name }}\",\n        \"email\": \"\",\n        \"type\": \"{{ $json.last_non_activity_message.sender.type }}\"\n      },\n      \"source_id\": null,\n      \"event\": \"message_created\"\n    }\n",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        448,
-        -304
+        944,
+        -336
       ],
       "id": "cbae7292-5dea-4ab3-abfc-57cdaafd4293",
       "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8b7c8bc5-7fb8-4021-b7ae-951c285054c2",
+              "name": "labels2",
+              "value": "={{ $json.labels }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {
+          "ignoreConversionErrors": true
+        }
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        -336
+      ],
+      "id": "d7f0a46e-7480-4a5b-b815-3680237d46cf",
+      "name": "Edit Fields"
     }
   ],
   "connections": {
@@ -737,109 +235,6 @@
         ]
       ]
     },
-    "contato?": {
-      "main": [
-        [
-          {
-            "node": "Busca Contato",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "fim1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "cliente ou contato?": {
-      "main": [
-        [
-          {
-            "node": "Etiqueta Conversa - ia-desativada",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "ia-pausada ou desativada?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Busca Contato": {
-      "main": [
-        [
-          {
-            "node": "cliente ou contato?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "info base": {
-      "main": [
-        [
-          {
-            "node": "contato?",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "marca campo do Contato como novo-lead": {
-      "main": [
-        [
-          {
-            "node": "Etiqueta Conversa novo-lead",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Etiqueta Conversa novo-lead": {
-      "main": [
-        [
-          {
-            "node": "Etiqueta contato novo-lead1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Etiqueta Conversa - ia-desativada": {
-      "main": [
-        []
-      ]
-    },
-    "ia-pausada ou desativada?": {
-      "main": [
-        [
-          {
-            "node": "marca campo do Contato como novo-lead",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "No Operation, do nothing",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "info base1": {
       "main": [
         [
@@ -852,6 +247,17 @@
       ]
     },
     "busca_conversa": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
       "main": [
         [
           {
@@ -905,7 +311,7 @@
       }
     ]
   },
-  "versionId": "833e0d03-ff4f-4e12-9e30-bd8d6051603e",
+  "versionId": "d469e863-b982-49c5-ba50-709373e082f4",
   "triggerCount": 1,
   "tags": []
 }
