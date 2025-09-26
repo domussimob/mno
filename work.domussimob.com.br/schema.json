@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Relace: Relace Apply 3",
+              "value": "relace/relace-apply-3"
+            },
+            {
               "text": "Google: Gemini 2.5 Flash Preview 09-2025",
               "value": "google/gemini-2.5-flash-preview-09-2025"
             },
@@ -3041,6 +3045,10 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
@@ -3051,10 +3059,6 @@
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
