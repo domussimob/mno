@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T13:28:56.188Z",
-  "updatedAt": "2025-09-09T19:52:58.048Z",
+  "updatedAt": "2025-09-26T18:44:11.896Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
   "active": true,
@@ -166,8 +166,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        272,
-        560
+        288,
+        576
       ],
       "id": "a35b2b71-6b9b-4d9a-bb04-3240eb817048",
       "name": "info base"
@@ -729,7 +729,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "49ce4cdc-79cf-4d59-aade-fa7f4be00e15",
+  "versionId": "cc76ceb9-96bd-4619-9d2b-0b4f78af7c54",
   "triggerCount": 1,
   "tags": []
 }
