@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-26T18:24:55.308Z",
-  "updatedAt": "2025-09-27T15:56:49.160Z",
+  "updatedAt": "2025-09-27T16:38:56.441Z",
   "id": "cn6Ts2KndkKnKSvf",
   "name": "Nota_criada_pausa_conversa",
   "active": false,
@@ -66,7 +66,7 @@
       "typeVersion": 2.2,
       "position": [
         -448,
-        -240
+        -256
       ],
       "id": "fac24314-f944-40ca-97ee-885de455ba40",
       "name": "Nota_Privada?"
@@ -109,6 +109,12 @@
               "name": "conversation_id",
               "value": "={{ $json.payload.conversation_id }}",
               "type": "number"
+            },
+            {
+              "id": "6d82b81b-a3c6-4b24-a6ea-577d011fd84e",
+              "name": "url_ana_tools_chatwoot",
+              "value": "https://hook.domussimob.com.br/webhook/chatwoot",
+              "type": "string"
             }
           ]
         },
@@ -118,7 +124,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -48,
+        -160,
         -256
       ],
       "id": "83f5a030-1751-400b-b3ec-2b6c62e81b87",
@@ -145,38 +151,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        272,
-        -272
+        144,
+        -256
       ],
       "id": "02b55cae-6db1-4ad6-b60b-29c148757847",
       "name": "busca_conversa"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://hook.domussimob.com.br/webhook/chatwoot",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n  \"account\": {\n    \"id\": {{ $json.last_non_activity_message.account_id }},\n    \"name\": \"Domuss\"\n  },\n  \"content_type\": \"{{ $json.last_non_activity_message.content_type }}\",\n  \"content\": \"{{ $json.last_non_activity_message.content }}\",\n  \"conversation\": {\n    \"can_reply\": true,\n    \"channel\": \"{{ $json.meta.channel }}\",\n    \"contact_inbox\": {\n      \"id\": 90,\n      \"contact_id\": {{ $json.meta.sender.id }},\n      \"inbox_id\": 2,\n      \"source_id\": \"{{ $json.last_non_activity_message.conversation.contact_inbox.source_id }}\",\n      \"created_at\": \"2025-09-26T21:45:04.703Z\",\n      \"updated_at\": \"2025-09-26T21:45:04.703Z\",\n      \"hmac_verified\": false,\n      \"pubsub_token\": \"RsGghyxyL18RahwdkRVfh3Te\"\n    },\n    \"id\": {{ $json.last_non_activity_message.conversation_id }},\n    \"inbox_id\": 2,\n    \"messages\": [\n      {\n        \"id\": 24598,\n        \"content\": \"Anna adicionou ia-ativada\",\n        \"account_id\": 1,\n        \"inbox_id\": 2,\n        \"conversation_id\": 51,\n        \"message_type\": 2,\n        \"created_at\": \"2025-09-26T21:45:04.703Z\",\n        \"updated_at\": \"2025-09-26T21:45:04.703Z\",\n        \"private\": false,\n        \"status\": \"sent\",\n        \"source_id\": null,\n        \"content_type\": \"text\",\n        \"sender_type\": \"User\",\n        \"sender_id\": null,\n        \"processed_message_content\": \"Anna adicionou ia-ativada\",\n        \"conversation\": {\n          \"assignee_id\": 3,\n          \"unread_count\": 0,\n          \"last_activity_at\": \"2025-09-26T21:45:04.703Z\",\n          \"contact_inbox\": {\n            \"source_id\": \"1494d8ba-96c6-4307-aaf8-ec3bb9fd508e\"\n          }\n        },\n        \"sender\": {\n          \"id\": 5,\n          \"name\": \"Anna\",\n          \"available_name\": \"Anna\",\n          \"avatar_url\": \"\",\n          \"type\": \"User\",\n          \"availability_status\": \"offline\",\n          \"thumbnail\": \"\"\n        }\n      }\n    ],\n    \"labels\": [\"novo-lead\", \"ia-ativada\"],\n    \"meta\": {\n      \"sender\": {\n        \"custom_attributes\": {\n          \"status\": \"novo-lead\"\n        },\n        \"id\": 50,\n        \"identifier\": \"5511968162690@s.whatsapp.net\",\n        \"name\": \"Francis Breit\",\n        \"phone_number\": \"+5511968162690\",\n        \"thumbnail\": \"https://atendimento.domussimob.com.br/rails/active_storage/representations/redirect/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBYU09IiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--dfaf9866e6c0bdc7c7fb3b69bd46254000766790/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaDdCem9MWm05eWJXRjBTU0lJYW5CbkJqb0dSVlE2RTNKbGMybDZaVjkwYjE5bWFXeHNXd2RwQWZvdyIsImV4cCI6bnVsbCwicHVyIjoidmFyaWF0aW9uIn19--b5f4a82b7d562aab27bce6b818c8138e244199b4/372249044_1019085773139997_6219661171856510649_n.jpg\",\n        \"type\": \"contact\"\n      },\n      \"assignee\": {\n        \"id\": 3,\n        \"name\": \"Jean\",\n        \"available_name\": \"Jean\",\n        \"type\": \"user\",\n        \"availability_status\": \"offline\"\n      },\n      \"hmac_verified\": false\n    },\n    \"status\": \"open\",\n    \"unread_count\": 0,\n    \"last_activity_at\": \"2025-09-26T21:45:04.703Z\",\n    \"created_at\": \"2025-09-26T21:45:04.703Z\"\n  },\n  \"created_at\": \"2025-09-26T21:45:04.703Z\",\n  \"id\": 24594,\n  \"inbox\": {\n    \"id\": 2,\n    \"name\": \"Atendimento\"\n  },\n  \"message_type\": \"outgoing\",\n  \"status\": \"sent\",\n  \"private\": false,\n  \"sender\": {\n    \"id\": 5,\n    \"name\": \"Anna\",\n    \"email\": \"\",\n    \"type\": \"user\"\n  },\n  \"source_id\": null,\n  \"event\": \"message_created\"\n}\n",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        944,
-        -336
-      ],
-      "id": "cbae7292-5dea-4ab3-abfc-57cdaafd4293",
-      "name": "HTTP Request"
     },
     {
       "parameters": {
@@ -198,11 +177,52 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        592,
-        -336
+        432,
+        -256
       ],
       "id": "d7f0a46e-7480-4a5b-b815-3680237d46cf",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "content": "## CORREÇÃO DE IA ANNA V2 COM WAHA API: PARA PAUSAR IA QUANDO REMETENTE ENVIA MENSAGEM DO CELULAR OU WHATSAPP WEB \n**INSTRUÇÔES:** \n**1 - Configure o node Postgress Trigger (Mensagem criada) com as credenciais do banco do Chatwoot** \n**1 - Configure o node Info base 1 com os dados do seu Chatwoot e ANNA TOOLS** ",
+        "width": 1792
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -848,
+        -512
+      ],
+      "typeVersion": 1,
+      "id": "82e12161-79b7-4ff9-855c-100fe1e0c18a",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('info base1').item.json.url_ana_tools_chatwoot }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"account\": {\n    \"id\": {{ $json.last_non_activity_message.account_id }},\n    \"name\": \"Domuss\"\n  },\n  \"content_type\": \"{{ $json.last_non_activity_message.content_type }}\",\n  \"content\": \"{{ $json.last_non_activity_message.content }}\",\n  \"conversation\": {\n    \"can_reply\": true,\n    \"channel\": \"{{ $json.meta.channel }}\",\n    \"contact_inbox\": {\n      \"id\": 90,\n      \"contact_id\": {{ $json.meta.sender.id }},\n      \"inbox_id\": 2,\n      \"source_id\": \"{{ $json.last_non_activity_message.conversation.contact_inbox.source_id }}\",\n      \"created_at\": \"2025-09-26T21:45:04.703Z\",\n      \"updated_at\": \"2025-09-26T21:45:04.703Z\",\n      \"hmac_verified\": false,\n      \"pubsub_token\": \"RsGghyxyL18RahwdkRVfh3Te\"\n    },\n    \"id\": {{ $json.last_non_activity_message.conversation_id }},\n    \"inbox_id\": {{ $json.messages[0].inbox_id }},\n    \"messages\": [\n      {\n        \"id\": {{ $json.messages[0].id }},\n        \"content\": \"{{ $json.messages[0].content }}\",\n        \"account_id\": {{ $json.messages[0].account_id }},\n        \"inbox_id\": {{ $json.messages[0].inbox_id }},\n        \"conversation_id\": {{ $json.messages[0].conversation_id }},\n        \"message_type\": {{ $json.messages[0].message_type }},\n        \"created_at\": \"2025-09-26T21:45:04.703Z\",\n        \"updated_at\": \"2025-09-26T21:45:04.703Z\",\n        \"private\": false,\n        \"status\": \"sent\",\n        \"source_id\": null,\n        \"content_type\": \"text\",\n        \"sender_type\": \"User\",\n        \"sender_id\": null,\n        \"processed_message_content\": \"{{ $json.messages[0].processed_message_content }}\",\n        \"conversation\": {\n          \"assignee_id\":{{ $json.messages[0].conversation.assignee_id }},\n          \"unread_count\":{{ $json.messages[0].conversation.unread_count }},\n          \"last_activity_at\": \"2025-09-26T21:45:04.703Z\",\n          \"contact_inbox\": {\n            \"source_id\": \"{{ $json.messages[0].conversation.contact_inbox.source_id }}\"\n          }\n        },\n        \"sender\": {\n          \"id\": {{ $json.last_non_activity_message.sender.id }},\n          \"name\": \"{{ $json.last_non_activity_message.sender.name }}\",\n          \"available_name\": \"{{ $json.last_non_activity_message.sender.available_name }}\",\n          \"avatar_url\": \"\",\n          \"type\": \"User\",\n          \"availability_status\": \"{{ $json.last_non_activity_message.sender.availability_status }}\",\n          \"thumbnail\": \"\"\n        }\n      }\n    ],\n\"labels\": {{ $json.labels2 }},\n    \"meta\": {\n      \"sender\": {\n        \"custom_attributes\": {\n          \"status\": \"novo-lead\"\n        },\n        \"id\": {{ $json.meta.sender.id }},\n        \"identifier\": \"{{ $json.meta.sender.identifier }}\",\n        \"name\": \"{{ $json.meta.sender.name }}\",\n        \"phone_number\": \"{{ $json.meta.sender.phone_number }}\",\n        \"thumbnail\": \"{{ $json.meta.sender.thumbnail }}\",\n        \"type\": \"contact\"\n      },\n      \"assignee\": {\n        \"id\": {{ $json.meta.assignee.id }},\n        \"name\": \"{{ $json.meta.assignee.name }}\",\n        \"available_name\": \"{{ $json.meta.assignee.available_name }}\",\n        \"type\": \"user\",\n        \"availability_status\": \"{{ $json.meta.assignee.availability_status }}\"\n      },\n      \"hmac_verified\": {{ $json.meta.hmac_verified }}\n    },\n    \"status\": \"open\",\n    \"unread_count\": 0,\n    \"last_activity_at\": \"2025-09-26T21:45:04.703Z\",\n    \"created_at\": \"2025-09-26T21:45:04.703Z\"\n  },\n  \"created_at\": \"2025-09-26T21:45:04.703Z\",\n  \"id\": {{ $json.messages[0].id }},\n  \"inbox\": {\n    \"id\": {{ $json.messages[0].inbox_id }},\n    \"name\": \"\"\n  },\n  \"message_type\": \"outgoing\",\n  \"status\": \"sent\",\n  \"private\": false,\n  \"sender\": {\n    \"id\": {{ $json.last_non_activity_message.sender.id }},\n    \"name\": \"{{ $json.last_non_activity_message.sender.name }}\",\n    \"email\": \"\",\n    \"type\": \"user\"\n  },\n  \"source_id\": null,\n  \"event\": \"message_created\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        736,
+        -256
+      ],
+      "id": "cbae7292-5dea-4ab3-abfc-57cdaafd4293",
+      "name": "Envia Dados P/ ANNA TOOLS"
     }
   ],
   "connections": {
@@ -261,7 +281,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "Envia Dados P/ ANNA TOOLS",
             "type": "main",
             "index": 0
           }
@@ -278,40 +298,8 @@
   "meta": {
     "templateCredsSetupCompleted": true
   },
-  "pinData": {
-    "Mensagem criada": [
-      {
-        "json": {
-          "length": 502,
-          "processId": 22276,
-          "channel": "n8n_channel_15998101_395e_4aef_adec_94bd9157a4bf",
-          "payload": {
-            "id": 24592,
-            "content": "Teste mensagem privada 2",
-            "account_id": 1,
-            "inbox_id": 2,
-            "conversation_id": 51,
-            "message_type": 1,
-            "created_at": "2025-09-26T18:34:01.767804",
-            "updated_at": "2025-09-26T18:34:01.767804",
-            "private": true,
-            "status": 0,
-            "source_id": null,
-            "content_type": 0,
-            "content_attributes": null,
-            "sender_type": "User",
-            "sender_id": 5,
-            "external_source_ids": null,
-            "additional_attributes": {},
-            "processed_message_content": "Teste mensagem privada 2",
-            "sentiment": {}
-          },
-          "name": "notification"
-        }
-      }
-    ]
-  },
-  "versionId": "c5f61308-ac28-4023-be23-09ae34493b69",
+  "pinData": {},
+  "versionId": "4d33b0fb-a11b-4ea5-83c0-6fa70c641a17",
   "triggerCount": 1,
   "tags": []
 }
