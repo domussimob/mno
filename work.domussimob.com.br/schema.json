@@ -2209,10 +2209,6 @@
               "value": "google/gemma-3-27b-it"
             },
             {
-              "text": "TheDrummer: Anubis Pro 105B V1",
-              "value": "thedrummer/anubis-pro-105b-v1"
-            },
-            {
               "text": "TheDrummer: Skyfall 36B V2",
               "value": "thedrummer/skyfall-36b-v2"
             },
@@ -3049,16 +3045,16 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
