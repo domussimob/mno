@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T14:09:53.120Z",
-  "updatedAt": "2025-09-24T15:50:26.196Z",
+  "updatedAt": "2025-09-29T14:49:05.864Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": true,
@@ -362,7 +362,8 @@
     },
     {
       "parameters": {
-        "amount": 15
+        "amount": 1,
+        "unit": "minutes"
       },
       "type": "n8n-nodes-base.wait",
       "typeVersion": 1.1,
@@ -395,7 +396,7 @@
         "options": {}
       },
       "id": "455777ab-c87f-4c67-a712-8cda9076cee2",
-      "name": "Cadastra Lead",
+      "name": "Procura_contato_no_CRM",
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.4,
       "position": [
@@ -427,7 +428,7 @@
       "main": [
         [
           {
-            "node": "Cadastra Lead",
+            "node": "Procura_contato_no_CRM",
             "type": "main",
             "index": 0
           }
@@ -507,7 +508,7 @@
         ]
       ]
     },
-    "Cadastra Lead": {
+    "Procura_contato_no_CRM": {
       "main": [
         [
           {
@@ -529,7 +530,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "3da6b64e-4070-4c29-8749-501d3c155559",
+  "versionId": "632481ce-95b3-4c51-b5be-fc4d40fd9dc8",
   "triggerCount": 1,
   "tags": []
 }
