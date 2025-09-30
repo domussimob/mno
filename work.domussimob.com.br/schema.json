@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Z.AI: GLM 4.6",
+              "value": "z-ai/glm-4.6"
+            },
+            {
               "text": "Anthropic: Claude Sonnet 4.5",
               "value": "anthropic/claude-sonnet-4.5"
             },
@@ -3053,16 +3057,16 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
