@@ -1817,6 +1817,10 @@
               "value": "tngtech/deepseek-r1t2-chimera:free"
             },
             {
+              "text": "TNG: DeepSeek R1T2 Chimera",
+              "value": "tngtech/deepseek-r1t2-chimera"
+            },
+            {
               "text": "Morph: Morph V3 Large",
               "value": "morph/morph-v3-large"
             },
@@ -3053,20 +3057,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
