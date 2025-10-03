@@ -1549,10 +1549,6 @@
               "value": "deepseek/deepseek-v3.1-terminus"
             },
             {
-              "text": "xAI: Grok 4 Fast (free)",
-              "value": "x-ai/grok-4-fast:free"
-            },
-            {
               "text": "xAI: Grok 4 Fast",
               "value": "x-ai/grok-4-fast"
             },
@@ -3057,12 +3053,12 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
