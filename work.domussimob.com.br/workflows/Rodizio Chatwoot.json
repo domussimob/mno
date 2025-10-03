@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T12:51:30.706Z",
-  "updatedAt": "2025-09-05T13:41:28.227Z",
+  "updatedAt": "2025-10-03T14:31:58.991Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot",
   "active": true,
@@ -488,6 +488,40 @@
       ],
       "id": "28b64812-e22e-4c9e-810d-6347e5fe418a",
       "name": "adiciona tag em-fila"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.domussimob.com.br/message/sendText/Atendimento-cwId-1",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "apikey",
+              "value": "725fd4322ce0746f4230d8afa1a451b1"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n    \"options\": {\n        \"delay\": 3000,\n        \"presence\": \"composing\",\n        \"linkPreview\": false\n    },\n    \"textMessage\": {\n        \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\"\n    }\n}\n\n",
+        "options": {}
+      },
+      "id": "d7c72486-e6e6-4428-af9a-9c5e3daf8999",
+      "name": "envia_notifica",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -448,
+        544
+      ],
+      "retryOnFail": true,
+      "notesInFlow": false,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -549,7 +583,13 @@
     },
     "Atribui_Agente": {
       "main": [
-        []
+        [
+          {
+            "node": "envia_notifica",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     },
     "ChecaContadorFim3": {
@@ -691,7 +731,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "f94fe43a-11f3-4eb8-b5ce-fcd6562b8eea",
+  "versionId": "1b853ee0-f82f-49d0-984c-0ecfcbed4078",
   "triggerCount": 1,
   "tags": []
 }
