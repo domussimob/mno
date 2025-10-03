@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T13:28:56.188Z",
-  "updatedAt": "2025-09-26T18:44:11.896Z",
+  "updatedAt": "2025-10-03T14:10:45.428Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
   "active": true,
@@ -34,8 +34,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        496,
-        544
+        576,
+        496
       ],
       "id": "54b27ff1-e73a-49b9-8c92-cac1de1e8f96",
       "name": "contato?"
@@ -69,9 +69,19 @@
                 "type": "string",
                 "operation": "contains"
               }
+            },
+            {
+              "id": "47abb817-a99c-4a1e-8f9d-37ed166e0f05",
+              "leftValue": "={{ $('busca_conversa').item.json.meta.assignee.id }}",
+              "rightValue": "3",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
             }
           ],
-          "combinator": "or"
+          "combinator": "and"
         },
         "looseTypeValidation": true,
         "options": {}
@@ -103,7 +113,7 @@
           "values": [
             {
               "column": "id",
-              "value": "={{ $json.body.contact_inbox.contact_id }}\n\n"
+              "value": "={{ $('nova mensagem').item.json.body.contact_inbox.contact_id }}"
             }
           ]
         },
@@ -166,8 +176,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        288,
-        576
+        176,
+        544
       ],
       "id": "a35b2b71-6b9b-4d9a-bb04-3240eb817048",
       "name": "info base"
@@ -519,8 +529,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
       "position": [
-        0,
-        560
+        -112,
+        528
       ],
       "id": "67bd71d6-52a7-4a7a-b72a-bcd1049c4ccb",
       "name": "nova mensagem",
@@ -595,6 +605,33 @@
       ],
       "id": "9106e0cb-4aaf-4da2-b508-ce6619c1adf8",
       "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.chatwoot_url }}/api/v1/accounts/{{ $json.chatwoot_account_id }}/conversations/{{ $json.conversation_id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "api_access_token",
+              "value": "={{ $json.api_user_token }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        384,
+        496
+      ],
+      "id": "a7347019-2681-4326-ac8f-6fcb7678ce67",
+      "name": "busca_conversa"
     }
   ],
   "connections": {
@@ -649,7 +686,7 @@
       "main": [
         [
           {
-            "node": "contato?",
+            "node": "busca_conversa",
             "type": "main",
             "index": 0
           }
@@ -717,6 +754,17 @@
           }
         ]
       ]
+    },
+    "busca_conversa": {
+      "main": [
+        [
+          {
+            "node": "contato?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -729,7 +777,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "cc76ceb9-96bd-4619-9d2b-0b4f78af7c54",
+  "versionId": "9635aab0-e4ae-4330-89c4-683c950cfe04",
   "triggerCount": 1,
   "tags": []
 }
