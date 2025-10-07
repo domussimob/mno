@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   krayincrm321a1a2:
-    image: webkul/krayin:v2.1.2
+    image: francisbreit/crmk:v2.0.5-fr
 
     volumes:
       - krayincrm321a1a2-data:/var/www/html
