@@ -2109,10 +2109,6 @@
               "value": "agentica-org/deepcoder-14b-preview"
             },
             {
-              "text": "MoonshotAI: Kimi VL A3B Thinking (free)",
-              "value": "moonshotai/kimi-vl-a3b-thinking:free"
-            },
-            {
               "text": "xAI: Grok 3 Mini Beta",
               "value": "x-ai/grok-3-mini-beta"
             },
@@ -2263,10 +2259,6 @@
             {
               "text": "Mistral: Saba",
               "value": "mistralai/mistral-saba"
-            },
-            {
-              "text": "Dolphin3.0 R1 Mistral 24B (free)",
-              "value": "cognitivecomputations/dolphin3.0-r1-mistral-24b:free"
             },
             {
               "text": "Dolphin3.0 Mistral 24B (free)",
@@ -3041,20 +3033,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
