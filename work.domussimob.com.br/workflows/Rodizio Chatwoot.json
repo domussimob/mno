@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T12:51:30.706Z",
-  "updatedAt": "2025-10-03T14:31:58.991Z",
+  "updatedAt": "2025-10-07T22:47:54.221Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot",
   "active": true,
@@ -29,6 +29,16 @@
             {
               "name": "lead_rodizio",
               "value": "={{ $json.contador }}"
+            },
+            {
+              "name": "contact_id",
+              "value": "={{ $('Verifica_Coversa15').item.json.meta.sender.id }}"
+            }
+          ],
+          "string": [
+            {
+              "name": "identifier",
+              "value": "={{ $('Verifica_Coversa15').item.json.meta.sender.identifier }}"
             }
           ]
         },
@@ -99,6 +109,26 @@
               "name": "payload",
               "type": "arrayValue",
               "arrayValue": "={{ $json.body.labels }}"
+            },
+            {
+              "name": "krayinUrl",
+              "stringValue": "https://crm.domussimob.com.br"
+            },
+            {
+              "name": "krayinEmail",
+              "stringValue": "domussimob@gmail.com"
+            },
+            {
+              "name": "krayinSenha",
+              "stringValue": "gCrjaY7VbR9MJh49"
+            },
+            {
+              "name": "phonenumber",
+              "stringValue": "={{ $json.body.meta.sender.phone_number.replace(/\\D/g, '')}}"
+            },
+            {
+              "name": "contact_name",
+              "stringValue": "={{ $json.body.meta.sender.name }}"
             }
           ]
         },
@@ -522,6 +552,318 @@
       "retryOnFail": true,
       "notesInFlow": false,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/login",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "email",
+              "value": "={{ $('Info Base').item.json.krayinEmail }}"
+            },
+            {
+              "name": "password",
+              "value": "={{ $('Info Base').item.json.krayinSenha }}"
+            },
+            {
+              "name": "device_name",
+              "value": "n8n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "91c1f2a2-eaec-44fc-9070-503affbdd806",
+      "name": "HTTP login",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        608
+      ],
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/contacts/persons",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('HTTP login').item.json.token }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $('Webhook').item.json.body.meta.sender.name }}\",\n \"identifier\": \"{{ $('Variaveis_Globais').item.json.meta.sender.identifier }}\",\n  \"emails\": [\n    {\n      \"value\": \"{{ $('Variaveis_Globais').item.json.meta.sender.identifier }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"contact_numbers\": [\n    {\n      \"value\": \"{{ $('Info Base').item.json.phonenumber }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"entity_type\": \"persons\"\n}",
+        "options": {}
+      },
+      "id": "b7586b5f-c3b3-46b9-807c-d875188d6221",
+      "name": "HTTP criar usuario",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        624
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "29471e8e-0bf1-4dd1-88f8-10db9e48cae1",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        592
+      ],
+      "id": "d897d644-f840-4888-ae4a-62a1b9bb6589",
+      "name": "Contato_existe?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        544,
+        320
+      ],
+      "id": "643cbe9c-5ffd-466f-80d1-824c14756ae9",
+      "name": "fim"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Variaveis_Globais').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        864,
+        624
+      ],
+      "id": "47603777-6b42-48e0-8431-5b2d6e8f0980",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('HTTP criar usuario').item.json.data.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c20503ca-564f-4a4d-a722-eea121868b6b",
+      "name": "Cadastra Lead1",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        1120,
+        608
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('HTTP criar usuario').item.json.data.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1408,
+        608
+      ],
+      "id": "3a58bbb3-8ed0-4075-b525-07c45b1eeec6",
+      "name": "Update rows in a table",
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "emails",
+              "condition": "LIKE",
+              "value": "=%{{ $('Variaveis_Globais').item.json.meta.sender.identifier }}%"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8aab0b3c-d955-45b4-b4e7-482e49034ea8",
+      "name": "Procura_contato_no_CRM",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        -112,
+        560
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
     }
   ],
   "connections": {
@@ -719,6 +1061,90 @@
           }
         ]
       ]
+    },
+    "HTTP login": {
+      "main": [
+        [
+          {
+            "node": "HTTP criar usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP criar usuario": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contato_existe?": {
+      "main": [
+        [
+          {
+            "node": "fim",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead1": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procura_contato_no_CRM": {
+      "main": [
+        [
+          {
+            "node": "Contato_existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "envia_notifica": {
+      "main": [
+        [
+          {
+            "node": "Procura_contato_no_CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -731,7 +1157,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "1b853ee0-f82f-49d0-984c-0ecfcbed4078",
+  "versionId": "1567b19f-c7fa-4498-b8fe-d234b33bf977",
   "triggerCount": 1,
   "tags": []
 }
