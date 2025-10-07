@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-24T15:57:40.953Z",
-  "updatedAt": "2025-09-24T16:34:15.139Z",
+  "updatedAt": "2025-10-07T18:34:22.114Z",
   "id": "qzfYrkMMyQqlW52T",
   "name": "cria CRM manual",
   "active": false,
@@ -635,6 +635,169 @@
           "name": "MySQL krayincrm321a1a2"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Info Base').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        848,
+        400
+      ],
+      "id": "492aeabd-58da-43a8-bd95-a71fc6658031",
+      "name": "Select rows from a table4",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('Cadastra Lead').item.json.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "46ee13c4-a23a-4638-af32-00f5be91f526",
+      "name": "Cadastra Lead3",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        1104,
+        384
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('Cadastra Lead').item.json.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table4').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1392,
+        384
+      ],
+      "id": "640d505f-9058-467f-8dc5-316e8c8922f0",
+      "name": "Update rows in a table2",
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
     }
   ],
   "connections": {
@@ -664,7 +827,7 @@
       "main": [
         [
           {
-            "node": "Loop Over Items",
+            "node": "Select rows from a table4",
             "type": "main",
             "index": 0
           }
@@ -804,6 +967,39 @@
       "main": [
         []
       ]
+    },
+    "Select rows from a table4": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead3": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update rows in a table2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -816,7 +1012,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "701c7b9f-db39-4a5f-91f7-c47720515a62",
+  "versionId": "3825700d-1a04-4294-9c62-05b473bb4269",
   "triggerCount": 1,
   "tags": []
 }
