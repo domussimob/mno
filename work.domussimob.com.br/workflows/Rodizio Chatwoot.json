@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T12:51:30.706Z",
-  "updatedAt": "2025-10-07T22:47:54.221Z",
+  "updatedAt": "2025-10-07T23:52:42.217Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot",
   "active": true,
@@ -656,17 +656,6 @@
       "name": "Contato_existe?"
     },
     {
-      "parameters": {},
-      "type": "n8n-nodes-base.noOp",
-      "typeVersion": 1,
-      "position": [
-        544,
-        320
-      ],
-      "id": "643cbe9c-5ffd-466f-80d1-824c14756ae9",
-      "name": "fim"
-    },
-    {
       "parameters": {
         "operation": "select",
         "schema": {
@@ -843,7 +832,7 @@
             {
               "column": "emails",
               "condition": "LIKE",
-              "value": "=%{{ $('Variaveis_Globais').item.json.meta.sender.identifier }}%"
+              "value": "=%{{ $('Variaveis_Globais').item.json[\"identifier\"] }}%"
             }
           ]
         },
@@ -858,6 +847,169 @@
         560
       ],
       "alwaysOutputData": true,
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Variaveis_Globais').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        592,
+        416
+      ],
+      "id": "8a25a04c-f05c-4ebc-84c4-856e1fc964b2",
+      "name": "Select rows from a table1",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('HTTP criar usuario').item.json.data.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8373c074-bbae-4302-a069-339449d3bb47",
+      "name": "Cadastra Lead",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        848,
+        400
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('HTTP criar usuario').item.json.data.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table1').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1136,
+        400
+      ],
+      "id": "93d1012f-2588-41ba-a5ba-9e881e9ce80c",
+      "name": "Update rows in a table1",
       "credentials": {
         "mySql": {
           "id": "8z7GmmoppjsNzeZR",
@@ -1088,7 +1240,7 @@
       "main": [
         [
           {
-            "node": "fim",
+            "node": "Select rows from a table1",
             "type": "main",
             "index": 0
           }
@@ -1145,6 +1297,28 @@
           }
         ]
       ]
+    },
+    "Select rows from a table1": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1157,7 +1331,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "1567b19f-c7fa-4498-b8fe-d234b33bf977",
+  "versionId": "e52d697e-b4e7-451c-b6c8-5c9e645acb7a",
   "triggerCount": 1,
   "tags": []
 }
