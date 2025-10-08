@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T12:51:30.706Z",
-  "updatedAt": "2025-10-08T01:56:18.719Z",
+  "updatedAt": "2025-10-08T11:33:23.219Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot final crm2",
   "active": true,
@@ -536,7 +536,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n     \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\"\n \n}",
+        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n     \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\\n\\nDados do Lead:\\n{{ $('Info Base').item.json.contact_name }}  {{ $('Info Base').item.json.phonenumber }}\"\n \n}",
         "options": {}
       },
       "id": "d7c72486-e6e6-4428-af9a-9c5e3daf8999",
@@ -1463,7 +1463,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "6bdc293e-ab9f-4aae-a860-385c9da9b0bc",
+  "versionId": "91e2ba7e-026a-47fb-aae4-0ef3ef4fb78f",
   "triggerCount": 1,
   "tags": []
 }
