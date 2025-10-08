@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T12:51:30.706Z",
-  "updatedAt": "2025-10-07T23:52:42.217Z",
+  "updatedAt": "2025-10-08T00:24:37.952Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot",
   "active": true,
@@ -523,13 +523,11 @@
       "parameters": {
         "method": "POST",
         "url": "https://api.domussimob.com.br/message/sendText/Atendimento-cwId-1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
-            {
-              "name": "apikey",
-              "value": "725fd4322ce0746f4230d8afa1a451b1"
-            },
             {
               "name": "Content-Type",
               "value": "application/json"
@@ -551,6 +549,12 @@
       ],
       "retryOnFail": true,
       "notesInFlow": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "w0Na9uxdWpWEJ6yK",
+          "name": "evolution_api"
+        }
+      },
       "onError": "continueRegularOutput"
     },
     {
@@ -606,7 +610,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"name\": \"{{ $('Webhook').item.json.body.meta.sender.name }}\",\n \"identifier\": \"{{ $('Variaveis_Globais').item.json.meta.sender.identifier }}\",\n  \"emails\": [\n    {\n      \"value\": \"{{ $('Variaveis_Globais').item.json.meta.sender.identifier }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"contact_numbers\": [\n    {\n      \"value\": \"{{ $('Info Base').item.json.phonenumber }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"entity_type\": \"persons\"\n}",
+        "jsonBody": "={\n  \"name\": \"{{ $('Webhook').item.json.body.meta.sender.name }}\",\n \"identifier\": \"{{ $('Variaveis_Globais').item.json.identifier }}\",\n  \"emails\": [\n    {\n      \"value\": \"{{ $('Variaveis_Globais').item.json.identifier }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"contact_numbers\": [\n    {\n      \"value\": \"{{ $('Info Base').item.json.phonenumber }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"entity_type\": \"persons\"\n}",
         "options": {}
       },
       "id": "b7586b5f-c3b3-46b9-807c-d875188d6221",
@@ -1331,7 +1335,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e52d697e-b4e7-451c-b6c8-5c9e645acb7a",
+  "versionId": "7999f5a0-b4a5-43bf-8745-156dc55ab3e9",
   "triggerCount": 1,
   "tags": []
 }
