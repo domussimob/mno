@@ -1,0 +1,1469 @@
+{
+  "createdAt": "2025-09-05T12:51:30.706Z",
+  "updatedAt": "2025-10-08T01:56:18.719Z",
+  "id": "0yGX0y2kBx6r999F",
+  "name": "Rodizio Chatwoot final crm2",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contador",
+              "value": "={{ $json.contador }}"
+            },
+            {
+              "name": "total_agentes",
+              "value": "={{ $json.total_agentes }}"
+            },
+            {
+              "name": "account_id",
+              "value": "={{ $('Info Base').item.json[\"account_id\"] }}"
+            },
+            {
+              "name": "conversation_id",
+              "value": "={{ $('Webhook').item.json.body.messages[0].conversation_id }}\n"
+            },
+            {
+              "name": "lead_rodizio",
+              "value": "={{ $json.contador }}"
+            },
+            {
+              "name": "contact_id",
+              "value": "={{ $('Verifica_Coversa15').item.json.meta.sender.id }}"
+            }
+          ],
+          "string": [
+            {
+              "name": "identifier",
+              "value": "={{ $('Verifica_Coversa15').item.json.meta.sender.identifier }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "234df4c2-8e3b-4c78-8af5-02f9fc2e2e21",
+      "name": "Variaveis_Globais",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -1376,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.messages[0].conversation.assignee_id }}",
+              "operation": "isEmpty"
+            }
+          ]
+        }
+      },
+      "id": "1e465f27-160c-46ce-8926-122bd7bcf441",
+      "name": "conversa_Nao_atribuida?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -2224,
+        336
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "9683df25-d524-497a-ae5b-7e7452184e70",
+      "name": "No Op1",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -1600,
+        624
+      ]
+    },
+    {
+      "parameters": {
+        "fields": {
+          "values": [
+            {
+              "name": "chatwoot_url",
+              "stringValue": "https://atendimento.domussimob.com.br"
+            },
+            {
+              "name": "conversation_id",
+              "stringValue": "={{ $json.body.id }}\n"
+            },
+            {
+              "name": "chatwoot_token",
+              "stringValue": "v5KbHpAurkE5q1okNXWyVYTh"
+            },
+            {
+              "name": "account_id",
+              "type": "numberValue",
+              "numberValue": "={{ $json.body.messages[0].account_id }}"
+            },
+            {
+              "name": "payload",
+              "type": "arrayValue",
+              "arrayValue": "={{ $json.body.labels }}"
+            },
+            {
+              "name": "krayinUrl",
+              "stringValue": "https://crm.domussimob.com.br"
+            },
+            {
+              "name": "krayinEmail",
+              "stringValue": "domussimob@gmail.com"
+            },
+            {
+              "name": "krayinSenha",
+              "stringValue": "gCrjaY7VbR9MJh49"
+            },
+            {
+              "name": "phonenumber",
+              "stringValue": "={{ $json.body.meta.sender.phone_number.replace(/\\D/g, '')}}"
+            },
+            {
+              "name": "contact_name",
+              "stringValue": "={{ $json.body.meta.sender.name }}"
+            }
+          ]
+        },
+        "include": "none",
+        "options": {}
+      },
+      "id": "b1c9118b-f80b-472d-9daf-e59531128219",
+      "name": "Info Base",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.2,
+      "position": [
+        -2896,
+        400
+      ]
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}\n\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "54b99f3a-111e-4fc3-aa8a-505f7e6db602",
+      "name": "Verifica_Coversa15",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -2400,
+        384
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}/assignments",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "assignee_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "97d204ac-b451-4413-8182-79d5e566dff9",
+      "name": "Atribui_Agente",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -720,
+        528
+      ],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "number": [
+            {
+              "value1": "={{ $json.contadoratual }}",
+              "operation": "larger",
+              "value2": "={{ $('Variaveis_Globais').item.json[\"total_agentes\"] }}"
+            }
+          ]
+        }
+      },
+      "id": "427d2530-5781-4957-9097-4a36a94c6829",
+      "name": "ChecaContadorFim3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contador_final",
+              "value": 1
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1621f553-4418-4f79-a440-0f43fdd50298",
+      "name": "VoltaContadorPara3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        64
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contador_final",
+              "value": "={{ $json.contadoratual }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c5857949-b145-4f34-968d-fb239812a2c9",
+      "name": "Mantem_Contador3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        224
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "fa64c4f8-a6bc-4639-92d1-201f1769536b",
+      "name": "contador_final3",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -352,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "contadoratual",
+              "value": "={{ $('Variaveis_Globais').item.json[\"contador\"] + 1 }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d752aaa6-85cc-40c1-bb97-f65aa376c057",
+      "name": "incrementa1noContador3",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 2,
+      "position": [
+        -960,
+        144
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}/labels\n\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ $json.payload }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "57a3e535-c03e-4322-9a86-b9541b30928c",
+      "name": "Etiq_Coversa",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -1808,
+        256
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "rodizio_chatwoot_atendimento",
+        "options": {}
+      },
+      "id": "497c08ce-c344-4000-ad6f-d04adcb13902",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -3520,
+        400
+      ],
+      "webhookId": "63e8070a-4f96-4436-86bb-c67bb0022ab0"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "value": "public",
+          "mode": "list",
+          "cachedResultName": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contador",
+          "mode": "list",
+          "cachedResultName": "contador"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1616,
+        384
+      ],
+      "id": "d4941e10-babc-4cd0-a61d-82745aecbcc5",
+      "name": "Postgres Busca Contador",
+      "credentials": {
+        "postgres": {
+          "id": "gaNrIGNWZQbW9GSr",
+          "name": "Postgres chatwootee8f16a-rodizio"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "contador",
+          "mode": "list",
+          "cachedResultName": "contador"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "contador": "={{ $json.contador_final }}",
+            "total_agentes": "={{ $('Postgres Busca Contador').item.json.total_agentes }}"
+          },
+          "matchingColumns": [
+            "total_agentes"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "contador",
+              "displayName": "contador",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "total_agentes",
+              "displayName": "total_agentes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -112,
+        16
+      ],
+      "id": "5a586d9e-0a83-469c-919b-8866c5563a4c",
+      "name": "Postgres Atualiza Contador2",
+      "credentials": {
+        "postgres": {
+          "id": "gaNrIGNWZQbW9GSr",
+          "name": "Postgres chatwootee8f16a-rodizio"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "agentes",
+          "mode": "list",
+          "cachedResultName": "agentes"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "ordem",
+              "value": "={{ $json.contador }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        -1104,
+        464
+      ],
+      "id": "6824edd5-c7e7-42d6-94fd-c2fbf5b7c5f1",
+      "name": "Postgres Busca_proximo_agente",
+      "credentials": {
+        "postgres": {
+          "id": "gaNrIGNWZQbW9GSr",
+          "name": "Postgres chatwootee8f16a-rodizio"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -3216,
+        400
+      ],
+      "id": "8960512e-e77f-4a30-b6f4-c9cc43e7aecb",
+      "name": "delay de 5 segundos",
+      "webhookId": "740bdce4-1eff-42dc-abfa-5fbb8c682b4a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a934192a-8f22-46f7-b6c9-fd06a7d0caa0",
+              "name": "payload",
+              "value": "={{ [...$('Info Base').item.json.payload, \"em-fila\"] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -2016,
+        240
+      ],
+      "id": "28b64812-e22e-4c9e-810d-6347e5fe418a",
+      "name": "adiciona tag em-fila"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.domussimob.com.br/message/sendText/Atendimento-cwId-1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n     \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\"\n \n}",
+        "options": {}
+      },
+      "id": "d7c72486-e6e6-4428-af9a-9c5e3daf8999",
+      "name": "envia_notifica",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        -448,
+        544
+      ],
+      "retryOnFail": true,
+      "notesInFlow": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "w0Na9uxdWpWEJ6yK",
+          "name": "evolution_api"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/login",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "email",
+              "value": "={{ $('Info Base').item.json.krayinEmail }}"
+            },
+            {
+              "name": "password",
+              "value": "={{ $('Info Base').item.json.krayinSenha }}"
+            },
+            {
+              "name": "device_name",
+              "value": "n8n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "91c1f2a2-eaec-44fc-9070-503affbdd806",
+      "name": "HTTP login",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        400,
+        608
+      ],
+      "retryOnFail": true
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/contacts/persons",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $('HTTP login').item.json.token }}"
+            },
+            {
+              "name": "Content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"name\": \"{{ $('Webhook').item.json.body.meta.sender.name }}\",\n \"identifier\": \"{{ $('Variaveis_Globais').item.json.identifier }}\",\n  \"emails\": [\n    {\n      \"value\": \"{{ $('Variaveis_Globais').item.json.identifier }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"contact_numbers\": [\n    {\n      \"value\": \"{{ $('Info Base').item.json.phonenumber }}\",\n      \"label\": \"work\"\n    }\n  ],\n  \"entity_type\": \"persons\"\n}",
+        "options": {}
+      },
+      "id": "b7586b5f-c3b3-46b9-807c-d875188d6221",
+      "name": "HTTP criar usuario",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        624,
+        624
+      ],
+      "retryOnFail": true,
+      "waitBetweenTries": 2000,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "29471e8e-0bf1-4dd1-88f8-10db9e48cae1",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": "",
+              "operator": {
+                "type": "number",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        592
+      ],
+      "id": "d897d644-f840-4888-ae4a-62a1b9bb6589",
+      "name": "Contato_existe?"
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Variaveis_Globais').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        864,
+        624
+      ],
+      "id": "47603777-6b42-48e0-8431-5b2d6e8f0980",
+      "name": "Select rows from a table",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('HTTP criar usuario').item.json.data.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "c20503ca-564f-4a4d-a722-eea121868b6b",
+      "name": "Cadastra Lead1",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        1120,
+        608
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('HTTP criar usuario').item.json.data.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1408,
+        608
+      ],
+      "id": "3a58bbb3-8ed0-4075-b525-07c45b1eeec6",
+      "name": "Update rows in a table",
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "where": {
+          "values": [
+            {
+              "column": "emails",
+              "condition": "LIKE",
+              "value": "=%{{ $('Variaveis_Globais').item.json[\"identifier\"] }}%"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8aab0b3c-d955-45b4-b4e7-482e49034ea8",
+      "name": "Procura_contato_no_CRM",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        -112,
+        560
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "select",
+        "schema": {
+          "__rl": true,
+          "mode": "list",
+          "value": "public"
+        },
+        "table": {
+          "__rl": true,
+          "value": "conversations",
+          "mode": "list",
+          "cachedResultName": "conversations"
+        },
+        "limit": 1,
+        "where": {
+          "values": [
+            {
+              "column": "contact_id",
+              "value": "={{ $('Variaveis_Globais').item.json.contact_id }}"
+            }
+          ]
+        },
+        "sort": {
+          "values": [
+            {
+              "column": "id",
+              "direction": "DESC"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.6,
+      "position": [
+        592,
+        416
+      ],
+      "id": "8a25a04c-f05c-4ebc-84c4-856e1fc964b2",
+      "name": "Select rows from a table1",
+      "credentials": {
+        "postgres": {
+          "id": "WfYQSjRZbcT1Mx8H",
+          "name": "Postgres chatwootee8f16a"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "table": {
+          "__rl": true,
+          "value": "leads",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "dataMode": "defineBelow",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "title",
+              "value": "=Negócio {{ $('Info Base').item.json.contact_name }}"
+            },
+            {
+              "column": "lead_value",
+              "value": "8400"
+            },
+            {
+              "column": "status",
+              "value": "1"
+            },
+            {
+              "column": "lead_source_id",
+              "value": "11"
+            },
+            {
+              "column": "lead_type_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_id",
+              "value": "1"
+            },
+            {
+              "column": "lead_pipeline_stage_id",
+              "value": "2"
+            },
+            {
+              "column": "created_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "updated_at",
+              "value": "={{ $now.plus().toFormat(\"yyyy-MM-dd HH:mm:ss\") }}"
+            },
+            {
+              "column": "expected_close_date",
+              "value": "={{ $now.plus({ days: 4 }).toFormat(\"yyyy-MM-dd HH:mm:ss\") }} "
+            },
+            {
+              "column": "person_id",
+              "value": "={{ $('HTTP criar usuario').item.json.data.id }}"
+            },
+            {
+              "column": "user_id",
+              "value": "={{ $json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "8373c074-bbae-4302-a069-339449d3bb47",
+      "name": "Cadastra Lead",
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.4,
+      "position": [
+        848,
+        400
+      ],
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "table": {
+          "__rl": true,
+          "value": "persons",
+          "mode": "list",
+          "cachedResultName": "persons"
+        },
+        "dataMode": "defineBelow",
+        "columnToMatchOn": "id",
+        "valueToMatchOn": "={{ $('HTTP criar usuario').item.json.data.id }}",
+        "valuesToSend": {
+          "values": [
+            {
+              "column": "user_id",
+              "value": "={{ $('Select rows from a table1').item.json.assignee_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mySql",
+      "typeVersion": 2.5,
+      "position": [
+        1136,
+        400
+      ],
+      "id": "93d1012f-2588-41ba-a5ba-9e881e9ce80c",
+      "name": "Update rows in a table1",
+      "credentials": {
+        "mySql": {
+          "id": "8z7GmmoppjsNzeZR",
+          "name": "MySQL krayincrm321a1a2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b54f11ff-e372-4fe1-ba49-d485db42b347",
+              "leftValue": "={{ $json.id }}",
+              "rightValue": 3,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -464,
+        848
+      ],
+      "id": "a8853d1b-2529-46d2-b69d-9227fe2be9b4",
+      "name": "jeam?"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        -208,
+        1088
+      ],
+      "id": "66594439-842e-4266-b7a7-e704018de907",
+      "name": "fim"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Info Base').item.json[\"chatwoot_url\"] }}/api/v1/accounts/{{ $('Info Base').item.json[\"account_id\"] }}/conversations/{{ $('Info Base').item.json[\"conversation_id\"] }}/labels\n\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "api_access_token",
+              "value": "={{ $('Info Base').item.json[\"chatwoot_token\"] }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"labels\": [\n    \"{{ $json.payload }}\"\n  ]\n}",
+        "options": {}
+      },
+      "id": "e3097fd8-91bb-4754-a20a-c9293b54f243",
+      "name": "Etiq_Coversa1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        208,
+        864
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a934192a-8f22-46f7-b6c9-fd06a7d0caa0",
+              "name": "payload",
+              "value": "={{ [...$('Info Base').item.json.payload, \"em-fila\", \"ia-desativada\"] }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        848
+      ],
+      "id": "0c930a5a-d2cc-4b31-9c75-4be02f3ed409",
+      "name": "adiciona tag ia-desativada"
+    }
+  ],
+  "connections": {
+    "Variaveis_Globais": {
+      "main": [
+        [
+          {
+            "node": "incrementa1noContador3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Postgres Busca_proximo_agente",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "conversa_Nao_atribuida?": {
+      "main": [
+        [
+          {
+            "node": "adiciona tag em-fila",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Op1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Info Base": {
+      "main": [
+        [
+          {
+            "node": "Verifica_Coversa15",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verifica_Coversa15": {
+      "main": [
+        [
+          {
+            "node": "conversa_Nao_atribuida?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Atribui_Agente": {
+      "main": [
+        [
+          {
+            "node": "envia_notifica",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ChecaContadorFim3": {
+      "main": [
+        [
+          {
+            "node": "VoltaContadorPara3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mantem_Contador3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "VoltaContadorPara3": {
+      "main": [
+        [
+          {
+            "node": "contador_final3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mantem_Contador3": {
+      "main": [
+        [
+          {
+            "node": "contador_final3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "contador_final3": {
+      "main": [
+        [
+          {
+            "node": "Postgres Atualiza Contador2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "incrementa1noContador3": {
+      "main": [
+        [
+          {
+            "node": "ChecaContadorFim3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Etiq_Coversa": {
+      "main": [
+        [
+          {
+            "node": "Postgres Busca Contador",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "delay de 5 segundos",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Busca Contador": {
+      "main": [
+        [
+          {
+            "node": "Variaveis_Globais",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Busca_proximo_agente": {
+      "main": [
+        [
+          {
+            "node": "Atribui_Agente",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "jeam?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "delay de 5 segundos": {
+      "main": [
+        [
+          {
+            "node": "Info Base",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adiciona tag em-fila": {
+      "main": [
+        [
+          {
+            "node": "Etiq_Coversa",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP login": {
+      "main": [
+        [
+          {
+            "node": "HTTP criar usuario",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP criar usuario": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Contato_existe?": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "HTTP login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead1": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Procura_contato_no_CRM": {
+      "main": [
+        [
+          {
+            "node": "Contato_existe?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "envia_notifica": {
+      "main": [
+        [
+          {
+            "node": "Procura_contato_no_CRM",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Select rows from a table1": {
+      "main": [
+        [
+          {
+            "node": "Cadastra Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cadastra Lead": {
+      "main": [
+        [
+          {
+            "node": "Update rows in a table1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "jeam?": {
+      "main": [
+        [
+          {
+            "node": "adiciona tag ia-desativada",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "fim",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "adiciona tag ia-desativada": {
+      "main": [
+        [
+          {
+            "node": "Etiq_Coversa1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "6bdc293e-ab9f-4aae-a860-385c9da9b0bc",
+  "triggerCount": 1,
+  "tags": []
+}
