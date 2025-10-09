@@ -2285,10 +2285,6 @@
               "value": "openai/o3-mini-high"
             },
             {
-              "text": "DeepSeek: R1 Distill Llama 8B",
-              "value": "deepseek/deepseek-r1-distill-llama-8b"
-            },
-            {
               "text": "Google: Gemini 2.0 Flash",
               "value": "google/gemini-2.0-flash-001"
             },
@@ -3041,20 +3037,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
