@@ -1501,6 +1501,14 @@
               "value": "google/gemini-2.5-flash-image"
             },
             {
+              "text": "Qwen: Qwen3 VL 30B A3B Thinking",
+              "value": "qwen/qwen3-vl-30b-a3b-thinking"
+            },
+            {
+              "text": "Qwen: Qwen3 VL 30B A3B Instruct",
+              "value": "qwen/qwen3-vl-30b-a3b-instruct"
+            },
+            {
               "text": "OpenAI: GPT-5 Pro",
               "value": "openai/gpt-5-pro"
             },
@@ -3037,8 +3045,8 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
@@ -3049,8 +3057,8 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
