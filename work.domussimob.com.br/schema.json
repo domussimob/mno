@@ -1601,6 +1601,10 @@
               "value": "qwen/qwen3-next-80b-a3b-thinking"
             },
             {
+              "text": "Qwen: Qwen3 Next 80B A3B Instruct (free)",
+              "value": "qwen/qwen3-next-80b-a3b-instruct:free"
+            },
+            {
               "text": "Qwen: Qwen3 Next 80B A3B Instruct",
               "value": "qwen/qwen3-next-80b-a3b-instruct"
             },
@@ -2409,6 +2413,10 @@
               "value": "microsoft/phi-4"
             },
             {
+              "text": "Sao10K: Llama 3.1 70B Hanami x1",
+              "value": "sao10k/l3.1-70b-hanami-x1"
+            },
+            {
               "text": "DeepSeek: DeepSeek V3",
               "value": "deepseek/deepseek-chat"
             },
@@ -2595,6 +2603,10 @@
             {
               "text": "Nous: Hermes 3 70B Instruct",
               "value": "nousresearch/hermes-3-llama-3.1-70b"
+            },
+            {
+              "text": "Nous: Hermes 3 405B Instruct (free)",
+              "value": "nousresearch/hermes-3-llama-3.1-405b:free"
             },
             {
               "text": "Nous: Hermes 3 405B Instruct",
@@ -3053,10 +3065,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
@@ -3067,6 +3075,10 @@
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
