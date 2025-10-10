@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-05T12:51:30.706Z",
-  "updatedAt": "2025-10-08T11:33:23.219Z",
+  "updatedAt": "2025-10-10T16:36:04.332Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot final crm2",
   "active": true,
@@ -522,44 +522,6 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "https://api.domussimob.com.br/message/sendText/Atendimento-cwId-1",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {
-              "name": "Content-Type",
-              "value": "application/json"
-            }
-          ]
-        },
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n     \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\\n\\nDados do Lead:\\n{{ $('Info Base').item.json.contact_name }}  {{ $('Info Base').item.json.phonenumber }}\"\n \n}",
-        "options": {}
-      },
-      "id": "d7c72486-e6e6-4428-af9a-9c5e3daf8999",
-      "name": "envia_notifica",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.1,
-      "position": [
-        -448,
-        544
-      ],
-      "retryOnFail": true,
-      "notesInFlow": false,
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "w0Na9uxdWpWEJ6yK",
-          "name": "evolution_api"
-        }
-      },
-      "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "method": "POST",
         "url": "={{ $('Info Base').item.json.krayinUrl }}/api/v1/login",
         "sendBody": true,
         "contentType": "multipart-form-data",
@@ -695,7 +657,7 @@
       "type": "n8n-nodes-base.postgres",
       "typeVersion": 2.6,
       "position": [
-        864,
+        1056,
         624
       ],
       "id": "47603777-6b42-48e0-8431-5b2d6e8f0980",
@@ -775,7 +737,7 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.4,
       "position": [
-        1120,
+        1264,
         608
       ],
       "credentials": {
@@ -810,7 +772,7 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        1408,
+        1504,
         608
       ],
       "id": "3a58bbb3-8ed0-4075-b525-07c45b1eeec6",
@@ -959,7 +921,7 @@
             },
             {
               "column": "person_id",
-              "value": "={{ $('HTTP criar usuario').item.json.data.id }}"
+              "value": "={{ $('Procura_contato_no_CRM').item.json.id }}"
             },
             {
               "column": "user_id",
@@ -974,7 +936,7 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.4,
       "position": [
-        848,
+        896,
         400
       ],
       "credentials": {
@@ -1009,7 +971,7 @@
       "type": "n8n-nodes-base.mySql",
       "typeVersion": 2.5,
       "position": [
-        1136,
+        1104,
         400
       ],
       "id": "93d1012f-2588-41ba-a5ba-9e881e9ce80c",
@@ -1049,7 +1011,7 @@
       "typeVersion": 2.2,
       "position": [
         -464,
-        848
+        816
       ],
       "id": "a8853d1b-2529-46d2-b69d-9227fe2be9b4",
       "name": "jeam?"
@@ -1114,6 +1076,82 @@
       ],
       "id": "0c930a5a-d2cc-4b31-9c75-4be02f3ed409",
       "name": "adiciona tag ia-desativada"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.domussimob.com.br/message/sendText/Atendimento-cwId-1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n     \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\\n\\nDados do Lead:\\n{{ $('Info Base').item.json.contact_name }}  {{ $('Info Base').item.json.phonenumber }}\"\n \n}",
+        "options": {}
+      },
+      "id": "0e8f01bd-cb2b-4327-b5e3-9a2798174f26",
+      "name": "envia_notifica",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        832,
+        624
+      ],
+      "retryOnFail": true,
+      "notesInFlow": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "w0Na9uxdWpWEJ6yK",
+          "name": "evolution_api"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.domussimob.com.br/message/sendText/Atendimento-cwId-1",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"number\": \"{{ $('Postgres Busca_proximo_agente').item.json[\"phone\"] }}\",\n     \"text\": \"Olá {{ $('Postgres Busca_proximo_agente').item.json[\"nome\"] }}. Um novo lead acaba de entrar em contato no *Chatwoot* 🚀.\\n\\nVocê já pode responder.\\n\\nDados do Lead:\\n{{ $('Info Base').item.json.contact_name }}  {{ $('Info Base').item.json.phonenumber }}\"\n \n}",
+        "options": {}
+      },
+      "id": "7d68f8fa-f46b-48c1-8a80-c1e7bbe4fce5",
+      "name": "envia_notifica1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1376,
+        384
+      ],
+      "retryOnFail": true,
+      "notesInFlow": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "w0Na9uxdWpWEJ6yK",
+          "name": "evolution_api"
+        }
+      },
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -1177,7 +1215,7 @@
       "main": [
         [
           {
-            "node": "envia_notifica",
+            "node": "Procura_contato_no_CRM",
             "type": "main",
             "index": 0
           }
@@ -1332,7 +1370,7 @@
       "main": [
         [
           {
-            "node": "Select rows from a table",
+            "node": "envia_notifica",
             "type": "main",
             "index": 0
           }
@@ -1390,17 +1428,6 @@
         ]
       ]
     },
-    "envia_notifica": {
-      "main": [
-        [
-          {
-            "node": "Procura_contato_no_CRM",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Select rows from a table1": {
       "main": [
         [
@@ -1451,6 +1478,28 @@
           }
         ]
       ]
+    },
+    "envia_notifica": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update rows in a table1": {
+      "main": [
+        [
+          {
+            "node": "envia_notifica1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1463,7 +1512,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "91e2ba7e-026a-47fb-aae4-0ef3ef4fb78f",
+  "versionId": "cea12908-db6a-4727-9300-3b6e514ad83c",
   "triggerCount": 1,
   "tags": []
 }
