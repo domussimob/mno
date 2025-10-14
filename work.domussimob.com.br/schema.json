@@ -1497,6 +1497,14 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Qwen: Qwen3 VL 8B Thinking",
+              "value": "qwen/qwen3-vl-8b-thinking"
+            },
+            {
+              "text": "Qwen: Qwen3 VL 8B Instruct",
+              "value": "qwen/qwen3-vl-8b-instruct"
+            },
+            {
               "text": "inclusionAI: Ling-1T",
               "value": "inclusionai/ling-1t"
             },
@@ -3073,12 +3081,12 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
