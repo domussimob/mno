@@ -1937,12 +1937,12 @@
               "value": "mistralai/magistral-small-2506"
             },
             {
-              "text": "Mistral: Magistral Medium 2506",
-              "value": "mistralai/magistral-medium-2506"
-            },
-            {
               "text": "Mistral: Magistral Medium 2506 (thinking)",
               "value": "mistralai/magistral-medium-2506:thinking"
+            },
+            {
+              "text": "Mistral: Magistral Medium 2506",
+              "value": "mistralai/magistral-medium-2506"
             },
             {
               "text": "Google: Gemini 2.5 Pro Preview 06-05",
@@ -3085,16 +3085,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
