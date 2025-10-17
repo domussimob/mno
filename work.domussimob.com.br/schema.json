@@ -2513,12 +2513,12 @@
               "value": "thedrummer/unslopnemo-12b"
             },
             {
-              "text": "Anthropic: Claude 3.5 Haiku",
-              "value": "anthropic/claude-3.5-haiku"
-            },
-            {
               "text": "Anthropic: Claude 3.5 Haiku (2024-10-22)",
               "value": "anthropic/claude-3.5-haiku-20241022"
+            },
+            {
+              "text": "Anthropic: Claude 3.5 Haiku",
+              "value": "anthropic/claude-3.5-haiku"
             },
             {
               "text": "Magnum v4 72B",
@@ -2545,20 +2545,24 @@
               "value": "nvidia/llama-3.1-nemotron-70b-instruct"
             },
             {
+              "text": "Inflection: Inflection 3 Pi",
+              "value": "inflection/inflection-3-pi"
+            },
+            {
               "text": "Inflection: Inflection 3 Productivity",
               "value": "inflection/inflection-3-productivity"
             },
             {
-              "text": "Inflection: Inflection 3 Pi",
-              "value": "inflection/inflection-3-pi"
+              "text": "Magnum v2 72B",
+              "value": "anthracite-org/magnum-v2-72b"
             },
             {
               "text": "TheDrummer: Rocinante 12B",
               "value": "thedrummer/rocinante-12b"
             },
             {
-              "text": "Magnum v2 72B",
-              "value": "anthracite-org/magnum-v2-72b"
+              "text": "Meta: Llama 3.2 11B Vision Instruct",
+              "value": "meta-llama/llama-3.2-11b-vision-instruct"
             },
             {
               "text": "Meta: Llama 3.2 3B Instruct (free)",
@@ -2575,10 +2579,6 @@
             {
               "text": "Meta: Llama 3.2 90B Vision Instruct",
               "value": "meta-llama/llama-3.2-90b-vision-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 11B Vision Instruct",
-              "value": "meta-llama/llama-3.2-11b-vision-instruct"
             },
             {
               "text": "Qwen2.5 72B Instruct (free)",
@@ -2653,12 +2653,12 @@
               "value": "meta-llama/llama-3.1-8b-instruct"
             },
             {
-              "text": "Meta: Llama 3.1 405B Instruct",
-              "value": "meta-llama/llama-3.1-405b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.1 70B Instruct",
               "value": "meta-llama/llama-3.1-70b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.1 405B Instruct",
+              "value": "meta-llama/llama-3.1-405b-instruct"
             },
             {
               "text": "Mistral: Mistral Nemo (free)",
@@ -2721,14 +2721,6 @@
               "value": "microsoft/phi-3-medium-128k-instruct"
             },
             {
-              "text": "OpenAI: GPT-4o",
-              "value": "openai/gpt-4o"
-            },
-            {
-              "text": "OpenAI: GPT-4o (extended)",
-              "value": "openai/gpt-4o:extended"
-            },
-            {
               "text": "Meta: LlamaGuard 2 8B",
               "value": "meta-llama/llama-guard-2-8b"
             },
@@ -2737,12 +2729,20 @@
               "value": "openai/gpt-4o-2024-05-13"
             },
             {
-              "text": "Meta: Llama 3 8B Instruct",
-              "value": "meta-llama/llama-3-8b-instruct"
+              "text": "OpenAI: GPT-4o",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "text": "OpenAI: GPT-4o (extended)",
+              "value": "openai/gpt-4o:extended"
             },
             {
               "text": "Meta: Llama 3 70B Instruct",
               "value": "meta-llama/llama-3-70b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3 8B Instruct",
+              "value": "meta-llama/llama-3-8b-instruct"
             },
             {
               "text": "Mistral: Mixtral 8x22B Instruct",
@@ -2777,12 +2777,12 @@
               "value": "openai/gpt-4-turbo-preview"
             },
             {
-              "text": "Mistral Small",
-              "value": "mistralai/mistral-small"
-            },
-            {
               "text": "Mistral Tiny",
               "value": "mistralai/mistral-tiny"
+            },
+            {
+              "text": "Mistral Small",
+              "value": "mistralai/mistral-small"
             },
             {
               "text": "Mistral: Mistral 7B Instruct v0.2",
@@ -2837,12 +2837,12 @@
               "value": "openai/gpt-3.5-turbo"
             },
             {
-              "text": "OpenAI: GPT-4",
-              "value": "openai/gpt-4"
-            },
-            {
               "text": "OpenAI: GPT-4 (older v0314)",
               "value": "openai/gpt-4-0314"
+            },
+            {
+              "text": "OpenAI: GPT-4",
+              "value": "openai/gpt-4"
             }
           ]
         },
@@ -3089,20 +3089,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
