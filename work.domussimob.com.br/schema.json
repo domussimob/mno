@@ -2417,14 +2417,6 @@
               "value": "perplexity/sonar"
             },
             {
-              "text": "Liquid: LFM 7B",
-              "value": "liquid/lfm-7b"
-            },
-            {
-              "text": "Liquid: LFM 3B",
-              "value": "liquid/lfm-3b"
-            },
-            {
               "text": "DeepSeek: R1 Distill Llama 70B (free)",
               "value": "deepseek/deepseek-r1-distill-llama-70b:free"
             },
@@ -3109,16 +3101,16 @@
               "value": "eleven_english_sts_v2"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
