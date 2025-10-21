@@ -3,7 +3,7 @@ version: "3.7"
 
 services:
   evolution2ee8f16a:
-    image: evoapicloud/evolution-api:v2.3.4
+    image: evoapicloud/evolution-api:v2.3.5
     networks:
       - externa
       - interna
