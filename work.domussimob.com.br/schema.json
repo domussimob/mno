@@ -1573,6 +1573,10 @@
               "value": "z-ai/glm-4.6"
             },
             {
+              "text": "Z.AI: GLM 4.6 (exacto)",
+              "value": "z-ai/glm-4.6:exacto"
+            },
+            {
               "text": "Anthropic: Claude Sonnet 4.5",
               "value": "anthropic/claude-sonnet-4.5"
             },
@@ -1619,6 +1623,10 @@
             {
               "text": "DeepSeek: DeepSeek V3.1 Terminus",
               "value": "deepseek/deepseek-v3.1-terminus"
+            },
+            {
+              "text": "DeepSeek: DeepSeek V3.1 Terminus (exacto)",
+              "value": "deepseek/deepseek-v3.1-terminus:exacto"
             },
             {
               "text": "xAI: Grok 4 Fast",
@@ -1679,6 +1687,10 @@
             {
               "text": "MoonshotAI: Kimi K2 0905",
               "value": "moonshotai/kimi-k2-0905"
+            },
+            {
+              "text": "MoonshotAI: Kimi K2 0905 (exacto)",
+              "value": "moonshotai/kimi-k2-0905:exacto"
             },
             {
               "text": "Deep Cogito: Cogito V2 Preview Llama 70B",
@@ -1773,6 +1785,10 @@
               "value": "openai/gpt-oss-120b"
             },
             {
+              "text": "OpenAI: gpt-oss-120b (exacto)",
+              "value": "openai/gpt-oss-120b:exacto"
+            },
+            {
               "text": "OpenAI: gpt-oss-20b (free)",
               "value": "openai/gpt-oss-20b:free"
             },
@@ -1823,6 +1839,10 @@
             {
               "text": "Qwen: Qwen3 Coder 480B A35B",
               "value": "qwen/qwen3-coder"
+            },
+            {
+              "text": "Qwen: Qwen3 Coder 480B A35B (exacto)",
+              "value": "qwen/qwen3-coder:exacto"
             },
             {
               "text": "ByteDance: UI-TARS 7B ",
@@ -3101,16 +3121,16 @@
               "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
