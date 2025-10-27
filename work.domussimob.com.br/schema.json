@@ -2633,14 +2633,6 @@
               "value": "neversleep/llama-3.1-lumimaid-8b"
             },
             {
-              "text": "OpenAI: o1-mini (2024-09-12)",
-              "value": "openai/o1-mini-2024-09-12"
-            },
-            {
-              "text": "OpenAI: o1-mini",
-              "value": "openai/o1-mini"
-            },
-            {
               "text": "Mistral: Pixtral 12B",
               "value": "mistralai/pixtral-12b"
             },
@@ -3133,20 +3125,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
+            },
+            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
