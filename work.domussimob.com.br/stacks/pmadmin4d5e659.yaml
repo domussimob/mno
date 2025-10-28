@@ -1,0 +1,44 @@
+
+version: "3.7"
+
+services:
+  pmadmin4d5e659:
+    image: arm64v8/phpmyadmin:latest
+    networks: 
+      - externa
+      - interna
+    entrypoint: "/docker-entrypoint.sh"
+    command: "apache2-foreground"
+    environment:
+      PMA_HOSTS: mysql
+      PMA_ARBITRARY: 0
+      PMA_PORT: 3306
+      PMA_ABSOLUTE_URI: "https://pma.domussimob.com.br"
+      UPLOAD_LIMIT: 512M
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+         # - node.hostname == worker1
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.pmadmin4d5e659.rule=(Host(`pma.domussimob.com.br`))"
+        - "traefik.http.routers.pmadmin4d5e659.entrypoints=websecure"
+        - "traefik.http.routers.pmadmin4d5e659.priority=1"
+        - "traefik.http.routers.pmadmin4d5e659.tls.certresolver=letsencryptresolver"
+        - "traefik.http.services.pmadmin4d5e659.loadbalancer.server.port=80"
+        - "traefik.http.routers.pmadmin4d5e659.service=pmadmin4d5e659"
+      resources:
+        limits:
+          cpus: "1"
+          memory: 2048M
+
+networks: 
+  externa: 
+    external: true
+  interna: 
+    external: true
+
+
