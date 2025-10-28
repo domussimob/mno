@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-24T15:57:40.953Z",
-  "updatedAt": "2025-10-07T18:34:22.114Z",
+  "updatedAt": "2025-10-28T13:58:55.239Z",
   "id": "qzfYrkMMyQqlW52T",
   "name": "cria CRM manual",
   "active": false,
@@ -100,7 +100,8 @@
         560,
         96
       ],
-      "retryOnFail": true
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
     },
     {
       "parameters": {
@@ -400,6 +401,10 @@
             {
               "column": "account_id",
               "value": "1"
+            },
+            {
+              "column": "assignee_id",
+              "condition": "IS NOT NULL"
             }
           ]
         },
@@ -1012,7 +1017,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "3825700d-1a04-4294-9c62-05b473bb4269",
+  "versionId": "e1b7fa9d-044b-423d-82dc-a9693109a975",
   "triggerCount": 1,
   "tags": []
 }
