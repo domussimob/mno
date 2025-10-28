@@ -1,6 +1,6 @@
 {
   "createdAt": "2025-09-24T15:57:40.953Z",
-  "updatedAt": "2025-10-28T13:58:55.239Z",
+  "updatedAt": "2025-10-28T14:04:37.913Z",
   "id": "qzfYrkMMyQqlW52T",
   "name": "cria CRM manual",
   "active": false,
@@ -97,8 +97,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        560,
-        96
+        624,
+        80
       ],
       "retryOnFail": true,
       "waitBetweenTries": 5000
@@ -165,8 +165,8 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
       "position": [
-        320,
-        80
+        288,
+        64
       ],
       "id": "1367086b-1030-4908-80d8-c610685f09bb",
       "name": "Contato_existe?"
@@ -803,6 +803,30 @@
           "name": "MySQL krayincrm321a1a2"
         }
       }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        512,
+        -112
+      ],
+      "id": "8f06368e-9951-4b2c-b9bb-e276784c3b7c",
+      "name": "Wait",
+      "webhookId": "0019aa15-ddc4-4558-abda-1518497c2f74"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        544,
+        288
+      ],
+      "id": "efae62e7-4400-4a44-b569-61c7ed87f6e0",
+      "name": "Wait1",
+      "webhookId": "d70ce3bf-b6a0-4e2d-8262-624791ff8737"
     }
   ],
   "connections": {
@@ -832,14 +856,14 @@
       "main": [
         [
           {
-            "node": "Select rows from a table4",
+            "node": "Wait1",
             "type": "main",
             "index": 0
           }
         ],
         [
           {
-            "node": "HTTP login",
+            "node": "Wait",
             "type": "main",
             "index": 0
           }
@@ -1005,6 +1029,28 @@
           }
         ]
       ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP login",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait1": {
+      "main": [
+        [
+          {
+            "node": "Select rows from a table4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -1017,7 +1063,7 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "e1b7fa9d-044b-423d-82dc-a9693109a975",
+  "versionId": "8cd81b03-4500-47cf-98be-6c747b9d7c68",
   "triggerCount": 1,
   "tags": []
 }
