@@ -1909,10 +1909,6 @@
               "value": "google/gemma-3n-e2b-it:free"
             },
             {
-              "text": "Tencent: Hunyuan A13B Instruct (free)",
-              "value": "tencent/hunyuan-a13b-instruct:free"
-            },
-            {
               "text": "Tencent: Hunyuan A13B Instruct",
               "value": "tencent/hunyuan-a13b-instruct"
             },
@@ -3125,20 +3121,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
