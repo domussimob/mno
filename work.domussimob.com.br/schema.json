@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "OpenAI: gpt-oss-safeguard-20b",
+              "value": "openai/gpt-oss-safeguard-20b"
+            },
+            {
               "text": "NVIDIA: Nemotron Nano 12B 2 VL (free)",
               "value": "nvidia/nemotron-nano-12b-v2-vl:free"
             },
@@ -3125,16 +3129,16 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v2",
