@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Perplexity: Sonar Pro Search",
+              "value": "perplexity/sonar-pro-search"
+            },
+            {
               "text": "Mistral: Voxtral Small 24B 2507",
               "value": "mistralai/voxtral-small-24b-2507"
             },
@@ -3137,8 +3141,8 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
@@ -3149,8 +3153,8 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
