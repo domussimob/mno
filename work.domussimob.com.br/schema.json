@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Mistral: Voxtral Small 24B 2507",
+              "value": "mistralai/voxtral-small-24b-2507"
+            },
+            {
               "text": "OpenAI: gpt-oss-safeguard-20b",
               "value": "openai/gpt-oss-safeguard-20b"
             },
@@ -1555,10 +1559,6 @@
             {
               "text": "OpenAI: GPT-5 Image",
               "value": "openai/gpt-5-image"
-            },
-            {
-              "text": "Mistral: Voxtral Small 24B 2507",
-              "value": "mistralai/voxtral-small-24b-2507"
             },
             {
               "text": "inclusionAI: Ring 1T",
