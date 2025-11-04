@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:29.045Z",
   "updatedAt": "2025-09-09T12:47:15.107Z",
+  "createdAt": "2025-09-09T12:45:29.045Z",
   "id": "RFRxXMmZ2DopiEUK",
   "name": "extras/chatwoot/[Evolution] Criador de Empresas",
   "active": false,
@@ -455,5 +455,23 @@
   "pinData": null,
   "versionId": "9542205b-9d5a-4a36-8baf-ff71ee778c17",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:29.045Z",
+      "createdAt": "2025-09-09T12:45:29.045Z",
+      "role": "workflow:owner",
+      "workflowId": "RFRxXMmZ2DopiEUK",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
