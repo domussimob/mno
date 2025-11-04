@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-05T13:28:56.188Z",
   "updatedAt": "2025-10-03T14:10:45.428Z",
+  "createdAt": "2025-09-05T13:28:56.188Z",
   "id": "vwg8ju3UygeTol0s",
   "name": "IA-APenas-para_novos_leads",
   "active": true,
@@ -779,5 +779,23 @@
   "pinData": {},
   "versionId": "9635aab0-e4ae-4330-89c4-683c950cfe04",
   "triggerCount": 1,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-05T13:28:56.188Z",
+      "createdAt": "2025-09-05T13:28:56.188Z",
+      "role": "workflow:owner",
+      "workflowId": "vwg8ju3UygeTol0s",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
