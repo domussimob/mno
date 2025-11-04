@@ -2,7 +2,7 @@
 version: "3.7"
 services:
   n8n_webhooka322fda:
-    image: n8nio/n8n:1.106.3
+    image: n8nio/n8n:1.117.3
     command: webhook
     networks:
       - traefik_public
