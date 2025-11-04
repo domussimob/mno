@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-10T15:50:20.314Z",
   "updatedAt": "2025-09-10T15:51:54.621Z",
+  "createdAt": "2025-09-10T15:50:20.314Z",
   "id": "dUIfveDSPEotMKtT",
   "name": "Qdrant_criador_collection",
   "active": false,
@@ -108,5 +108,23 @@
   "pinData": {},
   "versionId": "7d3345fc-1b8a-4f51-9103-2981512de9f3",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-10T15:50:20.314Z",
+      "createdAt": "2025-09-10T15:50:20.314Z",
+      "role": "workflow:owner",
+      "workflowId": "dUIfveDSPEotMKtT",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
