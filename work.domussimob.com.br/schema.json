@@ -2177,14 +2177,6 @@
               "value": "openai/o4-mini"
             },
             {
-              "text": "Shisa AI: Shisa V2 Llama 3.3 70B  (free)",
-              "value": "shisa-ai/shisa-v2-llama3.3-70b:free"
-            },
-            {
-              "text": "Shisa AI: Shisa V2 Llama 3.3 70B ",
-              "value": "shisa-ai/shisa-v2-llama3.3-70b"
-            },
-            {
               "text": "Qwen: Qwen2.5 Coder 7B Instruct",
               "value": "qwen/qwen2.5-coder-7b-instruct"
             },
@@ -3105,16 +3097,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
