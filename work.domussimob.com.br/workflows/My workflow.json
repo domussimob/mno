@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-13T13:13:30.053Z",
   "updatedAt": "2025-09-13T13:13:30.053Z",
+  "createdAt": "2025-09-13T13:13:30.053Z",
   "id": "2MAp0YHTvIiE1i4Q",
   "name": "My workflow",
   "active": false,
@@ -1812,5 +1812,23 @@
   "pinData": {},
   "versionId": "60daa901-bdfe-4f03-85e5-1cce4209a743",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-13T13:13:30.053Z",
+      "createdAt": "2025-09-13T13:13:30.053Z",
+      "role": "workflow:owner",
+      "workflowId": "2MAp0YHTvIiE1i4Q",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
