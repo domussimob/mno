@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:26.859Z",
   "updatedAt": "2025-09-09T12:45:26.859Z",
+  "createdAt": "2025-09-09T12:45:26.859Z",
   "id": "BhvvBhsuWOM6Cvhi",
   "name": "coversa_res_remov_tag_novo_lead_add_tag_contato",
   "active": false,
@@ -603,5 +603,23 @@
   "pinData": null,
   "versionId": "fcb62622-5323-4e5b-b2ad-50502f3e0b32",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:26.859Z",
+      "createdAt": "2025-09-09T12:45:26.859Z",
+      "role": "workflow:owner",
+      "workflowId": "BhvvBhsuWOM6Cvhi",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
