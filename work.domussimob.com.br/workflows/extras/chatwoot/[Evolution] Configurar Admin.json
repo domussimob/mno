@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:27.927Z",
   "updatedAt": "2025-09-09T12:47:18.900Z",
+  "createdAt": "2025-09-09T12:45:27.927Z",
   "id": "lm0aldlm8Osq1kt9",
   "name": "extras/chatwoot/[Evolution] Configurar Admin",
   "active": false,
@@ -240,5 +240,23 @@
   "pinData": null,
   "versionId": "b6462ce7-984a-44ad-961d-9a708ba437aa",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:27.927Z",
+      "createdAt": "2025-09-09T12:45:27.927Z",
+      "role": "workflow:owner",
+      "workflowId": "lm0aldlm8Osq1kt9",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
