@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:32.355Z",
   "updatedAt": "2025-09-09T14:02:21.769Z",
+  "createdAt": "2025-09-09T12:45:32.355Z",
   "id": "b1tLoRuOoHwPiUYm",
   "name": "gerenc_ia_funciona_apenas_para_novos_leads",
   "active": false,
@@ -735,5 +735,23 @@
   "pinData": {},
   "versionId": "0b7d95e4-f9f7-491a-99b4-d762b7c8ce06",
   "triggerCount": 1,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:32.355Z",
+      "createdAt": "2025-09-09T12:45:32.355Z",
+      "role": "workflow:owner",
+      "workflowId": "b1tLoRuOoHwPiUYm",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
