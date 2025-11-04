@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-05T14:09:53.120Z",
   "updatedAt": "2025-10-07T21:59:33.738Z",
+  "createdAt": "2025-09-05T14:09:53.120Z",
   "id": "DenOwpbR3bV02QlN",
   "name": "Chatwoot_Atendimento_Contato_criado",
   "active": false,
@@ -532,5 +532,23 @@
   "pinData": {},
   "versionId": "632481ce-95b3-4c51-b5be-fc4d40fd9dc8",
   "triggerCount": 1,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-05T14:09:53.120Z",
+      "createdAt": "2025-09-05T14:09:53.120Z",
+      "role": "workflow:owner",
+      "workflowId": "DenOwpbR3bV02QlN",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
