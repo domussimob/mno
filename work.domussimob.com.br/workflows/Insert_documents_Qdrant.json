@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:19.205Z",
   "updatedAt": "2025-09-10T16:38:29.663Z",
+  "createdAt": "2025-09-09T12:45:19.205Z",
   "id": "ZSP8bxVX24dYanfD",
   "name": "Insert_documents_Qdrant",
   "active": false,
@@ -221,5 +221,23 @@
   "pinData": {},
   "versionId": "4986cdd6-7948-462f-8b80-50449542cc01",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:19.205Z",
+      "createdAt": "2025-09-09T12:45:19.205Z",
+      "role": "workflow:owner",
+      "workflowId": "ZSP8bxVX24dYanfD",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
