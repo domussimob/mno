@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:22.280Z",
   "updatedAt": "2025-09-10T16:48:23.622Z",
+  "createdAt": "2025-09-09T12:45:22.280Z",
   "id": "zOejRcE9WI9ygBOM",
   "name": "PROJETO_MNO_QDRANT_V6_TAGS_FINAL",
   "active": true,
@@ -2152,5 +2152,23 @@
   "pinData": {},
   "versionId": "4b2c66cc-db0b-44c3-a4f6-92dd4e17774f",
   "triggerCount": 6,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:22.280Z",
+      "createdAt": "2025-09-09T12:45:22.280Z",
+      "role": "workflow:owner",
+      "workflowId": "zOejRcE9WI9ygBOM",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
