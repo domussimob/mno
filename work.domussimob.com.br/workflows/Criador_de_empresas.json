@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-04T12:58:59.430Z",
   "updatedAt": "2025-09-04T13:05:57.547Z",
+  "createdAt": "2025-09-04T12:58:59.430Z",
   "id": "04jP0iVC0wFR1oFR",
   "name": "Criador_de_empresas",
   "active": true,
@@ -457,10 +457,28 @@
   "triggerCount": 1,
   "tags": [
     {
-      "createdAt": "2025-09-04T12:46:38.356Z",
       "updatedAt": "2025-09-04T12:46:38.356Z",
+      "createdAt": "2025-09-04T12:46:38.356Z",
       "id": "OzR80JDt3tsxGNMS",
       "name": "chatwoot"
+    }
+  ],
+  "shared": [
+    {
+      "updatedAt": "2025-09-04T12:58:59.430Z",
+      "createdAt": "2025-09-04T12:58:59.430Z",
+      "role": "workflow:owner",
+      "workflowId": "04jP0iVC0wFR1oFR",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
     }
   ]
 }
