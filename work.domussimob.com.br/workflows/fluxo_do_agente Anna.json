@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T14:46:21.770Z",
   "updatedAt": "2025-09-09T14:47:39.537Z",
+  "createdAt": "2025-09-09T14:46:21.770Z",
   "id": "Ay7bS7oG8JdENM46",
   "name": "fluxo_do_agente Anna",
   "active": true,
@@ -358,5 +358,23 @@
   "pinData": {},
   "versionId": "d42836d4-2346-47e4-a18a-9da0191fad9f",
   "triggerCount": 1,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T14:46:21.770Z",
+      "createdAt": "2025-09-09T14:46:21.770Z",
+      "role": "workflow:owner",
+      "workflowId": "Ay7bS7oG8JdENM46",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
