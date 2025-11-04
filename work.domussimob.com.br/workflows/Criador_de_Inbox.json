@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-04T13:02:41.018Z",
   "updatedAt": "2025-09-04T13:05:07.562Z",
+  "createdAt": "2025-09-04T13:02:41.018Z",
   "id": "zdQs79rM0YPTVZE9",
   "name": "Criador_de_Inbox",
   "active": true,
@@ -579,10 +579,28 @@
   "triggerCount": 1,
   "tags": [
     {
-      "createdAt": "2025-09-04T12:46:38.356Z",
       "updatedAt": "2025-09-04T12:46:38.356Z",
+      "createdAt": "2025-09-04T12:46:38.356Z",
       "id": "OzR80JDt3tsxGNMS",
       "name": "chatwoot"
+    }
+  ],
+  "shared": [
+    {
+      "updatedAt": "2025-09-04T13:02:41.018Z",
+      "createdAt": "2025-09-04T13:02:41.018Z",
+      "role": "workflow:owner",
+      "workflowId": "zdQs79rM0YPTVZE9",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
     }
   ]
 }
