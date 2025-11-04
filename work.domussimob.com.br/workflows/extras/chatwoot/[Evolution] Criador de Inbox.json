@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-09T12:45:30.184Z",
   "updatedAt": "2025-09-09T12:47:11.049Z",
+  "createdAt": "2025-09-09T12:45:30.184Z",
   "id": "mY8Ee5NJ37H7NEl1",
   "name": "extras/chatwoot/[Evolution] Criador de Inbox",
   "active": false,
@@ -573,5 +573,23 @@
   "pinData": null,
   "versionId": "610a039d-990d-4401-8ee7-1b9a6ec46cf7",
   "triggerCount": 0,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-09T12:45:30.184Z",
+      "createdAt": "2025-09-09T12:45:30.184Z",
+      "role": "workflow:owner",
+      "workflowId": "mY8Ee5NJ37H7NEl1",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
