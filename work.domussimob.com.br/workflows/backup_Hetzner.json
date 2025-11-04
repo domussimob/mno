@@ -1,0 +1,362 @@
+{
+  "updatedAt": "2025-11-04T19:54:05.811Z",
+  "createdAt": "2025-11-04T19:40:29.072Z",
+  "id": "N9hHcied2rNAFMKD",
+  "name": "backup_Hetzner",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "fieldToSplitOut": "servers",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        240,
+        128
+      ],
+      "id": "4b593603-3115-4eb3-8b02-0a63d632fe4e",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "e6ee7b77-cd25-4b80-a823-0d21a7b62380",
+              "leftValue": "={{ $json.public_net.ipv4.ip }}",
+              "rightValue": "91.98.112.112",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        432,
+        128
+      ],
+      "id": "6430e1f6-eef6-4aef-8364-9feab85037f2",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.hetzner.cloud/v1/servers/{{ $('Filter').item.json.id }}/actions/create_image\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer ynzYA77TqbDcuvGWIFJU6M9QLe8uZ0QIY68inew9chqnNRXLPL6tR6AFtkHO7HLJ"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"description\": \"bk-91.98.112.112\",\n  \"type\": \"snapshot\",\n  \"labels\": {\n    \"ip\": \"bk-91.98.112.112\"\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        864,
+        128
+      ],
+      "id": "5da99530-bc48-4bd9-861a-8c19cc07a475",
+      "name": "Cria_nova_imagem"
+    },
+    {
+      "parameters": {
+        "method": "DELETE",
+        "url": "=https://api.hetzner.cloud/v1/images/{{ $('Busca_Imagens').item.json.images[0].id }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer ynzYA77TqbDcuvGWIFJU6M9QLe8uZ0QIY68inew9chqnNRXLPL6tR6AFtkHO7HLJ"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1488,
+        128
+      ],
+      "id": "b475fff6-96ec-49ee-bb49-8d6cb4e34b55",
+      "name": "Apaga_imagem_antiga"
+    },
+    {
+      "parameters": {
+        "url": "https://api.hetzner.cloud/v1/servers",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer ynzYA77TqbDcuvGWIFJU6M9QLe8uZ0QIY68inew9chqnNRXLPL6tR6AFtkHO7HLJ"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "5361d2dd-7b34-4555-8ca7-dbb160f0451b",
+      "name": "Busca_Servidores",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        32,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "url": "https://api.hetzner.cloud/v1/images",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "type",
+              "value": "snapshot"
+            },
+            {
+              "name": "label_selector",
+              "value": "ip=bk-91.98.112.112"
+            }
+          ]
+        },
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer ynzYA77TqbDcuvGWIFJU6M9QLe8uZ0QIY68inew9chqnNRXLPL6tR6AFtkHO7HLJ"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2f1910a-942b-43d5-88e7-dd53f30dda87",
+      "name": "Busca_Imagens",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        640,
+        128
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a2634b4f-6638-43da-9b5a-3e70809eff00",
+              "leftValue": "={{ $('Busca_Imagens').item.json.images[0] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1184,
+        128
+      ],
+      "id": "f8a55f55-cab0-4b77-802d-75cff98e2389",
+      "name": "If"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1344,
+        272
+      ],
+      "id": "fbeb96a1-a23e-4998-b557-bc4403dc3ff9",
+      "name": "No Operation, do nothing"
+    },
+    {
+      "parameters": {
+        "content": "## Snapshot\n**91.98.112.112**"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -176,
+        -80
+      ],
+      "typeVersion": 1,
+      "id": "c5eab958-e210-4f99-b378-b7f868f8a3e1",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 23,
+              "triggerAtMinute": 50
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -288,
+        112
+      ],
+      "id": "e116246f-789a-4333-a3ad-f5fa186e98e1",
+      "name": "Trigger - 23:50"
+    }
+  ],
+  "connections": {
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Busca_Imagens",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cria_nova_imagem": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Busca_Servidores": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Busca_Imagens": {
+      "main": [
+        [
+          {
+            "node": "Cria_nova_imagem",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Apaga_imagem_antiga",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Trigger - 23:50": {
+      "main": [
+        [
+          {
+            "node": "Busca_Servidores",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "timezone": "America/Sao_Paulo",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": null,
+  "pinData": {},
+  "versionId": "874faf7d-e477-4409-95dc-768f1d4ad8da",
+  "triggerCount": 0,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-11-04T19:40:29.072Z",
+      "createdAt": "2025-11-04T19:40:29.072Z",
+      "role": "workflow:owner",
+      "workflowId": "N9hHcied2rNAFMKD",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
+}
