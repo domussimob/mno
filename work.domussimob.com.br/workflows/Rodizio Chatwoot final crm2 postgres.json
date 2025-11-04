@@ -1,6 +1,6 @@
 {
-  "createdAt": "2025-09-05T12:51:30.706Z",
   "updatedAt": "2025-10-27T19:56:39.718Z",
+  "createdAt": "2025-09-05T12:51:30.706Z",
   "id": "0yGX0y2kBx6r999F",
   "name": "Rodizio Chatwoot final crm2 postgres",
   "active": true,
@@ -1514,5 +1514,23 @@
   "pinData": {},
   "versionId": "3556721f-cdf3-4506-9cee-61161ead3a1c",
   "triggerCount": 1,
-  "tags": []
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2025-09-05T12:51:30.706Z",
+      "createdAt": "2025-09-05T12:51:30.706Z",
+      "role": "workflow:owner",
+      "workflowId": "0yGX0y2kBx6r999F",
+      "projectId": "9dBYDF0pVXjCehV4",
+      "project": {
+        "updatedAt": "2025-09-04T11:50:59.428Z",
+        "createdAt": "2025-09-03T20:20:03.833Z",
+        "id": "9dBYDF0pVXjCehV4",
+        "name": "Fabio Antonio <fabio.inves@yahoo.com.br>",
+        "type": "personal",
+        "icon": null,
+        "description": null
+      }
+    }
+  ]
 }
