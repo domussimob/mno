@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Polaris Alpha",
+              "value": "openrouter/polaris-alpha"
+            },
+            {
               "text": "MoonshotAI: Kimi K2 Thinking",
               "value": "moonshotai/kimi-k2-thinking"
             },
@@ -2533,28 +2537,28 @@
               "value": "thedrummer/unslopnemo-12b"
             },
             {
-              "text": "Anthropic: Claude 3.5 Haiku",
-              "value": "anthropic/claude-3.5-haiku"
-            },
-            {
               "text": "Anthropic: Claude 3.5 Haiku (2024-10-22)",
               "value": "anthropic/claude-3.5-haiku-20241022"
             },
             {
-              "text": "Anthropic: Claude 3.5 Sonnet",
-              "value": "anthropic/claude-3.5-sonnet"
+              "text": "Anthropic: Claude 3.5 Haiku",
+              "value": "anthropic/claude-3.5-haiku"
             },
             {
               "text": "Magnum v4 72B",
               "value": "anthracite-org/magnum-v4-72b"
             },
             {
-              "text": "Mistral: Ministral 3B",
-              "value": "mistralai/ministral-3b"
+              "text": "Anthropic: Claude 3.5 Sonnet",
+              "value": "anthropic/claude-3.5-sonnet"
             },
             {
               "text": "Mistral: Ministral 8B",
               "value": "mistralai/ministral-8b"
+            },
+            {
+              "text": "Mistral: Ministral 3B",
+              "value": "mistralai/ministral-3b"
             },
             {
               "text": "Qwen: Qwen2.5 7B Instruct",
@@ -2565,16 +2569,24 @@
               "value": "nvidia/llama-3.1-nemotron-70b-instruct"
             },
             {
-              "text": "Inflection: Inflection 3 Productivity",
-              "value": "inflection/inflection-3-productivity"
-            },
-            {
               "text": "Inflection: Inflection 3 Pi",
               "value": "inflection/inflection-3-pi"
             },
             {
+              "text": "Inflection: Inflection 3 Productivity",
+              "value": "inflection/inflection-3-productivity"
+            },
+            {
               "text": "TheDrummer: Rocinante 12B",
               "value": "thedrummer/rocinante-12b"
+            },
+            {
+              "text": "Meta: Llama 3.2 1B Instruct",
+              "value": "meta-llama/llama-3.2-1b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 90B Vision Instruct",
+              "value": "meta-llama/llama-3.2-90b-vision-instruct"
             },
             {
               "text": "Meta: Llama 3.2 3B Instruct (free)",
@@ -2585,16 +2597,8 @@
               "value": "meta-llama/llama-3.2-3b-instruct"
             },
             {
-              "text": "Meta: Llama 3.2 1B Instruct",
-              "value": "meta-llama/llama-3.2-1b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.2 11B Vision Instruct",
               "value": "meta-llama/llama-3.2-11b-vision-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 90B Vision Instruct",
-              "value": "meta-llama/llama-3.2-90b-vision-instruct"
             },
             {
               "text": "Qwen2.5 72B Instruct (free)",
@@ -2613,20 +2617,20 @@
               "value": "mistralai/pixtral-12b"
             },
             {
-              "text": "Cohere: Command R (08-2024)",
-              "value": "cohere/command-r-08-2024"
-            },
-            {
               "text": "Cohere: Command R+ (08-2024)",
               "value": "cohere/command-r-plus-08-2024"
             },
             {
-              "text": "Qwen: Qwen2.5-VL 7B Instruct",
-              "value": "qwen/qwen-2.5-vl-7b-instruct"
+              "text": "Cohere: Command R (08-2024)",
+              "value": "cohere/command-r-08-2024"
             },
             {
               "text": "Sao10K: Llama 3.1 Euryale 70B v2.2",
               "value": "sao10k/l3.1-euryale-70b"
+            },
+            {
+              "text": "Qwen: Qwen2.5-VL 7B Instruct",
+              "value": "qwen/qwen-2.5-vl-7b-instruct"
             },
             {
               "text": "Microsoft: Phi-3.5 Mini 128K Instruct",
@@ -2661,12 +2665,12 @@
               "value": "meta-llama/llama-3.1-405b"
             },
             {
-              "text": "Meta: Llama 3.1 405B Instruct",
-              "value": "meta-llama/llama-3.1-405b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.1 70B Instruct",
               "value": "meta-llama/llama-3.1-70b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.1 405B Instruct",
+              "value": "meta-llama/llama-3.1-405b-instruct"
             },
             {
               "text": "Meta: Llama 3.1 8B Instruct",
@@ -2681,12 +2685,12 @@
               "value": "mistralai/mistral-nemo"
             },
             {
-              "text": "OpenAI: GPT-4o-mini",
-              "value": "openai/gpt-4o-mini"
-            },
-            {
               "text": "OpenAI: GPT-4o-mini (2024-07-18)",
               "value": "openai/gpt-4o-mini-2024-07-18"
+            },
+            {
+              "text": "OpenAI: GPT-4o-mini",
+              "value": "openai/gpt-4o-mini"
             },
             {
               "text": "Google: Gemma 2 27B",
@@ -2709,10 +2713,6 @@
               "value": "mistralai/mistral-7b-instruct-v0.3"
             },
             {
-              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
-              "value": "nousresearch/hermes-2-pro-llama-3-8b"
-            },
-            {
               "text": "Mistral: Mistral 7B Instruct (free)",
               "value": "mistralai/mistral-7b-instruct:free"
             },
@@ -2721,16 +2721,16 @@
               "value": "mistralai/mistral-7b-instruct"
             },
             {
+              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
+              "value": "nousresearch/hermes-2-pro-llama-3-8b"
+            },
+            {
               "text": "Microsoft: Phi-3 Mini 128K Instruct",
               "value": "microsoft/phi-3-mini-128k-instruct"
             },
             {
               "text": "Microsoft: Phi-3 Medium 128K Instruct",
               "value": "microsoft/phi-3-medium-128k-instruct"
-            },
-            {
-              "text": "Meta: LlamaGuard 2 8B",
-              "value": "meta-llama/llama-guard-2-8b"
             },
             {
               "text": "OpenAI: GPT-4o (2024-05-13)",
@@ -2743,6 +2743,10 @@
             {
               "text": "OpenAI: GPT-4o (extended)",
               "value": "openai/gpt-4o:extended"
+            },
+            {
+              "text": "Meta: LlamaGuard 2 8B",
+              "value": "meta-llama/llama-guard-2-8b"
             },
             {
               "text": "Meta: Llama 3 8B Instruct",
@@ -2785,12 +2789,12 @@
               "value": "openai/gpt-3.5-turbo-0613"
             },
             {
-              "text": "Mistral Tiny",
-              "value": "mistralai/mistral-tiny"
-            },
-            {
               "text": "Mistral Small",
               "value": "mistralai/mistral-small"
+            },
+            {
+              "text": "Mistral Tiny",
+              "value": "mistralai/mistral-tiny"
             },
             {
               "text": "Mistral: Mistral 7B Instruct v0.2",
@@ -3097,16 +3101,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
