@@ -1529,10 +1529,6 @@
               "value": "minimax/minimax-m2"
             },
             {
-              "text": "Qwen: Qwen3 VL 32B Instruct",
-              "value": "qwen/qwen3-vl-32b-instruct"
-            },
-            {
               "text": "LiquidAI/LFM2-8B-A1B",
               "value": "liquid/lfm2-8b-a1b"
             },
@@ -3097,16 +3093,16 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
