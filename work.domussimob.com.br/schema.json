@@ -2685,12 +2685,12 @@
               "value": "mistralai/mistral-nemo"
             },
             {
-              "text": "OpenAI: GPT-4o-mini (2024-07-18)",
-              "value": "openai/gpt-4o-mini-2024-07-18"
-            },
-            {
               "text": "OpenAI: GPT-4o-mini",
               "value": "openai/gpt-4o-mini"
+            },
+            {
+              "text": "OpenAI: GPT-4o-mini (2024-07-18)",
+              "value": "openai/gpt-4o-mini-2024-07-18"
             },
             {
               "text": "Google: Gemma 2 27B",
@@ -2709,16 +2709,16 @@
               "value": "sao10k/l3-euryale-70b"
             },
             {
-              "text": "Mistral: Mistral 7B Instruct v0.3",
-              "value": "mistralai/mistral-7b-instruct-v0.3"
-            },
-            {
               "text": "Mistral: Mistral 7B Instruct (free)",
               "value": "mistralai/mistral-7b-instruct:free"
             },
             {
               "text": "Mistral: Mistral 7B Instruct",
               "value": "mistralai/mistral-7b-instruct"
+            },
+            {
+              "text": "Mistral: Mistral 7B Instruct v0.3",
+              "value": "mistralai/mistral-7b-instruct-v0.3"
             },
             {
               "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
@@ -2781,12 +2781,12 @@
               "value": "mistralai/mistral-large"
             },
             {
-              "text": "OpenAI: GPT-4 Turbo Preview",
-              "value": "openai/gpt-4-turbo-preview"
-            },
-            {
               "text": "OpenAI: GPT-3.5 Turbo (older v0613)",
               "value": "openai/gpt-3.5-turbo-0613"
+            },
+            {
+              "text": "OpenAI: GPT-4 Turbo Preview",
+              "value": "openai/gpt-4-turbo-preview"
             },
             {
               "text": "Mistral Small",
@@ -2845,16 +2845,16 @@
               "value": "gryphe/mythomax-l2-13b"
             },
             {
-              "text": "OpenAI: GPT-4 (older v0314)",
-              "value": "openai/gpt-4-0314"
+              "text": "OpenAI: GPT-4",
+              "value": "openai/gpt-4"
             },
             {
               "text": "OpenAI: GPT-3.5 Turbo",
               "value": "openai/gpt-3.5-turbo"
             },
             {
-              "text": "OpenAI: GPT-4",
-              "value": "openai/gpt-4"
+              "text": "OpenAI: GPT-4 (older v0314)",
+              "value": "openai/gpt-4-0314"
             }
           ]
         },
@@ -3101,10 +3101,6 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
@@ -3115,6 +3111,10 @@
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
