@@ -1537,10 +1537,6 @@
               "value": "nvidia/nemotron-nano-12b-v2-vl"
             },
             {
-              "text": "MiniMax: MiniMax M2 (free)",
-              "value": "minimax/minimax-m2:free"
-            },
-            {
               "text": "MiniMax: MiniMax M2",
               "value": "minimax/minimax-m2"
             },
@@ -3113,12 +3109,12 @@
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
