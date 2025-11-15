@@ -2713,10 +2713,6 @@
               "value": "google/gemma-2-9b-it"
             },
             {
-              "text": "Anthropic: Claude 3.5 Sonnet (2024-06-20)",
-              "value": "anthropic/claude-3.5-sonnet-20240620"
-            },
-            {
               "text": "Sao10k: Llama 3 Euryale 70B v2.1",
               "value": "sao10k/l3-euryale-70b"
             },
@@ -3113,20 +3109,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
