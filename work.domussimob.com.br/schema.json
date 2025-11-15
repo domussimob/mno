@@ -2085,10 +2085,6 @@
               "value": "openai/codex-mini"
             },
             {
-              "text": "Meta: Llama 3.3 8B Instruct (free)",
-              "value": "meta-llama/llama-3.3-8b-instruct:free"
-            },
-            {
               "text": "Nous: DeepHermes 3 Mistral 24B Preview",
               "value": "nousresearch/deephermes-3-mistral-24b-preview"
             },
@@ -2249,16 +2245,8 @@
               "value": "nvidia/llama-3.1-nemotron-ultra-253b-v1"
             },
             {
-              "text": "Meta: Llama 4 Maverick (free)",
-              "value": "meta-llama/llama-4-maverick:free"
-            },
-            {
               "text": "Meta: Llama 4 Maverick",
               "value": "meta-llama/llama-4-maverick"
-            },
-            {
-              "text": "Meta: Llama 4 Scout (free)",
-              "value": "meta-llama/llama-4-scout:free"
             },
             {
               "text": "Meta: Llama 4 Scout",
@@ -3125,12 +3113,12 @@
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             }
           ]
         },
