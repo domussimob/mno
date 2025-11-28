@@ -2417,10 +2417,6 @@
               "value": "perplexity/sonar"
             },
             {
-              "text": "DeepSeek: R1 Distill Llama 70B (free)",
-              "value": "deepseek/deepseek-r1-distill-llama-70b:free"
-            },
-            {
               "text": "DeepSeek: R1 Distill Llama 70B",
               "value": "deepseek/deepseek-r1-distill-llama-70b"
             },
@@ -3065,20 +3061,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
