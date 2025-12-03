@@ -1557,10 +1557,6 @@
               "value": "google/gemini-3-pro-image-preview"
             },
             {
-              "text": "xAI: Grok 4.1 Fast (free)",
-              "value": "x-ai/grok-4.1-fast:free"
-            },
-            {
               "text": "xAI: Grok 4.1 Fast",
               "value": "x-ai/grok-4.1-fast"
             },
@@ -3089,16 +3085,16 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v1",
