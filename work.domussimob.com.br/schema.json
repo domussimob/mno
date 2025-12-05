@@ -1909,12 +1909,12 @@
               "value": "openai/gpt-5-nano"
             },
             {
-              "text": "OpenAI: gpt-oss-120b (exacto)",
-              "value": "openai/gpt-oss-120b:exacto"
-            },
-            {
               "text": "OpenAI: gpt-oss-120b",
               "value": "openai/gpt-oss-120b"
+            },
+            {
+              "text": "OpenAI: gpt-oss-120b (exacto)",
+              "value": "openai/gpt-oss-120b:exacto"
             },
             {
               "text": "OpenAI: gpt-oss-20b (free)",
@@ -3081,16 +3081,16 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
+            },
+            {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v1",
