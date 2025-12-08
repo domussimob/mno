@@ -1497,6 +1497,14 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Z.AI: GLM 4.6V",
+              "value": "z-ai/glm-4.6v"
+            },
+            {
+              "text": "EssentialAI: Rnj 1 Instruct",
+              "value": "essentialai/rnj-1-instruct"
+            },
+            {
               "text": "Body Builder",
               "value": "openrouter/bodybuilder"
             },
