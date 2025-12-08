@@ -1497,10 +1497,6 @@
           "allowOther": false,
           "choices": [
             {
-              "text": "Z.AI: GLM 4.6V",
-              "value": "z-ai/glm-4.6v"
-            },
-            {
               "text": "EssentialAI: Rnj 1 Instruct",
               "value": "essentialai/rnj-1-instruct"
             },
@@ -3093,12 +3089,12 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             },
             {
               "text": "Eleven English v2",
