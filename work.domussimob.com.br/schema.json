@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Mistral: Devstral 2 2512 (free)",
+              "value": "mistralai/devstral-2512:free"
+            },
+            {
               "text": "Relace: Relace Search",
               "value": "relace/relace-search"
             },
@@ -3097,6 +3101,10 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
+            },
+            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
@@ -3107,10 +3115,6 @@
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
-            },
-            {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
             }
           ]
         },
