@@ -2565,12 +2565,12 @@
               "value": "anthropic/claude-3.5-haiku"
             },
             {
-              "text": "Anthropic: Claude 3.5 Sonnet",
-              "value": "anthropic/claude-3.5-sonnet"
-            },
-            {
               "text": "Magnum v4 72B",
               "value": "anthracite-org/magnum-v4-72b"
+            },
+            {
+              "text": "Anthropic: Claude 3.5 Sonnet",
+              "value": "anthropic/claude-3.5-sonnet"
             },
             {
               "text": "Mistral: Ministral 8B",
@@ -2589,28 +2589,16 @@
               "value": "nvidia/llama-3.1-nemotron-70b-instruct"
             },
             {
-              "text": "Inflection: Inflection 3 Productivity",
-              "value": "inflection/inflection-3-productivity"
-            },
-            {
               "text": "Inflection: Inflection 3 Pi",
               "value": "inflection/inflection-3-pi"
             },
             {
+              "text": "Inflection: Inflection 3 Productivity",
+              "value": "inflection/inflection-3-productivity"
+            },
+            {
               "text": "TheDrummer: Rocinante 12B",
               "value": "thedrummer/rocinante-12b"
-            },
-            {
-              "text": "Meta: Llama 3.2 90B Vision Instruct",
-              "value": "meta-llama/llama-3.2-90b-vision-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 11B Vision Instruct",
-              "value": "meta-llama/llama-3.2-11b-vision-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 1B Instruct",
-              "value": "meta-llama/llama-3.2-1b-instruct"
             },
             {
               "text": "Meta: Llama 3.2 3B Instruct (free)",
@@ -2619,6 +2607,18 @@
             {
               "text": "Meta: Llama 3.2 3B Instruct",
               "value": "meta-llama/llama-3.2-3b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 1B Instruct",
+              "value": "meta-llama/llama-3.2-1b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 90B Vision Instruct",
+              "value": "meta-llama/llama-3.2-90b-vision-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 11B Vision Instruct",
+              "value": "meta-llama/llama-3.2-11b-vision-instruct"
             },
             {
               "text": "Qwen2.5 72B Instruct",
@@ -2633,20 +2633,20 @@
               "value": "mistralai/pixtral-12b"
             },
             {
-              "text": "Cohere: Command R+ (08-2024)",
-              "value": "cohere/command-r-plus-08-2024"
-            },
-            {
               "text": "Cohere: Command R (08-2024)",
               "value": "cohere/command-r-08-2024"
             },
             {
-              "text": "Qwen: Qwen2.5-VL 7B Instruct",
-              "value": "qwen/qwen-2.5-vl-7b-instruct"
+              "text": "Cohere: Command R+ (08-2024)",
+              "value": "cohere/command-r-plus-08-2024"
             },
             {
               "text": "Sao10K: Llama 3.1 Euryale 70B v2.2",
               "value": "sao10k/l3.1-euryale-70b"
+            },
+            {
+              "text": "Qwen: Qwen2.5-VL 7B Instruct",
+              "value": "qwen/qwen-2.5-vl-7b-instruct"
             },
             {
               "text": "Microsoft: Phi-3.5 Mini 128K Instruct",
@@ -2685,24 +2685,24 @@
               "value": "meta-llama/llama-3.1-8b-instruct"
             },
             {
-              "text": "Meta: Llama 3.1 70B Instruct",
-              "value": "meta-llama/llama-3.1-70b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.1 405B Instruct",
               "value": "meta-llama/llama-3.1-405b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.1 70B Instruct",
+              "value": "meta-llama/llama-3.1-70b-instruct"
             },
             {
               "text": "Mistral: Mistral Nemo",
               "value": "mistralai/mistral-nemo"
             },
             {
-              "text": "OpenAI: GPT-4o-mini",
-              "value": "openai/gpt-4o-mini"
-            },
-            {
               "text": "OpenAI: GPT-4o-mini (2024-07-18)",
               "value": "openai/gpt-4o-mini-2024-07-18"
+            },
+            {
+              "text": "OpenAI: GPT-4o-mini",
+              "value": "openai/gpt-4o-mini"
             },
             {
               "text": "Google: Gemma 2 27B",
@@ -2717,16 +2717,16 @@
               "value": "sao10k/l3-euryale-70b"
             },
             {
+              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
+              "value": "nousresearch/hermes-2-pro-llama-3-8b"
+            },
+            {
               "text": "Mistral: Mistral 7B Instruct (free)",
               "value": "mistralai/mistral-7b-instruct:free"
             },
             {
               "text": "Mistral: Mistral 7B Instruct",
               "value": "mistralai/mistral-7b-instruct"
-            },
-            {
-              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
-              "value": "nousresearch/hermes-2-pro-llama-3-8b"
             },
             {
               "text": "Mistral: Mistral 7B Instruct v0.3",
@@ -2741,12 +2741,12 @@
               "value": "microsoft/phi-3-medium-128k-instruct"
             },
             {
-              "text": "OpenAI: GPT-4o (2024-05-13)",
-              "value": "openai/gpt-4o-2024-05-13"
-            },
-            {
               "text": "Meta: LlamaGuard 2 8B",
               "value": "meta-llama/llama-guard-2-8b"
+            },
+            {
+              "text": "OpenAI: GPT-4o (2024-05-13)",
+              "value": "openai/gpt-4o-2024-05-13"
             },
             {
               "text": "OpenAI: GPT-4o",
@@ -2757,12 +2757,12 @@
               "value": "openai/gpt-4o:extended"
             },
             {
-              "text": "Meta: Llama 3 8B Instruct",
-              "value": "meta-llama/llama-3-8b-instruct"
-            },
-            {
               "text": "Meta: Llama 3 70B Instruct",
               "value": "meta-llama/llama-3-70b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3 8B Instruct",
+              "value": "meta-llama/llama-3-8b-instruct"
             },
             {
               "text": "Mistral: Mixtral 8x22B Instruct",
@@ -2789,12 +2789,12 @@
               "value": "mistralai/mistral-large"
             },
             {
-              "text": "OpenAI: GPT-4 Turbo Preview",
-              "value": "openai/gpt-4-turbo-preview"
-            },
-            {
               "text": "OpenAI: GPT-3.5 Turbo (older v0613)",
               "value": "openai/gpt-3.5-turbo-0613"
+            },
+            {
+              "text": "OpenAI: GPT-4 Turbo Preview",
+              "value": "openai/gpt-4-turbo-preview"
             },
             {
               "text": "Mistral Tiny",
@@ -2849,12 +2849,12 @@
               "value": "gryphe/mythomax-l2-13b"
             },
             {
-              "text": "OpenAI: GPT-4",
-              "value": "openai/gpt-4"
-            },
-            {
               "text": "OpenAI: GPT-4 (older v0314)",
               "value": "openai/gpt-4-0314"
+            },
+            {
+              "text": "OpenAI: GPT-4",
+              "value": "openai/gpt-4"
             },
             {
               "text": "OpenAI: GPT-3.5 Turbo",
@@ -3109,16 +3109,16 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
@@ -3205,7 +3205,7 @@
               "value": "CYw3kZ02Hs0563khs1Fj"
             },
             {
-              "text": "Roger",
+              "text": "Roger - Laid-Back, Casual, Resonant",
               "value": "CwhRBWXzGAHq8TQ4Fs17"
             },
             {
@@ -3213,7 +3213,7 @@
               "value": "D38z5RcWu1voky8WS1ja"
             },
             {
-              "text": "Sarah",
+              "text": "Sarah - Mature, Reassuring, Confident",
               "value": "EXAVITQu4vr4xnSDxMaL"
             },
             {
@@ -3221,7 +3221,7 @@
               "value": "ErXwobaYiN019PkySvjV"
             },
             {
-              "text": "Laura",
+              "text": "Laura - Enthusiast, Quirky Attitude",
               "value": "FGY2WhTYpPnrIDTdsKH5"
             },
             {
@@ -3229,11 +3229,11 @@
               "value": "GBv7mTt0atIp3Br8iCZE"
             },
             {
-              "text": "Charlie",
+              "text": "Charlie - Deep, Confident, Energetic",
               "value": "IKne3meq5aSn9XLyUdCD"
             },
             {
-              "text": "George",
+              "text": "George - Warm, Captivating Storyteller",
               "value": "JBFqnCBsd6RMkjVDRZzb"
             },
             {
@@ -3245,7 +3245,7 @@
               "value": "MF3mGyEYCl7XYWbV9V6O"
             },
             {
-              "text": "Callum",
+              "text": "Callum - Husky Trickster",
               "value": "N2lVS1w4EtoT3dr4eOWO"
             },
             {
@@ -3253,15 +3253,15 @@
               "value": "ODq5zmih8GrVes37Dizd"
             },
             {
-              "text": "River",
+              "text": "River - Relaxed, Neutral, Informative",
               "value": "SAz9YHcvj6GT2YYXdXww"
             },
             {
-              "text": "Harry",
+              "text": "Harry - Fierce Warrior",
               "value": "SOYHLrjzK2X1ezoPC6cr"
             },
             {
-              "text": "Liam",
+              "text": "Liam - Energetic, Social Media Creator",
               "value": "TX3LPaxmHKxFdv7VOQHJ"
             },
             {
@@ -3281,11 +3281,11 @@
               "value": "XB0fDUnXU5powFXDhCwa"
             },
             {
-              "text": "Alice",
+              "text": "Alice - Clear, Engaging Educator",
               "value": "Xb7hH8MSUJpSbSDYk0k2"
             },
             {
-              "text": "Matilda",
+              "text": "Matilda - Knowledgable, Professional",
               "value": "XrExE9yKIg1WjnnlVkGX"
             },
             {
@@ -3297,7 +3297,7 @@
               "value": "Zlb1dXrM653N07WRdFW3"
             },
             {
-              "text": "Will",
+              "text": "Will - Relaxed Optimist",
               "value": "bIHbv24MWmeRgasZH58o"
             },
             {
@@ -3305,11 +3305,11 @@
               "value": "bVMeCyTHy58xNoL34h3p"
             },
             {
-              "text": "Jessica",
+              "text": "Jessica - Playful, Bright, Warm",
               "value": "cgSgspJ2msm6clMCkdW9"
             },
             {
-              "text": "Eric",
+              "text": "Eric - Smooth, Trustworthy",
               "value": "cjVigY5qzO86Huf0OWal"
             },
             {
@@ -3321,7 +3321,7 @@
               "value": "g5CIjZEefAph4nQFvHAz"
             },
             {
-              "text": "Chris",
+              "text": "Chris - Charming, Down-to-Earth",
               "value": "iP95p4xoKVk53GoZ742B"
             },
             {
@@ -3333,7 +3333,7 @@
               "value": "jsCqWAovK2LkecY7zXl4"
             },
             {
-              "text": "Brian",
+              "text": "Brian - Deep, Resonant and Comforting",
               "value": "nPczCjzI2devNBz1zQrb"
             },
             {
@@ -3341,11 +3341,11 @@
               "value": "oWAxZDx7w5VEj9dCyTzz"
             },
             {
-              "text": "Daniel",
+              "text": "Daniel - Steady Broadcaster",
               "value": "onwK4e9ZLuTAKqWW03F9"
             },
             {
-              "text": "Lily",
+              "text": "Lily - Velvety Actress",
               "value": "pFZP5JQG7iQjIQuC4Bku"
             },
             {
