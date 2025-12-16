@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "Xiaomi: MiMo-V2-Flash (free)",
+              "value": "xiaomi/mimo-v2-flash:free"
+            },
+            {
               "text": "NVIDIA: Nemotron 3 Nano 30B A3B (free)",
               "value": "nvidia/nemotron-3-nano-30b-a3b:free"
             },
@@ -3109,20 +3113,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v1",
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             }
           ]
         },
