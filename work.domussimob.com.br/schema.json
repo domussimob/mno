@@ -2145,6 +2145,10 @@
               "value": "deepseek/deepseek-r1-0528-qwen3-8b"
             },
             {
+              "text": "DeepSeek: R1 0528 (free)",
+              "value": "deepseek/deepseek-r1-0528:free"
+            },
+            {
               "text": "DeepSeek: R1 0528",
               "value": "deepseek/deepseek-r1-0528"
             },
@@ -2701,6 +2705,10 @@
               "value": "meta-llama/llama-3.1-8b-instruct"
             },
             {
+              "text": "Meta: Llama 3.1 405B Instruct (free)",
+              "value": "meta-llama/llama-3.1-405b-instruct:free"
+            },
+            {
               "text": "Meta: Llama 3.1 405B Instruct",
               "value": "meta-llama/llama-3.1-405b-instruct"
             },
@@ -3121,16 +3129,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
