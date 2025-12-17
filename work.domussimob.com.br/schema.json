@@ -2665,6 +2665,10 @@
               "value": "sao10k/l3.1-euryale-70b"
             },
             {
+              "text": "Qwen: Qwen2.5-VL 7B Instruct (free)",
+              "value": "qwen/qwen-2.5-vl-7b-instruct:free"
+            },
+            {
               "text": "Qwen: Qwen2.5-VL 7B Instruct",
               "value": "qwen/qwen-2.5-vl-7b-instruct"
             },
@@ -3133,16 +3137,16 @@
               "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
