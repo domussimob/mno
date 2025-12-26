@@ -2605,12 +2605,12 @@
               "value": "anthropic/claude-3.5-haiku"
             },
             {
-              "text": "Anthropic: Claude 3.5 Sonnet",
-              "value": "anthropic/claude-3.5-sonnet"
-            },
-            {
               "text": "Magnum v4 72B",
               "value": "anthracite-org/magnum-v4-72b"
+            },
+            {
+              "text": "Anthropic: Claude 3.5 Sonnet",
+              "value": "anthropic/claude-3.5-sonnet"
             },
             {
               "text": "Mistral: Ministral 8B",
@@ -2681,16 +2681,16 @@
               "value": "cohere/command-r-plus-08-2024"
             },
             {
+              "text": "Sao10K: Llama 3.1 Euryale 70B v2.2",
+              "value": "sao10k/l3.1-euryale-70b"
+            },
+            {
               "text": "Qwen: Qwen2.5-VL 7B Instruct (free)",
               "value": "qwen/qwen-2.5-vl-7b-instruct:free"
             },
             {
               "text": "Qwen: Qwen2.5-VL 7B Instruct",
               "value": "qwen/qwen-2.5-vl-7b-instruct"
-            },
-            {
-              "text": "Sao10K: Llama 3.1 Euryale 70B v2.2",
-              "value": "sao10k/l3.1-euryale-70b"
             },
             {
               "text": "Microsoft: Phi-3.5 Mini 128K Instruct",
@@ -2725,10 +2725,6 @@
               "value": "meta-llama/llama-3.1-405b"
             },
             {
-              "text": "Meta: Llama 3.1 70B Instruct",
-              "value": "meta-llama/llama-3.1-70b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.1 8B Instruct",
               "value": "meta-llama/llama-3.1-8b-instruct"
             },
@@ -2739,6 +2735,10 @@
             {
               "text": "Meta: Llama 3.1 405B Instruct",
               "value": "meta-llama/llama-3.1-405b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.1 70B Instruct",
+              "value": "meta-llama/llama-3.1-70b-instruct"
             },
             {
               "text": "Mistral: Mistral Nemo",
@@ -2765,6 +2765,10 @@
               "value": "sao10k/l3-euryale-70b"
             },
             {
+              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
+              "value": "nousresearch/hermes-2-pro-llama-3-8b"
+            },
+            {
               "text": "Mistral: Mistral 7B Instruct (free)",
               "value": "mistralai/mistral-7b-instruct:free"
             },
@@ -2777,10 +2781,6 @@
               "value": "mistralai/mistral-7b-instruct-v0.3"
             },
             {
-              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
-              "value": "nousresearch/hermes-2-pro-llama-3-8b"
-            },
-            {
               "text": "Microsoft: Phi-3 Mini 128K Instruct",
               "value": "microsoft/phi-3-mini-128k-instruct"
             },
@@ -2789,20 +2789,20 @@
               "value": "microsoft/phi-3-medium-128k-instruct"
             },
             {
-              "text": "OpenAI: GPT-4o",
-              "value": "openai/gpt-4o"
-            },
-            {
-              "text": "OpenAI: GPT-4o (extended)",
-              "value": "openai/gpt-4o:extended"
+              "text": "Meta: LlamaGuard 2 8B",
+              "value": "meta-llama/llama-guard-2-8b"
             },
             {
               "text": "OpenAI: GPT-4o (2024-05-13)",
               "value": "openai/gpt-4o-2024-05-13"
             },
             {
-              "text": "Meta: LlamaGuard 2 8B",
-              "value": "meta-llama/llama-guard-2-8b"
+              "text": "OpenAI: GPT-4o",
+              "value": "openai/gpt-4o"
+            },
+            {
+              "text": "OpenAI: GPT-4o (extended)",
+              "value": "openai/gpt-4o:extended"
             },
             {
               "text": "Meta: Llama 3 70B Instruct",
@@ -2837,12 +2837,12 @@
               "value": "mistralai/mistral-large"
             },
             {
-              "text": "OpenAI: GPT-4 Turbo Preview",
-              "value": "openai/gpt-4-turbo-preview"
-            },
-            {
               "text": "OpenAI: GPT-3.5 Turbo (older v0613)",
               "value": "openai/gpt-3.5-turbo-0613"
+            },
+            {
+              "text": "OpenAI: GPT-4 Turbo Preview",
+              "value": "openai/gpt-4-turbo-preview"
             },
             {
               "text": "Mistral Tiny",
@@ -3153,16 +3153,16 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven Multilingual v1",
