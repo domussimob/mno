@@ -1621,10 +1621,6 @@
               "value": "prime-intellect/intellect-3"
             },
             {
-              "text": "TNG: R1T Chimera (free)",
-              "value": "tngtech/tng-r1t-chimera:free"
-            },
-            {
               "text": "TNG: R1T Chimera",
               "value": "tngtech/tng-r1t-chimera"
             },
@@ -1847,10 +1843,6 @@
             {
               "text": "xAI: Grok 4 Fast",
               "value": "x-ai/grok-4-fast"
-            },
-            {
-              "text": "Tongyi DeepResearch 30B A3B (free)",
-              "value": "alibaba/tongyi-deepresearch-30b-a3b:free"
             },
             {
               "text": "Tongyi DeepResearch 30B A3B",
@@ -2311,10 +2303,6 @@
             {
               "text": "AlfredPros: CodeLLaMa 7B Instruct Solidity",
               "value": "alfredpros/codellama-7b-instruct-solidity"
-            },
-            {
-              "text": "ArliAI: QwQ 32B RpR v1",
-              "value": "arliai/qwq-32b-arliai-rpr-v1"
             },
             {
               "text": "xAI: Grok 3 Mini Beta",
@@ -3157,16 +3145,16 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             }
           ]
         },
