@@ -2497,10 +2497,6 @@
               "value": "deepseek/deepseek-r1-distill-qwen-14b"
             },
             {
-              "text": "Perplexity: Sonar Reasoning",
-              "value": "perplexity/sonar-reasoning"
-            },
-            {
               "text": "Perplexity: Sonar",
               "value": "perplexity/sonar"
             },
@@ -3145,20 +3141,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
+              "text": "Eleven English v1",
+              "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
             },
             {
-              "text": "Eleven English v1",
-              "value": "eleven_monolingual_v1"
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
