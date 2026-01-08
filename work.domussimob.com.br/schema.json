@@ -2633,6 +2633,14 @@
               "value": "thedrummer/rocinante-12b"
             },
             {
+              "text": "Meta: Llama 3.2 1B Instruct",
+              "value": "meta-llama/llama-3.2-1b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.2 11B Vision Instruct",
+              "value": "meta-llama/llama-3.2-11b-vision-instruct"
+            },
+            {
               "text": "Meta: Llama 3.2 3B Instruct (free)",
               "value": "meta-llama/llama-3.2-3b-instruct:free"
             },
@@ -2641,16 +2649,8 @@
               "value": "meta-llama/llama-3.2-3b-instruct"
             },
             {
-              "text": "Meta: Llama 3.2 1B Instruct",
-              "value": "meta-llama/llama-3.2-1b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.2 90B Vision Instruct",
               "value": "meta-llama/llama-3.2-90b-vision-instruct"
-            },
-            {
-              "text": "Meta: Llama 3.2 11B Vision Instruct",
-              "value": "meta-llama/llama-3.2-11b-vision-instruct"
             },
             {
               "text": "Qwen2.5 72B Instruct",
@@ -2713,16 +2713,16 @@
               "value": "meta-llama/llama-3.1-405b"
             },
             {
-              "text": "Meta: Llama 3.1 8B Instruct",
-              "value": "meta-llama/llama-3.1-8b-instruct"
-            },
-            {
               "text": "Meta: Llama 3.1 405B Instruct (free)",
               "value": "meta-llama/llama-3.1-405b-instruct:free"
             },
             {
               "text": "Meta: Llama 3.1 405B Instruct",
               "value": "meta-llama/llama-3.1-405b-instruct"
+            },
+            {
+              "text": "Meta: Llama 3.1 8B Instruct",
+              "value": "meta-llama/llama-3.1-8b-instruct"
             },
             {
               "text": "Meta: Llama 3.1 70B Instruct",
@@ -2733,12 +2733,12 @@
               "value": "mistralai/mistral-nemo"
             },
             {
-              "text": "OpenAI: GPT-4o-mini (2024-07-18)",
-              "value": "openai/gpt-4o-mini-2024-07-18"
-            },
-            {
               "text": "OpenAI: GPT-4o-mini",
               "value": "openai/gpt-4o-mini"
+            },
+            {
+              "text": "OpenAI: GPT-4o-mini (2024-07-18)",
+              "value": "openai/gpt-4o-mini-2024-07-18"
             },
             {
               "text": "Google: Gemma 2 27B",
@@ -2753,16 +2753,16 @@
               "value": "sao10k/l3-euryale-70b"
             },
             {
-              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
-              "value": "nousresearch/hermes-2-pro-llama-3-8b"
-            },
-            {
               "text": "Mistral: Mistral 7B Instruct (free)",
               "value": "mistralai/mistral-7b-instruct:free"
             },
             {
               "text": "Mistral: Mistral 7B Instruct",
               "value": "mistralai/mistral-7b-instruct"
+            },
+            {
+              "text": "NousResearch: Hermes 2 Pro - Llama-3 8B",
+              "value": "nousresearch/hermes-2-pro-llama-3-8b"
             },
             {
               "text": "Mistral: Mistral 7B Instruct v0.3",
@@ -2773,16 +2773,16 @@
               "value": "meta-llama/llama-guard-2-8b"
             },
             {
-              "text": "OpenAI: GPT-4o (2024-05-13)",
-              "value": "openai/gpt-4o-2024-05-13"
-            },
-            {
               "text": "OpenAI: GPT-4o",
               "value": "openai/gpt-4o"
             },
             {
               "text": "OpenAI: GPT-4o (extended)",
               "value": "openai/gpt-4o:extended"
+            },
+            {
+              "text": "OpenAI: GPT-4o (2024-05-13)",
+              "value": "openai/gpt-4o-2024-05-13"
             },
             {
               "text": "Meta: Llama 3 70B Instruct",
@@ -2813,12 +2813,12 @@
               "value": "mistralai/mistral-large"
             },
             {
-              "text": "OpenAI: GPT-3.5 Turbo (older v0613)",
-              "value": "openai/gpt-3.5-turbo-0613"
-            },
-            {
               "text": "OpenAI: GPT-4 Turbo Preview",
               "value": "openai/gpt-4-turbo-preview"
+            },
+            {
+              "text": "OpenAI: GPT-3.5 Turbo (older v0613)",
+              "value": "openai/gpt-3.5-turbo-0613"
             },
             {
               "text": "Mistral Tiny",
@@ -2849,12 +2849,12 @@
               "value": "openai/gpt-4-1106-preview"
             },
             {
-              "text": "OpenAI: GPT-3.5 Turbo Instruct",
-              "value": "openai/gpt-3.5-turbo-instruct"
-            },
-            {
               "text": "Mistral: Mistral 7B Instruct v0.1",
               "value": "mistralai/mistral-7b-instruct-v0.1"
+            },
+            {
+              "text": "OpenAI: GPT-3.5 Turbo Instruct",
+              "value": "openai/gpt-3.5-turbo-instruct"
             },
             {
               "text": "OpenAI: GPT-3.5 Turbo 16k",
@@ -2873,12 +2873,12 @@
               "value": "gryphe/mythomax-l2-13b"
             },
             {
-              "text": "OpenAI: GPT-4 (older v0314)",
-              "value": "openai/gpt-4-0314"
-            },
-            {
               "text": "OpenAI: GPT-4",
               "value": "openai/gpt-4"
+            },
+            {
+              "text": "OpenAI: GPT-4 (older v0314)",
+              "value": "openai/gpt-4-0314"
             },
             {
               "text": "OpenAI: GPT-3.5 Turbo",
@@ -3129,6 +3129,10 @@
               "value": "eleven_flash_v2"
             },
             {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
+            },
+            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
             },
@@ -3139,10 +3143,6 @@
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
-            },
-            {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
             }
           ]
         },
