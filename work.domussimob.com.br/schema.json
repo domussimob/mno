@@ -1497,6 +1497,10 @@
           "allowOther": false,
           "choices": [
             {
+              "text": "AllenAI: Olmo 3.1 32B Instruct",
+              "value": "allenai/olmo-3.1-32b-instruct"
+            },
+            {
               "text": "ByteDance Seed: Seed 1.6 Flash",
               "value": "bytedance-seed/seed-1.6-flash"
             },
@@ -3133,12 +3137,12 @@
               "value": "eleven_multilingual_v1"
             },
             {
-              "text": "Eleven Multilingual v2",
-              "value": "eleven_multilingual_sts_v2"
-            },
-            {
               "text": "Eleven English v2",
               "value": "eleven_english_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v2",
+              "value": "eleven_multilingual_sts_v2"
             },
             {
               "text": "Eleven English v1",
