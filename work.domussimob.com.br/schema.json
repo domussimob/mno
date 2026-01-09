@@ -1569,8 +1569,8 @@
               "value": "z-ai/glm-4.6v"
             },
             {
-              "text": "Nex AGI: DeepSeek V3.1 Nex N1 (free)",
-              "value": "nex-agi/deepseek-v3.1-nex-n1:free"
+              "text": "Nex AGI: DeepSeek V3.1 Nex N1",
+              "value": "nex-agi/deepseek-v3.1-nex-n1"
             },
             {
               "text": "EssentialAI: Rnj 1 Instruct",
@@ -3133,20 +3133,20 @@
               "value": "eleven_flash_v2"
             },
             {
-              "text": "Eleven Multilingual v1",
-              "value": "eleven_multilingual_v1"
+              "text": "Eleven English v2",
+              "value": "eleven_english_sts_v2"
             },
             {
               "text": "Eleven English v1",
               "value": "eleven_monolingual_v1"
             },
             {
-              "text": "Eleven English v2",
-              "value": "eleven_english_sts_v2"
-            },
-            {
               "text": "Eleven Multilingual v2",
               "value": "eleven_multilingual_sts_v2"
+            },
+            {
+              "text": "Eleven Multilingual v1",
+              "value": "eleven_multilingual_v1"
             }
           ]
         },
